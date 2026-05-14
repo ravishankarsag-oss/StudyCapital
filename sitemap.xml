@@ -5,7 +5,7 @@
   <!-- TIER 1 — Homepage -->
   <url>
     <loc>https://www.studycapital.in/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.studycapital.in/"/>
@@ -13,40 +13,40 @@
   </url>
 
   <!-- TIER 2 — Core pages -->
-  <url><loc>https://www.studycapital.in/education-loan-delhi/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.studycapital.in/emi-calculator/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-without-collateral/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-delhi/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.studycapital.in/emi-calculator/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-without-collateral/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
   <!-- TIER 3 — Local pages -->
-  <url><loc>https://www.studycapital.in/education-loan-prayagraj/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-zirakpur/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-prayagraj/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-zirakpur/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
   <!-- TIER 4 — Country + topic pages -->
-  <url><loc>https://www.studycapital.in/education-loan-usa/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-canada/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-uk/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-australia/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-for-mbbs/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-for-iit/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.studycapital.in/section-80e-tax-benefit/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-usa/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-canada/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-uk/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-australia/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-for-mbbs/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-for-iit/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.studycapital.in/section-80e-tax-benefit/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- TIER 5 — Bank comparison pages -->
-  <url><loc>https://www.studycapital.in/sbi-education-loan/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://www.studycapital.in/hdfc-credila-vs-sbi/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://www.studycapital.in/education-loan-germany/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://www.studycapital.in/sbi-education-loan/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://www.studycapital.in/hdfc-credila-vs-sbi/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://www.studycapital.in/education-loan-germany/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
   <!-- TIER 6 — Blog hub -->
-  <url><loc>https://www.studycapital.in/blog/</loc><lastmod>2026-05-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.studycapital.in/blog/</loc><lastmod>2026-05-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 
   <!-- TIER 6b — Blog posts -->
-  <url><loc>https://www.studycapital.in/blog/education-loan-documents-checklist/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/education-loan-moratorium-period/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/gic-canada-guide/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/education-loan-rejection-reasons/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://www.studycapital.in/blog/education-loan-documents-checklist/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://www.studycapital.in/blog/education-loan-moratorium-period/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://www.studycapital.in/blog/gic-canada-guide/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
+  <url><loc>https://www.studycapital.in/blog/education-loan-rejection-reasons/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
 
   <!-- TIER 7 — Legal pages -->
-  <url><loc>https://www.studycapital.in/privacy-policy.html</loc><lastmod>2026-05-12</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.studycapital.in/terms-of-service.html</loc><lastmod>2026-05-12</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.studycapital.in/disclaimer.html</loc><lastmod>2026-05-12</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.studycapital.in/privacy-policy.html</loc><lastmod>2026-05-14</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.studycapital.in/terms-of-service.html</loc><lastmod>2026-05-14</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.studycapital.in/disclaimer.html</loc><lastmod>2026-05-14</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 
 </urlset>
