@@ -1,0 +1,14 @@
+# GitHub Pages configuration for StudyCapital
+
+# Disable Jekyll processing (plain HTML site)
+plugins: []
+
+# Exclude files that shouldn't be served publicly
+exclude:
+  - .htaccess
+  - README.md
+  - "*.sh"
+  - ftp.JPG
+
+# Don't use Jekyll theme
+theme: null
