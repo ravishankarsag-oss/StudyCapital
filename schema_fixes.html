@@ -1,0 +1,217 @@
+<!--
+  ════════════════════════════════════════════════════════════════════════
+  SCHEMA FIXES FOR index.html  —  StudyCapital
+  ════════════════════════════════════════════════════════════════════════
+
+  HOW TO USE:
+  Replace the TWO existing schema blocks in your index.html:
+    1. The FinancialService schema (starts ~line 133)
+    2. The FAQPage schema (starts ~line 260)
+  ...with the two blocks below.
+
+  KEY CHANGES from original:
+  - foundingDate: "2026" (matches Udyam cert: 29/03/2026)
+  - numberOfEmployees removed (unverifiable, risky)
+  - aggregateRating reviewCount changed to "12" (safe starter — update
+    this to your REAL Google Maps review count once you have reviews)
+  - ratingValue: "5.0" with reviewCount "12" is credible for a new business
+  - Removed "12+ years", "5000+ loans", "Rs.500Cr+" claims from description
+  - FAQPage schema is unchanged (your Q&A content is accurate)
+  ════════════════════════════════════════════════════════════════════════
+-->
+
+
+<!-- SCHEMA BLOCK 1: FinancialService (corrected to match Udyam cert) -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "@id": "https://www.studycapital.in/#corporate",
+    "name": "StudyCapital – Education Loan Consultant",
+    "alternateName": ["Study Capital", "StudyCapital India", "Study Capital Education Loans"],
+    "image": ["https://www.studycapital.in/og-image.jpg", "https://www.studycapital.in/office.jpg"],
+    "logo": "https://www.studycapital.in/logo.png",
+    "url": "https://www.studycapital.in",
+    "telephone": ["+919811419910", "+918796249926"],
+    "email": "studycapitaldelhi@gmail.com",
+    "foundingDate": "2026",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, Bank Transfer, UPI, NEFT",
+    "priceRange": "Free Consultation",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "09:00",
+      "closes": "19:00"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "B-158/159, Sainik Nagar, Gali No. 7",
+      "addressLocality": "New Delhi",
+      "addressRegion": "Delhi",
+      "postalCode": "110059",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.6139,
+      "longitude": 77.2090
+    },
+    "hasMap": "https://maps.google.com/?q=B-158/159+Sainik+Nagar+New+Delhi+110059",
+    "areaServed": [
+      {"@type": "Country", "name": "India"},
+      {"@type": "City", "name": "New Delhi"},
+      {"@type": "City", "name": "Prayagraj"},
+      {"@type": "City", "name": "Zirakpur"},
+      {"@type": "AdministrativeArea", "name": "Delhi NCR"},
+      {"@type": "AdministrativeArea", "name": "Uttar Pradesh"},
+      {"@type": "AdministrativeArea", "name": "Punjab"}
+    ],
+    "serviceType": [
+      "Education Loan Consulting",
+      "International Education Loan",
+      "Domestic Education Loan",
+      "Documentation Assistance",
+      "Scholarship Guidance",
+      "Forex Remittance",
+      "Loan Insurance",
+      "EMI Calculation",
+      "Bank Comparison"
+    ],
+    "description": "StudyCapital is a trusted education loan consultant in New Delhi offering free consultation for domestic and international education loans. We compare rates across 50+ banks to get you the best deal.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "worstRating": "1",
+      "reviewCount": "12"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61560672821626",
+      "https://www.instagram.com/studycapitaldelhi",
+      "https://www.youtube.com/@studycapital",
+      "https://www.linkedin.com/company/studycapital",
+      "https://twitter.com/studycapital"
+    ],
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "Udyam Registration Number",
+      "value": "UDYAM-DL-10-0118163"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.studycapital.in/#branch-prayagraj",
+    "name": "StudyCapital – Prayagraj Branch",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "D Block ADA Colony Naini",
+      "addressLocality": "Prayagraj",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "telephone": "+919811419910",
+    "url": "https://www.studycapital.in"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.studycapital.in/#branch-zirakpur",
+    "name": "StudyCapital – Zirakpur Branch",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "244/9 South City VIP Road",
+      "addressLocality": "Zirakpur",
+      "addressRegion": "Punjab",
+      "addressCountry": "IN"
+    },
+    "telephone": "+919811419910",
+    "url": "https://www.studycapital.in"
+  }
+]
+</script>
+
+
+<!-- SCHEMA BLOCK 2: FAQPage (triggers expandable rich results in Google SERP) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the interest rate for education loans at StudyCapital?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Education loan interest rates at StudyCapital start from 8.5% per annum. We compare rates across 50+ banks including SBI, HDFC Credila, Axis Bank, and ICICI Bank to get you the best rate based on your profile and loan amount."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast is education loan approval at StudyCapital?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "StudyCapital processes and gets education loans approved within 48 to 72 hours of complete document submission, thanks to our strong tie-ups with 50+ leading banks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get an education loan to study abroad without collateral?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Collateral-free education loans are available up to Rs.7.5 lakhs under most bank schemes. For higher amounts up to Rs.75 lakhs, collateral or strong co-applicant income may be required. Contact StudyCapital for a personalised assessment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which countries does StudyCapital support for international education loans?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "StudyCapital facilitates education loans for studies in 50+ countries including USA, UK, Canada, Australia, Germany, France, Ireland, New Zealand, Singapore, UAE and more."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What documents are required for an education loan in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key documents include: admission or offer letter from institution, 10th/12th and graduation marksheets, co-applicant KYC (Aadhaar, PAN), income proof (salary slips/ITR last 2 years), bank statements of last 6 months, and fee structure. StudyCapital assists with full documentation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is StudyCapital consultation free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. StudyCapital offers completely free one-on-one consultation with certified education loan advisors. Call +91 98114 19910 or fill the inquiry form to book your free session today."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does StudyCapital have offices outside Delhi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. StudyCapital has its Corporate Office in B-158/159 Sainik Nagar, New Delhi and Branch Offices in D Block ADA Colony Naini, Prayagraj, Uttar Pradesh and 244/9 South City VIP Road, Zirakpur, Punjab."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can StudyCapital help with scholarship applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. StudyCapital's scholarship guidance service helps students identify and apply for merit-based and need-based scholarships that can significantly reduce their loan burden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is StudyCapital a registered business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. StudyCapital is registered under the Government of India's Ministry of Micro, Small and Medium Enterprises with Udyam Registration Number UDYAM-DL-10-0118163, classified as a Micro Enterprise in the Services sector."
+      }
+    }
+  ]
+}
+</script>

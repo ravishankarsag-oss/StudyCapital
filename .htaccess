@@ -1,0 +1,57 @@
+# StudyCapital .htaccess — SEO + Security + Performance
+
+# ── Enable Rewrite Engine ────────────────────────────────────────────────────
+Options -Indexes
+RewriteEngine On
+
+# ── Force HTTPS ──────────────────────────────────────────────────────────────
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ── Force www ────────────────────────────────────────────────────────────────
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ── Add trailing slash to directory URLs (matches sitemap + folder structure) ─
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.+)$ /$1/ [L,R=301]
+
+# ── Serve index.html from clean folder URLs ──────────────────────────────────
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+)/$ /$1/index.html [L]
+
+# ── Security Headers ─────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ── Cache static assets ──────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png  "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/css  "access plus 6 months"
+  ExpiresByType application/javascript "access plus 6 months"
+  ExpiresByType application/json "access plus 1 week"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# ── GZIP Compression ─────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json text/xml
+</IfModule>
+
+# ── Block bad bots ───────────────────────────────────────────────────────────
+RewriteCond %{HTTP_USER_AGENT} (nikto|sqlmap|masscan|zgrab) [NC]
+RewriteRule .* - [F,L]
+
+# ── Custom error pages ───────────────────────────────────────────────────────
+ErrorDocument 404 /404.html

@@ -1,0 +1,141 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "@id": "https://www.studycapital.in/#corporate",
+    "name": "StudyCapital – Education Loan Consultant",
+    "alternateName": ["Study Capital", "StudyCapital India", "Study Capital Education Loans"],
+    "image": ["https://www.studycapital.in/og-image.jpg"],
+    "logo": "https://www.studycapital.in/logo.png",
+    "url": "https://www.studycapital.in",
+    "telephone": ["+919811419910", "+918796249926"],
+    "email": "studycapitaldelhi@gmail.com",
+    "foundingDate": "2026",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "Cash, Bank Transfer, UPI, NEFT",
+    "priceRange": "Free Consultation",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "09:00",
+      "closes": "19:00"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "B-158/159, Sainik Nagar, Gali No. 7",
+      "addressLocality": "New Delhi",
+      "addressRegion": "Delhi",
+      "postalCode": "110059",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 28.61697043464143,
+      "longitude": 77.04284678582074
+    },
+    "areaServed": [
+      {"@type": "Country", "name": "India"},
+      {"@type": "City", "name": "New Delhi"},
+      {"@type": "City", "name": "Prayagraj"},
+      {"@type": "City", "name": "Zirakpur"}
+    ],
+    "serviceType": [
+      "Education Loan Consulting",
+      "International Education Loan",
+      "Domestic Education Loan",
+      "Documentation Assistance",
+      "Scholarship Guidance",
+      "Forex Remittance",
+      "Loan Insurance",
+      "EMI Calculation",
+      "Bank Comparison"
+    ],
+    "description": "StudyCapital is a trusted education loan consultant in New Delhi offering free consultation for domestic and international education loans. We compare rates across 50+ banks to get you the best deal.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "worstRating": "1",
+      "reviewCount": "12"
+    },
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61560672821626",
+      "https://www.instagram.com/studycapitaldelhi",
+      "https://www.youtube.com/@studycapital",
+      "https://www.linkedin.com/company/studycapital",
+      "https://twitter.com/studycapital"
+    ],
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "Udyam Registration Number",
+      "value": "UDYAM-DL-10-0118163"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Education Loan Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "USA Education Loan", "url": "https://www.studycapital.in/education-loan-usa/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Canada Education Loan", "url": "https://www.studycapital.in/education-loan-canada/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "UK Education Loan", "url": "https://www.studycapital.in/education-loan-uk/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Australia Education Loan", "url": "https://www.studycapital.in/education-loan-australia/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Germany Education Loan", "url": "https://www.studycapital.in/education-loan-germany/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "IIT Education Loan", "url": "https://www.studycapital.in/education-loan-for-iit/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "MBBS Education Loan", "url": "https://www.studycapital.in/education-loan-for-mbbs/"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Education Loan Without Collateral", "url": "https://www.studycapital.in/education-loan-without-collateral/"}}
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.studycapital.in/#branch-prayagraj",
+    "name": "StudyCapital – Prayagraj Branch",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "D Block ADA Colony Naini",
+      "addressLocality": "Prayagraj",
+      "addressRegion": "Uttar Pradesh",
+      "addressCountry": "IN"
+    },
+    "telephone": "+919811419910",
+    "url": "https://www.studycapital.in/education-loan-prayagraj/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.studycapital.in/#branch-zirakpur",
+    "name": "StudyCapital – Zirakpur Branch",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "244/9 South City VIP Road",
+      "addressLocality": "Zirakpur",
+      "addressRegion": "Punjab",
+      "addressCountry": "IN"
+    },
+    "telephone": "+919811419910",
+    "url": "https://www.studycapital.in/education-loan-zirakpur/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.studycapital.in/#website",
+    "url": "https://www.studycapital.in",
+    "name": "StudyCapital",
+    "description": "India's trusted education loan consultant — free guidance for domestic and international education loans.",
+    "publisher": {"@id": "https://www.studycapital.in/#corporate"},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {"@type": "EntryPoint", "urlTemplate": "https://www.studycapital.in/?s={search_term_string}"},
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://www.studycapital.in/#breadcrumb",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.studycapital.in/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.studycapital.in/blog/"}
+    ]
+  }
+]

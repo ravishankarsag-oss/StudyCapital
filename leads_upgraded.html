@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyCapital — Lead CRM v2</title>
+<style>
+:root {
+  --navy:#0f172a;--blue:#1d4ed8;--blue-light:#eff6ff;--blue-mid:#3b82f6;
+  --green:#16a34a;--green-light:#f0fdf4;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --red:#dc2626;--red-light:#fef2f2;
+  --purple:#7c3aed;--purple-light:#f5f3ff;
+  --teal:#0891b2;--teal-light:#ecfeff;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+  --gray-400:#94a3b8;--gray-600:#475569;--gray-800:#1e293b;
+  --white:#ffffff;--radius:10px;
+  --shadow-md:0 4px 16px rgba(0,0,0,0.10);
+  --font:'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--gray-50);color:var(--gray-800);min-height:100vh;}
+
+/* TOPBAR */
+.topbar{background:var(--navy);color:white;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;}
+.brand-dot{width:30px;height:30px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;}
+.topbar-actions{display:flex;align-items:center;gap:8px;}
+.btn{padding:0.45rem 1rem;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;font-family:var(--font);}
+.btn-primary{background:var(--blue);color:white;}.btn-primary:hover{background:#1e40af;}
+.btn-ghost{background:rgba(255,255,255,0.1);color:white;}.btn-ghost:hover{background:rgba(255,255,255,0.2);}
+.btn-sm{padding:0.3rem 0.7rem;font-size:0.75rem;border-radius:6px;}
+.btn-danger{background:var(--red-light);color:var(--red);}.btn-danger:hover{background:#fee2e2;}
+.btn-success{background:var(--green-light);color:var(--green);}.btn-success:hover{background:#dcfce7;}
+.btn-outline{background:transparent;color:var(--gray-600);border:1.5px solid var(--gray-200);}.btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+
+/* TABS */
+.tab-bar{background:white;border-bottom:1px solid var(--gray-200);display:flex;padding:0 1.5rem;position:sticky;top:56px;z-index:90;overflow-x:auto;}
+.tab{padding:0.85rem 1.25rem;font-size:0.85rem;font-weight:600;color:var(--gray-400);cursor:pointer;border-bottom:2.5px solid transparent;transition:all 0.15s;white-space:nowrap;}
+.tab:hover{color:var(--gray-800);}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* LAYOUT */
+.page{max-width:1440px;margin:0 auto;padding:1.25rem 1.5rem;}
+.tab-content{display:none;}.tab-content.active{display:block;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.25rem;}
+.stat-card{background:white;border-radius:var(--radius);padding:1rem 1.25rem;border:1px solid var(--gray-200);cursor:pointer;transition:all 0.15s;}
+.stat-card:hover{border-color:var(--blue-mid);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.stat-label{font-size:0.72rem;color:var(--gray-400);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.35rem;}
+.stat-value{font-size:1.9rem;font-weight:800;color:var(--gray-800);line-height:1;}
+.stat-sub{font-size:0.72rem;color:var(--gray-400);margin-top:0.25rem;}
+
+/* FOLLOWUP ALERT */
+.fu-alert{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:var(--radius);padding:0.85rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;font-size:0.85rem;}
+
+/* TOOLBAR */
+.toolbar{background:white;border-radius:var(--radius);border:1px solid var(--gray-200);padding:0.85rem 1.25rem;margin-bottom:1rem;display:flex;gap:0.65rem;flex-wrap:wrap;align-items:center;}
+.search-box{flex:1;min-width:200px;position:relative;}
+.search-box input{width:100%;padding:0.5rem 0.75rem 0.5rem 2.2rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.85rem;outline:none;transition:border 0.15s;font-family:var(--font);}
+.search-box input:focus{border-color:var(--blue);}
+.search-icon{position:absolute;left:0.6rem;top:50%;transform:translateY(-50%);color:var(--gray-400);}
+select.filter{padding:0.5rem 0.75rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.82rem;outline:none;cursor:pointer;background:white;font-family:var(--font);}
+select.filter:focus{border-color:var(--blue);}
+
+/* TABLE */
+.table-wrap{background:white;border-radius:var(--radius);border:1px solid var(--gray-200);overflow:hidden;}
+.table-scroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+thead th{background:var(--gray-50);padding:0.7rem 1rem;text-align:left;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--gray-400);border-bottom:1px solid var(--gray-200);white-space:nowrap;cursor:pointer;user-select:none;}
+thead th:hover{color:var(--blue);}
+tbody tr{border-bottom:1px solid var(--gray-100);transition:background 0.1s;}
+tbody tr:hover{background:#f8faff;}
+tbody tr:last-child{border-bottom:none;}
+td{padding:0.7rem 1rem;vertical-align:middle;}
+.td-name{font-weight:600;color:var(--gray-800);}
+.td-phone{color:var(--blue);font-weight:500;}
+.td-date{color:var(--gray-400);font-size:0.78rem;}
+.fu-due{background:#fff7ed;color:#c2410c;font-weight:600;font-size:0.75rem;padding:2px 7px;border-radius:20px;}
+.fu-ok{color:var(--gray-400);font-size:0.78rem;}
+.empty-state{padding:3rem;text-align:center;color:var(--gray-400);}
+.empty-state-icon{font-size:2.5rem;margin-bottom:0.75rem;}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:0.2rem 0.6rem;border-radius:50px;font-size:0.7rem;font-weight:700;white-space:nowrap;}
+.badge-new{background:#dbeafe;color:#1e40af;}
+.badge-contacted{background:#fef3c7;color:#92400e;}
+.badge-qualified{background:#d1fae5;color:#065f46;}
+.badge-converted{background:#ede9fe;color:#5b21b6;}
+.badge-lost{background:#fee2e2;color:#991b1b;}
+.badge-intl{background:#e0f2fe;color:#075985;}
+.badge-domestic{background:#f0fdf4;color:#14532d;}
+
+/* QUICK STATUS */
+.quick-status{padding:0.22rem 0.5rem;border-radius:6px;font-size:0.72rem;font-weight:600;border:1.5px solid var(--gray-200);cursor:pointer;background:white;font-family:var(--font);}
+.quick-status:focus{outline:none;border-color:var(--blue);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:center;justify-content:center;padding:1rem;}
+.modal-overlay.open{display:flex;}
+.modal{background:white;border-radius:14px;width:100%;max-width:620px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25);}
+.modal-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:5;}
+.modal-title{font-size:1rem;font-weight:700;}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--gray-400);padding:0.25rem;border-radius:6px;line-height:1;}
+.modal-close:hover{background:var(--gray-100);}
+.modal-body{padding:1.5rem;}
+.modal-footer{padding:1rem 1.5rem;border-top:1px solid var(--gray-200);display:flex;gap:0.75rem;justify-content:flex-end;position:sticky;bottom:0;background:white;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-row.full{grid-template-columns:1fr;}
+.form-group label{display:block;font-size:0.72rem;font-weight:700;color:var(--gray-600);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.05em;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.55rem 0.75rem;border:1.5px solid var(--gray-200);border-radius:8px;font-size:0.85rem;font-family:var(--font);outline:none;transition:border 0.15s;resize:vertical;color:var(--gray-800);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,0.08);}
+
+/* ANALYTICS */
+.a-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;}
+.a-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-bottom:1.25rem;}
+.chart-card{background:white;border-radius:var(--radius);border:1px solid var(--gray-200);padding:1.25rem;}
+.chart-title{font-size:0.78rem;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1rem;}
+.bar-chart{display:flex;flex-direction:column;gap:0.5rem;}
+.bar-row{display:flex;align-items:center;gap:0.75rem;}
+.bar-label{font-size:0.78rem;color:var(--gray-600);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-track{flex:1;background:var(--gray-100);border-radius:4px;height:8px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease;}
+.bar-val{font-size:0.75rem;font-weight:700;color:var(--gray-600);min-width:24px;text-align:right;}
+.funnel-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;}
+.funnel-label{font-size:0.82rem;width:90px;color:var(--gray-600);}
+.funnel-bar{border-radius:4px;height:28px;display:flex;align-items:center;padding:0 0.75rem;font-size:0.78rem;font-weight:700;color:white;}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.kpi-item{background:var(--gray-50);border-radius:8px;padding:0.75rem;text-align:center;}
+.kpi-val{font-size:1.4rem;font-weight:800;}
+.kpi-lbl{font-size:0.7rem;color:var(--gray-400);margin-top:2px;}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;border-top:1px solid var(--gray-200);font-size:0.8rem;color:var(--gray-400);flex-wrap:wrap;gap:0.5rem;}
+.page-btns{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.page-btn{padding:0.3rem 0.6rem;border:1px solid var(--gray-200);border-radius:6px;cursor:pointer;background:white;font-size:0.78rem;transition:all 0.15s;font-family:var(--font);}
+.page-btn:hover{border-color:var(--blue);color:var(--blue);}
+.page-btn.active{background:var(--blue);color:white;border-color:var(--blue);}
+
+/* NOTES */
+.notes-list{display:flex;flex-direction:column;gap:0.5rem;margin-top:0.5rem;}
+.note-item{background:var(--gray-50);border-radius:8px;padding:0.6rem 0.75rem;font-size:0.82rem;border-left:3px solid var(--blue-mid);}
+.note-meta{font-size:0.7rem;color:var(--gray-400);margin-top:0.2rem;}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--gray-800);color:white;padding:0.75rem 1.25rem;border-radius:10px;font-size:0.85rem;font-weight:500;z-index:999;transform:translateY(100px);opacity:0;transition:all 0.3s;box-shadow:var(--shadow-md);}
+.toast.show{transform:translateY(0);opacity:1;}
+
+@media(max-width:768px){
+  .page{padding:0.75rem 1rem;}
+  .form-row{grid-template-columns:1fr;}
+  .a-grid,.a-grid3{grid-template-columns:1fr;}
+  .topbar{padding:0 1rem;}
+  .hide-mobile{display:none!important;}
+  .tab-bar{overflow-x:auto;}
+}
+@media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <div class="brand-dot">SC</div>
+    StudyCapital CRM
+    <span style="font-size:0.65rem;background:rgba(59,130,246,0.3);padding:2px 7px;border-radius:20px;margin-left:4px;font-weight:600;">v2</span>
+  </div>
+  <div class="topbar-actions">
+    <span id="sync-status" style="font-size:0.7rem;color:rgba(255,255,255,0.5);"></span>
+    <button class="btn btn-ghost btn-sm" id="syncBtn" onclick="syncFromD1()">⟳ Sync D1</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportCSV()">⬇ CSV</button>
+    <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ Add Lead</button>
+  </div>
+</div>
+
+<div id="d1-banner" style="background:#1e40af;color:white;font-size:0.8rem;padding:0.6rem 1.5rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+  <span>⚙️ <strong>Connect to Cloudflare D1:</strong></span>
+  <input id="cfg-worker-url" type="text" placeholder="https://studycapital-form-handler.xxx.workers.dev" style="flex:1;min-width:240px;padding:0.35rem 0.6rem;border-radius:6px;border:none;font-size:0.8rem;outline:none;">
+  <input id="cfg-secret" type="password" placeholder="CRM Secret key" style="width:180px;padding:0.35rem 0.6rem;border-radius:6px;border:none;font-size:0.8rem;outline:none;">
+  <button onclick="saveD1Config()" style="background:#fff;color:#1e40af;border:none;border-radius:6px;padding:0.35rem 0.8rem;font-weight:700;cursor:pointer;font-size:0.8rem;">Save & Sync</button>
+  <button onclick="document.getElementById('d1-banner').style.display='none'" style="background:rgba(255,255,255,0.15);color:white;border:none;border-radius:6px;padding:0.35rem 0.5rem;cursor:pointer;">✕</button>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active" onclick="switchTab('leads')">📋 Leads</div>
+  <div class="tab" onclick="switchTab('analytics')">📊 Analytics</div>
+  <div class="tab" onclick="switchTab('followups')">🔔 Follow-ups</div>
+</div>
+
+<div class="page">
+
+  <!-- LEADS TAB -->
+  <div class="tab-content active" id="tab-leads">
+    <div class="fu-alert" id="fu-alert" style="display:none;">
+      🔔 <span id="fu-alert-text"></span>
+      <button class="btn btn-sm" style="margin-left:auto;background:#fed7aa;color:#c2410c;border:none;cursor:pointer;" onclick="switchTab('followups')">View All →</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" onclick="setStatusFilter('')">
+        <div class="stat-label">Total Leads</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">All time</div>
+      </div>
+      <div class="stat-card" onclick="setStatusFilter('New')">
+        <div class="stat-label">New</div>
+        <div class="stat-value" id="stat-new" style="color:var(--blue)">0</div>
+        <div class="stat-sub">Needs contact</div>
+      </div>
+      <div class="stat-card" onclick="setStatusFilter('Contacted')">
+        <div class="stat-label">Contacted</div>
+        <div class="stat-value" id="stat-contacted" style="color:var(--teal)">0</div>
+        <div class="stat-sub">In pipeline</div>
+      </div>
+      <div class="stat-card" onclick="setStatusFilter('Qualified')">
+        <div class="stat-label">Qualified</div>
+        <div class="stat-value" id="stat-qualified" style="color:var(--green)">0</div>
+        <div class="stat-sub">Ready to convert</div>
+      </div>
+      <div class="stat-card" onclick="setStatusFilter('Converted')">
+        <div class="stat-label">Converted</div>
+        <div class="stat-value" id="stat-converted" style="color:var(--purple)">0</div>
+        <div class="stat-sub">Loan sanctioned</div>
+      </div>
+      <div class="stat-card" onclick="setTypeFilter('International')">
+        <div class="stat-label">International</div>
+        <div class="stat-value" id="stat-intl" style="color:var(--amber)">0</div>
+        <div class="stat-sub">Study abroad</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search name, phone, email, city, course..." oninput="renderTable()">
+      </div>
+      <select class="filter" id="filterStatus" onchange="renderTable()">
+        <option value="">All Status</option>
+        <option value="New">New</option>
+        <option value="Contacted">Contacted</option>
+        <option value="Qualified">Qualified</option>
+        <option value="Converted">Converted</option>
+        <option value="Lost">Lost</option>
+      </select>
+      <select class="filter" id="filterType" onchange="renderTable()">
+        <option value="">All Types</option>
+        <option value="International">International</option>
+        <option value="Domestic">Domestic</option>
+      </select>
+      <select class="filter" id="filterSource" onchange="renderTable()">
+        <option value="">All Sources</option>
+        <option value="Website">Website</option>
+        <option value="WhatsApp">WhatsApp</option>
+        <option value="Referral">Referral</option>
+        <option value="Walk-in">Walk-in</option>
+        <option value="Phone">Phone</option>
+        <option value="Social Media">Social Media</option>
+        <option value="Other">Other</option>
+      </select>
+      <select class="filter" id="filterAssigned" onchange="renderTable()">
+        <option value="">All Advisors</option>
+      </select>
+      <select class="filter" id="perPage" onchange="currentPage=1;renderTable()">
+        <option value="20">20/page</option>
+        <option value="50">50/page</option>
+        <option value="100">100/page</option>
+      </select>
+      <button class="btn btn-sm btn-outline" onclick="clearFilters()">✕ Clear</button>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="sortBy('name')">Name ↕</th>
+              <th onclick="sortBy('phone')">Phone</th>
+              <th class="hide-mobile" onclick="sortBy('email')">Email</th>
+              <th onclick="sortBy('loanType')">Type</th>
+              <th class="hide-mobile" onclick="sortBy('loanAmount')">Amount</th>
+              <th class="hide-mobile" onclick="sortBy('course')">Course</th>
+              <th class="hide-mobile" onclick="sortBy('source')">Source</th>
+              <th onclick="sortBy('status')">Status</th>
+              <th class="hide-mobile" onclick="sortBy('followup')">Follow-up</th>
+              <th onclick="sortBy('createdAt')">Date ↕</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody"></tbody>
+        </table>
+      </div>
+      <div class="pagination">
+        <span id="paginationInfo">Showing 0–0 of 0</span>
+        <div class="page-btns" id="pageBtns"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS TAB -->
+  <div class="tab-content" id="tab-analytics">
+    <div class="a-grid3">
+      <div class="chart-card">
+        <div class="chart-title">📊 Conversion Funnel</div>
+        <div id="funnel-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">🌍 Leads by Source</div>
+        <div class="bar-chart" id="source-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">💰 Loan Type Split</div>
+        <div class="bar-chart" id="type-chart"></div>
+      </div>
+    </div>
+    <div class="a-grid">
+      <div class="chart-card">
+        <div class="chart-title">📅 Leads This Month (by Day)</div>
+        <div class="bar-chart" id="daily-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">🎯 Key Metrics</div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+      </div>
+    </div>
+    <div class="a-grid">
+      <div class="chart-card">
+        <div class="chart-title">📚 Top Courses Requested</div>
+        <div class="bar-chart" id="course-chart"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">✈️ Top Destinations</div>
+        <div class="bar-chart" id="dest-chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOWUPS TAB -->
+  <div class="tab-content" id="tab-followups">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+      <div class="chart-card">
+        <div class="chart-title" style="color:var(--red);">🔴 Overdue</div>
+        <div id="overdue-list"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="color:var(--amber);">🟡 Today</div>
+        <div id="today-list"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="color:var(--blue);">🔵 Next 7 Days</div>
+        <div id="upcoming-list"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title" style="color:var(--gray-400);">⬜ No Follow-up Set (Active)</div>
+        <div id="nofollowup-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="leadModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Add New Lead</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="f-name" placeholder="Student's full name"></div>
+        <div class="form-group"><label>Phone *</label><input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" id="f-email" placeholder="student@email.com"></div>
+        <div class="form-group"><label>City</label><input type="text" id="f-city" placeholder="Delhi, Mumbai..."></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Loan Type</label>
+          <select id="f-loanType">
+            <option value="International">International Studies</option>
+            <option value="Domestic">Domestic Studies</option>
+            <option value="Vocational">Vocational / Diploma</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Loan Amount</label>
+          <select id="f-loanAmount">
+            <option>Up to ₹5 Lakhs</option><option>₹5 – 15 Lakhs</option>
+            <option>₹15 – 30 Lakhs</option><option>₹30 – 50 Lakhs</option><option>Above ₹50 Lakhs</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Course / Program</label><input type="text" id="f-course" placeholder="MBA, MS, MBBS..."></div>
+        <div class="form-group"><label>Destination</label><input type="text" id="f-destination" placeholder="USA, UK, India..."></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Source</label>
+          <select id="f-source">
+            <option>Website</option><option>WhatsApp</option><option>Referral</option>
+            <option>Walk-in</option><option>Phone</option><option>Social Media</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Status</label>
+          <select id="f-status">
+            <option value="New">🔵 New</option><option value="Contacted">🟡 Contacted</option>
+            <option value="Qualified">🟢 Qualified</option><option value="Converted">🟣 Converted</option>
+            <option value="Lost">🔴 Lost</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Assigned To</label><input type="text" id="f-assignedTo" placeholder="Advisor name"></div>
+        <div class="form-group"><label>Follow-up Date</label><input type="date" id="f-followup"></div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group"><label>Message / Inquiry Details</label><textarea id="f-message" rows="3" placeholder="Requirements, notes..."></textarea></div>
+      </div>
+      <div id="notesSection" style="display:none;margin-top:0.5rem;">
+        <div style="font-size:0.72rem;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Activity Notes</div>
+        <div class="form-group" style="margin-bottom:0.5rem;"><textarea id="f-newNote" rows="2" placeholder="Add a follow-up note..."></textarea></div>
+        <button class="btn btn-success btn-sm" onclick="addNote()">+ Add Note</button>
+        <div class="notes-list" id="notesList" style="margin-top:0.75rem;"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" id="deleteBtn" onclick="deleteLead()" style="display:none;margin-right:auto;">🗑 Delete</button>
+      <button class="btn" style="background:var(--gray-100);color:var(--gray-600);" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveLead()">Save Lead</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW MODAL -->
+<div class="modal-overlay" id="viewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="viewModalTitle">Lead Details</div>
+      <button class="modal-close" onclick="closeViewModal()">✕</button>
+    </div>
+    <div class="modal-body" id="viewModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn" style="background:var(--gray-100);color:var(--gray-600);" onclick="closeViewModal()">Close</button>
+      <button class="btn btn-primary" id="viewEditBtn">✏ Edit Lead</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY='sc_leads_v2';
+const D1_CFG_KEY='sc_d1_config';
+let leads=[],sortField='createdAt',sortDir=-1,currentPage=1,editingId=null,d1Config=null;
+
+// ── D1 Config ──
+function loadD1Config(){
+  try{d1Config=JSON.parse(localStorage.getItem(D1_CFG_KEY)||'null');}catch{d1Config=null;}
+  if(d1Config?.workerUrl){
+    document.getElementById('d1-banner').style.display='none';
+    document.getElementById('cfg-worker-url').value=d1Config.workerUrl;
+    document.getElementById('cfg-secret').value=d1Config.secret||'';
+  }
+}
+function saveD1Config(){
+  const url=document.getElementById('cfg-worker-url').value.trim().replace(/\/$/,'');
+  const sec=document.getElementById('cfg-secret').value.trim();
+  if(!url){showToast('⚠️ Enter the Worker URL');return;}
+  d1Config={workerUrl:url,secret:sec};
+  localStorage.setItem(D1_CFG_KEY,JSON.stringify(d1Config));
+  document.getElementById('d1-banner').style.display='none';
+  showToast('✓ Config saved — syncing…');syncFromD1();
+}
+
+// ── D1 Sync ──
+async function syncFromD1(){
+  if(!d1Config?.workerUrl){document.getElementById('d1-banner').style.display='';showToast('⚙️ Configure D1 first');return;}
+  const btn=document.getElementById('syncBtn');btn.textContent='⟳ Syncing…';btn.disabled=true;
+  setSyncStatus('Syncing…','#94a3b8');
+  try{
+    const res=await fetch(`${d1Config.workerUrl}/leads`,{headers:{'X-CRM-Secret':d1Config.secret||''}});
+    if(res.status===401){showToast('❌ Auth failed — check CRM Secret');setSyncStatus('Auth error','#dc2626');return;}
+    const data=await res.json();
+    if(!data.ok)throw new Error(data.error||'Unknown error');
+    const d1Ids=new Set(data.leads.map(l=>l.id));
+    const localOnly=leads.filter(l=>!d1Ids.has(l.id));
+    leads=[...data.leads,...localOnly];
+    save();renderTable();renderAnalytics();renderFollowups();
+    const ts=new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    setSyncStatus(`✓ ${data.leads.length} leads · ${ts}`,'#4ade80');
+    showToast(`✓ Synced ${data.leads.length} leads`);
+  }catch(err){setSyncStatus('Sync failed','#dc2626');showToast('❌ '+err.message);}
+  finally{btn.textContent='⟳ Sync D1';btn.disabled=false;}
+}
+function setSyncStatus(m,c){const e=document.getElementById('sync-status');e.textContent=m;e.style.color=c;}
+
+async function pushLeadToD1(l){
+  if(!d1Config?.workerUrl)return;
+  try{await fetch(`${d1Config.workerUrl}/leads/${l.id}`,{method:'PATCH',headers:{'Content-Type':'application/json','X-CRM-Secret':d1Config.secret||''},body:JSON.stringify({status:l.status,assignedTo:l.assignedTo,followup:l.followup,notes:l.notes})});}
+  catch(e){console.warn('D1 patch:',e.message);}
+}
+async function deleteLeadFromD1(id){
+  if(!d1Config?.workerUrl)return;
+  try{await fetch(`${d1Config.workerUrl}/leads/${id}`,{method:'DELETE',headers:{'X-CRM-Secret':d1Config.secret||''}});}
+  catch(e){console.warn('D1 delete:',e.message);}
+}
+
+// ── Storage ──
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(leads));}
+function load(){
+  try{leads=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');}catch{leads=[];}
+  loadD1Config();
+  if(!leads.length)seedDemoData();
+}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
+function today(){return new Date().toISOString().slice(0,10);}
+function daysAgo(n){const d=new Date();d.setDate(d.getDate()-n);return d.toISOString();}
+function daysFwd(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);}
+
+function seedDemoData(){
+  leads=[
+    {id:uid(),name:'Aarav Sharma',phone:'+91 98765 43210',email:'aarav@gmail.com',city:'Delhi',loanType:'International',loanAmount:'₹30 – 50 Lakhs',course:'MS Computer Science',destination:'USA',source:'Website',status:'Qualified',assignedTo:'Ravi',followup:today(),message:'Interested in Stanford / MIT',notes:[],createdAt:daysAgo(3)},
+    {id:uid(),name:'Priya Mehta',phone:'+91 91234 56789',email:'priya.m@gmail.com',city:'Mumbai',loanType:'International',loanAmount:'₹15 – 30 Lakhs',course:'MBA',destination:'UK',source:'WhatsApp',status:'New',assignedTo:'',followup:'',message:'Warwick Business School applicant',notes:[],createdAt:daysAgo(1)},
+    {id:uid(),name:'Rohan Gupta',phone:'+91 87654 32109',email:'rohan.g@yahoo.com',city:'Prayagraj',loanType:'Domestic',loanAmount:'₹5 – 15 Lakhs',course:'B.Tech',destination:'India',source:'Referral',status:'Converted',assignedTo:'Ravi',followup:'',message:'IIT Bombay — SBI sanctioned',notes:[{text:'₹12L sanctioned by SBI',date:'20 Apr 2026'}],createdAt:daysAgo(10)},
+    {id:uid(),name:'Sneha Reddy',phone:'+91 76543 21098',email:'sneha.r@gmail.com',city:'Hyderabad',loanType:'International',loanAmount:'Above ₹50 Lakhs',course:'MBBS',destination:'Germany',source:'Social Media',status:'Contacted',assignedTo:'Ravi',followup:daysFwd(-1),message:'Needs collateral-free options',notes:[{text:'Sent documentation list',date:'28 Apr 2026'}],createdAt:daysAgo(5)},
+    {id:uid(),name:'Karan Patel',phone:'+91 65432 10987',email:'karan.p@gmail.com',city:'Ahmedabad',loanType:'Domestic',loanAmount:'Up to ₹5 Lakhs',course:'MBA',destination:'India',source:'Walk-in',status:'Lost',assignedTo:'',followup:'',message:'Opted for other consultant',notes:[],createdAt:daysAgo(15)},
+    {id:uid(),name:'Neha Joshi',phone:'+91 77889 00123',email:'neha.j@gmail.com',city:'Pune',loanType:'International',loanAmount:'₹15 – 30 Lakhs',course:'LLM',destination:'UK',source:'Website',status:'New',assignedTo:'Ravi',followup:daysFwd(2),message:'Edinburgh University',notes:[],createdAt:daysAgo(0)},
+  ];save();
+}
+
+// ── Tabs ──
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',['leads','analytics','followups'][i]===t));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  if(t==='analytics')renderAnalytics();
+  if(t==='followups')renderFollowups();
+}
+
+// ── Filters ──
+function setStatusFilter(v){document.getElementById('filterStatus').value=v;currentPage=1;renderTable();}
+function setTypeFilter(v){document.getElementById('filterType').value=v;currentPage=1;renderTable();}
+function clearFilters(){
+  ['searchInput','filterStatus','filterType','filterSource','filterAssigned'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  currentPage=1;renderTable();
+}
+
+function updateStats(){
+  document.getElementById('stat-total').textContent=leads.length;
+  document.getElementById('stat-new').textContent=leads.filter(l=>l.status==='New').length;
+  document.getElementById('stat-contacted').textContent=leads.filter(l=>l.status==='Contacted').length;
+  document.getElementById('stat-qualified').textContent=leads.filter(l=>l.status==='Qualified').length;
+  document.getElementById('stat-converted').textContent=leads.filter(l=>l.status==='Converted').length;
+  document.getElementById('stat-intl').textContent=leads.filter(l=>l.loanType==='International').length;
+
+  // Advisor filter
+  const advisors=[...new Set(leads.map(l=>l.assignedTo).filter(Boolean))].sort();
+  const sel=document.getElementById('filterAssigned');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">All Advisors</option>'+advisors.map(a=>`<option value="${a}">${a}</option>`).join('');
+  if(cur)sel.value=cur;
+
+  // Follow-up alert
+  const td=today();
+  const overdue=leads.filter(l=>l.followup&&l.followup<td&&l.status!=='Converted'&&l.status!=='Lost');
+  const todayDue=leads.filter(l=>l.followup===td&&l.status!=='Converted'&&l.status!=='Lost');
+  const al=document.getElementById('fu-alert');
+  if(overdue.length||todayDue.length){
+    al.style.display='flex';
+    const parts=[];
+    if(overdue.length)parts.push(`<strong>${overdue.length} overdue</strong>`);
+    if(todayDue.length)parts.push(`<strong>${todayDue.length} due today</strong>`);
+    document.getElementById('fu-alert-text').innerHTML=`You have ${parts.join(' and ')} follow-ups.`;
+  }else{al.style.display='none';}
+}
+
+// ── Filter + Sort ──
+function getFiltered(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  const st=document.getElementById('filterStatus').value;
+  const ty=document.getElementById('filterType').value;
+  const sr=document.getElementById('filterSource').value;
+  const as=document.getElementById('filterAssigned').value;
+  return leads.filter(l=>{
+    const mQ=!q||[l.name,l.phone,l.email,l.city,l.course,l.destination].some(v=>(v||'').toLowerCase().includes(q));
+    return mQ&&(!st||l.status===st)&&(!ty||l.loanType===ty)&&(!sr||l.source===sr)&&(!as||l.assignedTo===as);
+  }).sort((a,b)=>{
+    const av=a[sortField]||'',bv=b[sortField]||'';
+    return av<bv?-sortDir:av>bv?sortDir:0;
+  });
+}
+function sortBy(f){if(sortField===f)sortDir*=-1;else{sortField=f;sortDir=-1;}renderTable();}
+
+// ── Render ──
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function statusBadge(s){const m={New:'badge-new',Contacted:'badge-contacted',Qualified:'badge-qualified',Converted:'badge-converted',Lost:'badge-lost'};return `<span class="badge ${m[s]||'badge-new'}">${s}</span>`;}
+function typeBadge(t){return `<span class="badge ${t==='International'?'badge-intl':'badge-domestic'}">${t==='International'?'✈ Intl':'🎓 Dom'}</span>`;}
+function fmtDate(iso){if(!iso)return '—';return new Date(iso).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'2-digit'});}
+function fuDisplay(f){
+  if(!f)return '<span class="fu-ok">—</span>';
+  const td=today();
+  if(f<td)return `<span class="fu-due">⚠️ ${fmtDate(f)}</span>`;
+  if(f===td)return `<span class="fu-due">📌 Today</span>`;
+  return `<span class="fu-ok">📅 ${fmtDate(f)}</span>`;
+}
+
+function renderTable(){
+  const filtered=getFiltered();
+  const pp=parseInt(document.getElementById('perPage').value);
+  const total=filtered.length,pages=Math.max(1,Math.ceil(total/pp));
+  if(currentPage>pages)currentPage=1;
+  const start=(currentPage-1)*pp,slice=filtered.slice(start,start+pp);
+  const tbody=document.getElementById('leadsTableBody');
+  if(!slice.length){
+    tbody.innerHTML=`<tr><td colspan="11"><div class="empty-state"><div class="empty-state-icon">📋</div><div>No leads found</div></div></td></tr>`;
+  }else{
+    tbody.innerHTML=slice.map(l=>{
+      const wa=(l.phone||'').replace(/[^0-9]/g,'');
+      const waMsg=encodeURIComponent('Hello '+l.name+', following up on your education loan inquiry with StudyCapital.');
+      return `<tr onclick="viewLead('${l.id}')" style="cursor:pointer;">
+        <td><div class="td-name">${esc(l.name)}</div>${l.city?`<div style="font-size:0.72rem;color:var(--gray-400)">${esc(l.city)}</div>`:''}</td>
+        <td><a class="td-phone" href="tel:${esc(l.phone)}" onclick="event.stopPropagation()">${esc(l.phone)}</a></td>
+        <td class="hide-mobile" style="font-size:0.78rem;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(l.email)||'—'}</td>
+        <td>${typeBadge(l.loanType)}</td>
+        <td class="hide-mobile" style="font-size:0.78rem;">${esc(l.loanAmount)||'—'}</td>
+        <td class="hide-mobile" style="font-size:0.78rem;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(l.course)||'—'}</td>
+        <td class="hide-mobile" style="font-size:0.78rem;">${esc(l.source)||'—'}</td>
+        <td onclick="event.stopPropagation()">
+          <select class="quick-status" onchange="quickStatus('${l.id}',this.value)">
+            ${['New','Contacted','Qualified','Converted','Lost'].map(s=>`<option${l.status===s?' selected':''}>${s}</option>`).join('')}
+          </select>
+        </td>
+        <td class="hide-mobile">${fuDisplay(l.followup)}</td>
+        <td class="td-date">${fmtDate(l.createdAt)}</td>
+        <td onclick="event.stopPropagation()"><div style="display:flex;gap:4px;">
+          <button class="btn btn-sm" style="background:var(--gray-100);color:var(--gray-600);padding:0.25rem 0.5rem;" onclick="editLead('${l.id}')" title="Edit">✏</button>
+          <a href="https://wa.me/${wa}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-sm" style="background:#dcfce7;color:#16a34a;text-decoration:none;padding:0.25rem 0.5rem;" title="WhatsApp">💬</a>
+          <a href="tel:${esc(l.phone)}" class="btn btn-sm" style="background:#eff6ff;color:#1d4ed8;text-decoration:none;padding:0.25rem 0.5rem;" title="Call">📞</a>
+        </div></td>
+      </tr>`;
+    }).join('');
+  }
+  document.getElementById('paginationInfo').textContent=total?`Showing ${start+1}–${Math.min(start+pp,total)} of ${total} leads`:'No results';
+  const pb=document.getElementById('pageBtns');pb.innerHTML='';
+  for(let i=1;i<=Math.min(pages,8);i++){
+    const b=document.createElement('button');b.className='page-btn'+(i===currentPage?' active':'');b.textContent=i;
+    b.onclick=()=>{currentPage=i;renderTable();};pb.appendChild(b);
+  }
+  updateStats();
+}
+
+function quickStatus(id,status){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  l.status=status;save();renderTable();renderAnalytics();pushLeadToD1(l);showToast('Status → '+status);
+}
+
+// ── View Modal ──
+function viewLead(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  document.getElementById('viewModalTitle').textContent=l.name;
+  document.getElementById('viewEditBtn').onclick=()=>{closeViewModal();editLead(id);};
+  const wa=(l.phone||'').replace(/[^0-9]/g,'');
+  const waMsg=encodeURIComponent('Hello '+l.name+', following up on your education loan inquiry with StudyCapital.');
+  const details=[
+    ['📞 Phone',`<a href="tel:${esc(l.phone)}" style="color:var(--blue);font-weight:600;">${esc(l.phone)}</a>`],
+    ['📧 Email',l.email?`<a href="mailto:${esc(l.email)}" style="color:var(--blue);">${esc(l.email)}</a>`:'—'],
+    ['🏙 City',esc(l.city)||'—'],['✈ Loan Type',esc(l.loanType)],
+    ['💰 Amount',esc(l.loanAmount)||'—'],['🎓 Course',esc(l.course)||'—'],
+    ['🌍 Destination',esc(l.destination)||'—'],['📋 Source',esc(l.source)||'—'],
+    ['👤 Assigned',esc(l.assignedTo)||'Unassigned'],
+    ['📅 Follow-up',l.followup?new Date(l.followup).toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}):'—'],
+    ['📊 Status',statusBadge(l.status)],['🕐 Created',fmtDate(l.createdAt)],
+  ];
+  const notesHtml=(l.notes||[]).length
+    ?[...(l.notes||[])].reverse().map(n=>`<div class="note-item">${esc(n.text)}<div class="note-meta">📅 ${esc(n.date)}</div></div>`).join('')
+    :'<div style="color:var(--gray-400);font-size:0.82rem;padding:0.5rem 0;">No activity notes yet.</div>';
+  document.getElementById('viewModalBody').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.65rem 1.5rem;margin-bottom:1.25rem;">
+      ${details.map(([k,v])=>`<div><div style="font-size:0.7rem;color:var(--gray-400);font-weight:600;margin-bottom:3px;">${k}</div><div style="font-size:0.85rem;font-weight:500;">${v}</div></div>`).join('')}
+    </div>
+    ${l.message?`<div style="background:var(--gray-50);border-radius:8px;padding:0.75rem;margin-bottom:1rem;font-size:0.85rem;border-left:3px solid var(--blue-mid);"><strong>Message:</strong> ${esc(l.message)}</div>`:''}
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+      <a href="https://wa.me/${wa}?text=${waMsg}" target="_blank" rel="noopener" class="btn btn-sm" style="background:#dcfce7;color:#16a34a;text-decoration:none;">💬 WhatsApp</a>
+      <a href="tel:${esc(l.phone)}" class="btn btn-sm" style="background:#eff6ff;color:#1d4ed8;text-decoration:none;">📞 Call</a>
+      ${l.email?`<a href="mailto:${esc(l.email)}" class="btn btn-sm" style="background:#f5f3ff;color:#7c3aed;text-decoration:none;">📧 Email</a>`:''}
+    </div>
+    <div style="font-size:0.72rem;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Activity Notes</div>
+    <div class="notes-list">${notesHtml}</div>`;
+  document.getElementById('viewModal').classList.add('open');
+}
+function closeViewModal(){document.getElementById('viewModal').classList.remove('open');}
+
+// ── Add/Edit Modal ──
+function openAddModal(){
+  editingId=null;document.getElementById('modalTitle').textContent='Add New Lead';
+  document.getElementById('deleteBtn').style.display='none';document.getElementById('notesSection').style.display='none';
+  ['f-name','f-phone','f-email','f-city','f-course','f-destination','f-assignedTo','f-message','f-followup','f-newNote']
+    .forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  document.getElementById('f-loanType').value='International';
+  document.getElementById('f-status').value='New';document.getElementById('f-source').value='Website';
+  document.getElementById('leadModal').classList.add('open');
+}
+function editLead(id){
+  const l=leads.find(x=>x.id===id);if(!l)return;
+  editingId=id;document.getElementById('modalTitle').textContent='Edit Lead';
+  document.getElementById('deleteBtn').style.display='inline-flex';
+  const fields={name:'f-name',phone:'f-phone',email:'f-email',city:'f-city',course:'f-course',destination:'f-destination',assignedTo:'f-assignedTo',followup:'f-followup',message:'f-message'};
+  Object.entries(fields).forEach(([k,id])=>{document.getElementById(id).value=l[k]||'';});
+  document.getElementById('f-loanType').value=l.loanType||'International';
+  document.getElementById('f-loanAmount').value=l.loanAmount||'';
+  document.getElementById('f-source').value=l.source||'Website';
+  document.getElementById('f-status').value=l.status||'New';
+  document.getElementById('f-newNote').value='';
+  document.getElementById('notesSection').style.display='block';renderNotesList(l.notes||[]);
+  document.getElementById('leadModal').classList.add('open');
+}
+function renderNotesList(notes){
+  document.getElementById('notesList').innerHTML=notes.length
+    ?[...notes].reverse().map(n=>`<div class="note-item">${esc(n.text)}<div class="note-meta">📅 ${esc(n.date)}</div></div>`).join('')
+    :'<div style="color:var(--gray-400);font-size:0.82rem;">No notes yet.</div>';
+}
+function addNote(){
+  if(!editingId)return;
+  const txt=document.getElementById('f-newNote').value.trim();if(!txt)return;
+  const l=leads.find(x=>x.id===editingId);if(!l)return;
+  l.notes=l.notes||[];
+  l.notes.push({text:txt,date:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})});
+  save();pushLeadToD1(l);document.getElementById('f-newNote').value='';renderNotesList(l.notes);showToast('Note added');
+}
+function saveLead(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  if(!name||!phone){showToast('⚠️ Name and Phone are required');return;}
+  const data={name,phone,
+    email:document.getElementById('f-email').value.trim(),city:document.getElementById('f-city').value.trim(),
+    loanType:document.getElementById('f-loanType').value,loanAmount:document.getElementById('f-loanAmount').value,
+    course:document.getElementById('f-course').value.trim(),destination:document.getElementById('f-destination').value.trim(),
+    source:document.getElementById('f-source').value,status:document.getElementById('f-status').value,
+    assignedTo:document.getElementById('f-assignedTo').value.trim(),followup:document.getElementById('f-followup').value,
+    message:document.getElementById('f-message').value.trim(),
+  };
+  if(editingId){
+    const i=leads.findIndex(x=>x.id===editingId);leads[i]={...leads[i],...data};
+    save();closeModal();renderTable();renderAnalytics();pushLeadToD1(leads.find(x=>x.id===editingId));showToast('Lead updated ✓');
+  }else{
+    leads.unshift({id:uid(),...data,notes:[],createdAt:new Date().toISOString()});
+    save();closeModal();renderTable();renderAnalytics();showToast('Lead added ✓');
+  }
+}
+function deleteLead(){
+  if(!editingId)return;
+  const l=leads.find(x=>x.id===editingId);
+  if(!confirm(`Delete lead for ${l?.name}?`))return;
+  deleteLeadFromD1(editingId);leads=leads.filter(x=>x.id!==editingId);
+  save();closeModal();renderTable();renderAnalytics();showToast('Lead deleted');
+}
+function closeModal(){document.getElementById('leadModal').classList.remove('open');editingId=null;}
+
+// ── Export CSV ──
+function exportCSV(){
+  const filtered=getFiltered();
+  const cols=['Name','Phone','Email','City','Loan Type','Loan Amount','Course','Destination','Source','Status','Assigned To','Follow-up','Message','Created At'];
+  const rows=filtered.map(l=>[l.name,l.phone,l.email,l.city,l.loanType,l.loanAmount,l.course,l.destination,l.source,l.status,l.assignedTo,l.followup,l.message,l.createdAt].map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv=[cols.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download=`studycapital-leads-${new Date().toISOString().slice(0,10)}.csv`;a.click();
+  showToast(`Exported ${filtered.length} leads`);
+}
+
+// ── Analytics ──
+function barRow(label,value,max,color){
+  const pct=Math.max(5,Math.round((value/max)*100));
+  return `<div class="bar-row"><div class="bar-label" title="${esc(label)}">${esc(label)}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${color};"></div></div><div class="bar-val">${value}</div></div>`;
+}
+function renderAnalytics(){
+  if(!document.getElementById('tab-analytics').classList.contains('active'))return;
+  const statuses=['New','Contacted','Qualified','Converted','Lost'];
+  const counts=statuses.map(s=>leads.filter(l=>l.status===s).length);
+  const maxC=Math.max(...counts,1);
+  const colors=['#3b82f6','#f59e0b','#10b981','#8b5cf6','#ef4444'];
+  document.getElementById('funnel-chart').innerHTML=statuses.map((s,i)=>`
+    <div class="funnel-row"><div class="funnel-label">${s}</div>
+    <div class="funnel-bar" style="background:${colors[i]};width:${Math.max(10,(counts[i]/maxC)*100)}%">${counts[i]}</div></div>`).join('');
+
+  const srcMap={};leads.forEach(l=>{if(l.source)srcMap[l.source]=(srcMap[l.source]||0)+1;});
+  const srcTop=Object.entries(srcMap).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const srcMax=Math.max(...srcTop.map(x=>x[1]),1);
+  document.getElementById('source-chart').innerHTML=srcTop.map(([s,n])=>barRow(s,n,srcMax,'#3b82f6')).join('');
+
+  const intl=leads.filter(l=>l.loanType==='International').length;
+  const dom=leads.filter(l=>l.loanType==='Domestic').length;
+  const voc=leads.filter(l=>l.loanType==='Vocational').length;
+  const tm=Math.max(intl,dom,voc,1);
+  document.getElementById('type-chart').innerHTML=barRow('International',intl,tm,'#0891b2')+barRow('Domestic',dom,tm,'#16a34a')+barRow('Vocational',voc,tm,'#7c3aed');
+
+  const now=new Date();
+  const thisMonth=now.toISOString().slice(0,7);
+  const dayLabels=[],dayCounts=[];
+  for(let d=1;d<=now.getDate();d++){
+    const ds=`${thisMonth}-${String(d).padStart(2,'0')}`;
+    dayLabels.push(d);dayCounts.push(leads.filter(l=>l.createdAt?.slice(0,10)===ds).length);
+  }
+  const dayMax=Math.max(...dayCounts,1);
+  const last14=dayLabels.slice(-14);
+  document.getElementById('daily-chart').innerHTML=last14.map((d,i)=>{
+    const idx=dayLabels.length-14+i;return barRow('Day '+d,(dayCounts[idx]||0),dayMax,'#6366f1');
+  }).join('');
+
+  const converted=leads.filter(l=>l.status==='Converted').length;
+  const convRate=leads.length?Math.round((converted/leads.length)*100):0;
+  const td=today();
+  const overdue=leads.filter(l=>l.followup&&l.followup<td&&l.status!=='Converted'&&l.status!=='Lost').length;
+  const monthLeads=leads.filter(l=>l.createdAt?.slice(0,7)===thisMonth).length;
+  const withFU=leads.filter(l=>l.followup).length;
+  document.getElementById('kpi-grid').innerHTML=[
+    [convRate+'%','Conversion Rate','#8b5cf6'],
+    [monthLeads,'Leads This Month','#3b82f6'],
+    [withFU,'With Follow-up Set','#10b981'],
+    [overdue,'Overdue Follow-ups',overdue>0?'#dc2626':'#94a3b8'],
+  ].map(([v,l,c])=>`<div class="kpi-item"><div class="kpi-val" style="color:${c}">${v}</div><div class="kpi-lbl">${l}</div></div>`).join('');
+
+  const cMap={};leads.forEach(l=>{if(l.course?.trim())cMap[l.course.trim()]=(cMap[l.course.trim()]||0)+1;});
+  const cTop=Object.entries(cMap).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const cMax=Math.max(...cTop.map(x=>x[1]),1);
+  document.getElementById('course-chart').innerHTML=cTop.length?cTop.map(([s,n])=>barRow(s,n,cMax,'#f59e0b')).join(''):'<div style="color:var(--gray-400);font-size:0.82rem;padding:0.5rem 0;">No data yet.</div>';
+
+  const dMap={};leads.forEach(l=>{if(l.destination?.trim())dMap[l.destination.trim()]=(dMap[l.destination.trim()]||0)+1;});
+  const dTop=Object.entries(dMap).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const dMax=Math.max(...dTop.map(x=>x[1]),1);
+  document.getElementById('dest-chart').innerHTML=dTop.length?dTop.map(([s,n])=>barRow(s,n,dMax,'#0891b2')).join(''):'<div style="color:var(--gray-400);font-size:0.82rem;padding:0.5rem 0;">No data yet.</div>';
+}
+
+// ── Follow-ups Tab ──
+function renderFollowups(){
+  const td=today();
+  const sd=daysFwd(7);
+  const active=leads.filter(l=>l.status!=='Converted'&&l.status!=='Lost');
+  const overdue=active.filter(l=>l.followup&&l.followup<td).sort((a,b)=>a.followup.localeCompare(b.followup));
+  const todayDue=active.filter(l=>l.followup===td);
+  const upcoming=active.filter(l=>l.followup&&l.followup>td&&l.followup<=sd).sort((a,b)=>a.followup.localeCompare(b.followup));
+  const nofu=active.filter(l=>!l.followup);
+  document.getElementById('overdue-list').innerHTML=fuList(overdue,'#fef2f2','#dc2626');
+  document.getElementById('today-list').innerHTML=fuList(todayDue,'#fffbeb','#d97706');
+  document.getElementById('upcoming-list').innerHTML=fuList(upcoming,'#eff6ff','#1d4ed8');
+  document.getElementById('nofollowup-list').innerHTML=fuList(nofu,'#f8fafc','#94a3b8');
+}
+function daysFwd(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);}
+function fuList(arr,bg,accent){
+  if(!arr.length)return '<div style="color:var(--gray-400);font-size:0.82rem;padding:0.5rem 0;">None</div>';
+  return arr.map(l=>{
+    const wa=(l.phone||'').replace(/[^0-9]/g,'');
+    const waMsg=encodeURIComponent('Hello '+l.name+', following up on your education loan inquiry.');
+    return `<div style="background:${bg};border-radius:8px;padding:0.6rem 0.85rem;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.75rem;cursor:pointer;" onclick="viewLead('${l.id}')">
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:0.85rem;">${esc(l.name)}</div>
+        <div style="font-size:0.75rem;color:${accent};margin-top:1px;">${l.followup?'📅 '+fmtDate(l.followup)+' · ':''} ${esc(l.phone)} · ${statusBadge(l.status)}</div>
+      </div>
+      <a href="https://wa.me/${wa}?text=${waMsg}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="background:#dcfce7;color:#16a34a;border-radius:6px;padding:4px 8px;font-size:0.75rem;font-weight:600;text-decoration:none;">💬</a>
+    </div>`;
+  }).join('');
+}
+
+// ── Toast ──
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+// ── Close handlers ──
+document.getElementById('leadModal').addEventListener('click',e=>{if(e.target===document.getElementById('leadModal'))closeModal();});
+document.getElementById('viewModal').addEventListener('click',e=>{if(e.target===document.getElementById('viewModal'))closeViewModal();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeModal();closeViewModal();}
+  if(e.key==='n'&&!e.target.matches('input,textarea,select'))openAddModal();
+});
+
+// ── Init ──
+load();renderTable();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /?s=
+
+# Block common junk crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+Disallow:
+
+User-agent: SemrushBot
+Crawl-delay: 10
+Disallow:
+
+# Sitemap
+Sitemap: https://www.studycapital.in/sitemap.xml
