@@ -33,7 +33,7 @@
 <link rel="dns-prefetch" href="//wa.me">
 
 <!-- PWA: Web App Manifest (inline — avoids 404 when manifest.json file is missing on server) -->
-<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22StudyCapital%22,%22short_name%22:%22StudyCapital%22,%22start_url%22:%22/%22,%22display%22:%22browser%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%231A56DB%22}">
+<link rel="manifest" href="/manifest.json">
 
 <!-- ON-PAGE SEO: Optimised Title Tag (primary keyword first, brand last, 58 chars) -->
 <title>Education Loan Consultant in Delhi | StudyCapital – India &amp; Abroad</title>
@@ -132,7 +132,7 @@
 <meta name="twitter:image:alt" content="StudyCapital – Education Loan Experts India">
 
 <!-- YouTube / Video SEO (itemprop for Google video rich results) -->
-<meta itemprop="name" content="StudyCapital – Education Loan Consultants India">
+<meta content="StudyCapital – Education Loan Consultants India">
 <meta itemprop="description" content="India's trusted education loan consultant. Free consultation for domestic and international education loans. Offices in Delhi, Prayagraj and Zirakpur.">
 <meta itemprop="image" content="https://www.studycapital.in/og-image.jpg">
 
@@ -346,21 +346,6 @@
 }
 </script>
 
-<!-- TECHNICAL SEO: BreadcrumbList for site navigation signals -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.studycapital.in/"},
-    {"@type":"ListItem","position":2,"name":"Services","item":"https://www.studycapital.in/#services"},
-    {"@type":"ListItem","position":3,"name":"EMI Calculator","item":"https://www.studycapital.in/#calculator"},
-    {"@type":"ListItem","position":4,"name":"Eligibility","item":"https://www.studycapital.in/#eligibility"},
-    {"@type":"ListItem","position":5,"name":"Testimonials","item":"https://www.studycapital.in/#testimonials"},
-    {"@type":"ListItem","position":6,"name":"Contact","item":"https://www.studycapital.in/#contact"}
-  ]
-}
-</script>
 
 <!-- TECHNICAL SEO: WebSite with SearchAction -->
 <script type="application/ld+json">
@@ -1363,7 +1348,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </div>
 
 <!-- HERO -->
-<section id="home" class="hero" role="banner" aria-label="Education Loan Hero Section" itemscope itemtype="https://schema.org/WPHeader">
+<section id="home" class="hero" role="banner" aria-label="Education Loan Hero Section">
   <div class="hero-bg-pattern"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
@@ -1372,7 +1357,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         <span class="hero-badge-dot"></span>
         Trusted Education Finance Partner
       </div>
-      <h1 itemprop="headline">India's Trusted <span>Education Loan Consultant</span> — Study in India &amp; Abroad</h1>
+      <h1>India's Trusted <span>Education Loan Consultant</span> — Study in India &amp; Abroad</h1>
       <p>StudyCapital bridges the gap between your academic ambitions and financial realities. Whether studying domestically or abroad, we make funding your future simple, fast, and stress-free.</p>
       <div class="hero-btns">
         <a href="#contact" class="btn-primary">🎓 Apply Now</a>
@@ -1483,7 +1468,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </div>
 
 <!-- ABOUT -->
-<section id="about" aria-label="About StudyCapital Education Loan Consultants" itemscope itemtype="https://schema.org/AboutPage">
+<section id="about" aria-label="About StudyCapital Education Loan Consultants">
   <div class="about-inner">
     <div class="about-visual">
       <div class="about-card-main">
@@ -1545,7 +1530,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </section>
 
 <!-- SERVICES -->
-<section id="services" aria-label="Education Loan Services" itemscope itemtype="https://schema.org/Service">
+<section id="services" aria-label="Education Loan Services">
   <div class="services-inner">
     <div class="section-header center">
       <div class="section-label">What We Offer</div>
@@ -1971,7 +1956,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
       /* ── Fetch using new Places API v1 (REST) ── */
       function fetchReviews() {
         if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') {
-          console.warn('[StudyCapital Reviews] Add your Google API key to activate live reviews.');
+          // Reviews: Add Google API key to activate live reviews.
           document.getElementById('rv-loading').innerHTML = '🔑 <strong>API key needed.</strong> See the HTML comment above this section to activate live Google Reviews.';
           return;
         }
@@ -2014,7 +1999,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 
 
 
-<section id="faq" aria-label="Frequently Asked Questions about Education Loans" itemscope itemtype="https://schema.org/FAQPage" style="background: var(--white); padding: 80px 5%;">
+<section id="faq" aria-label="Frequently Asked Questions about Education Loans" style="background: var(--white); padding: 80px 5%;">
   <div style="max-width: 900px; margin: 0 auto;">
     <div class="section-header center">
       <div class="section-label">FAQ</div>
@@ -2023,63 +2008,63 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     </div>
     <div style="margin-top: 2rem;">
       <!-- FAQ 1 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">What is the interest rate for education loans in India in 2026?</span>
+          <span>What is the interest rate for education loans in India in 2026?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Education loan interest rates in India start from <strong>8.5% per annum</strong> for government banks like SBI, Bank of Baroda, and Union Bank. Private banks like HDFC Credila and Axis Bank typically offer rates between 10–13% p.a. StudyCapital compares rates across 50+ lenders to find you the lowest rate based on your profile, loan amount, and destination country.</p>
+        <div class="faq-a">
+          <p>Education loan interest rates in India start from <strong>8.5% per annum</strong> for government banks like SBI, Bank of Baroda, and Union Bank. Private banks like HDFC Credila and Axis Bank typically offer rates between 10–13% p.a. StudyCapital compares rates across 50+ lenders to find you the lowest rate based on your profile, loan amount, and destination country.</p>
         </div>
       </div>
       <!-- FAQ 2 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">How much education loan can I get without collateral?</span>
+          <span>How much education loan can I get without collateral?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Most banks in India offer <strong>collateral-free education loans up to ₹7.5 lakhs</strong> under the IBA model. For loans above ₹7.5 lakhs (up to ₹75 lakhs), collateral such as property, FD, or LIC policy may be required. Private lenders like HDFC Credila and Prodigy Finance offer higher unsecured loans based on your university's ranking and co-applicant income.</p>
+        <div class="faq-a">
+          <p>Most banks in India offer <strong>collateral-free education loans up to ₹7.5 lakhs</strong> under the IBA model. For loans above ₹7.5 lakhs (up to ₹75 lakhs), collateral such as property, FD, or LIC policy may be required. Private lenders like HDFC Credila and Prodigy Finance offer higher unsecured loans based on your university's ranking and co-applicant income.</p>
         </div>
       </div>
       <!-- FAQ 3 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">What is the moratorium period in an education loan?</span>
+          <span>What is the moratorium period in an education loan?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">The <strong>moratorium period</strong> in an education loan is the grace period during which you are not required to pay EMIs — typically the <strong>course duration + 6 to 12 months</strong> after course completion or getting a job, whichever is earlier. During this period, simple interest accrues which can optionally be paid to reduce overall interest burden.</p>
+        <div class="faq-a">
+          <p>The <strong>moratorium period</strong> in an education loan is the grace period during which you are not required to pay EMIs — typically the <strong>course duration + 6 to 12 months</strong> after course completion or getting a job, whichever is earlier. During this period, simple interest accrues which can optionally be paid to reduce overall interest burden.</p>
         </div>
       </div>
       <!-- FAQ 4 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">Can I get an education loan for studying in Canada, USA or UK?</span>
+          <span>Can I get an education loan for studying in Canada, USA or UK?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Yes! StudyCapital facilitates education loans for <strong>50+ countries</strong> including USA, UK, Canada, Australia, Germany, Ireland, France and more. For Canada, we also assist with <strong>GIC (Guaranteed Investment Certificate)</strong> requirements. Loans cover tuition, accommodation, travel, study materials, and living expenses abroad.</p>
+        <div class="faq-a">
+          <p>Yes! StudyCapital facilitates education loans for <strong>50+ countries</strong> including USA, UK, Canada, Australia, Germany, Ireland, France and more. For Canada, we also assist with <strong>GIC (Guaranteed Investment Certificate)</strong> requirements. Loans cover tuition, accommodation, travel, study materials, and living expenses abroad.</p>
         </div>
       </div>
       <!-- FAQ 5 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">What is the tax benefit on education loan in India?</span>
+          <span>What is the tax benefit on education loan in India?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Under <strong>Section 80E of the Income Tax Act</strong>, the interest paid on education loans is fully deductible from taxable income for up to <strong>8 consecutive years</strong> from the year repayment begins. There is <strong>no upper limit</strong> on the deduction amount. This applies to loans taken for higher education in India or abroad.</p>
+        <div class="faq-a">
+          <p>Under <strong>Section 80E of the Income Tax Act</strong>, the interest paid on education loans is fully deductible from taxable income for up to <strong>8 consecutive years</strong> from the year repayment begins. There is <strong>no upper limit</strong> on the deduction amount. This applies to loans taken for higher education in India or abroad.</p>
         </div>
       </div>
       <!-- FAQ 6 -->
-      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span itemprop="name">How does StudyCapital differ from going directly to a bank?</span>
+          <span>How does StudyCapital differ from going directly to a bank?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Going to a single bank means you see only their rates and products. StudyCapital <strong>compares 50+ banks</strong> simultaneously, negotiates preferential rates on your behalf, handles all documentation end-to-end, reduces rejection risk through correct filing, and provides post-disbursement support — all at <strong>zero cost to you</strong>. Our clients typically save ₹1–3 lakhs in total interest.</p>
+        <div class="faq-a">
+          <p>Going to a single bank means you see only their rates and products. StudyCapital <strong>compares 50+ banks</strong> simultaneously, negotiates preferential rates on your behalf, handles all documentation end-to-end, reduces rejection risk through correct filing, and provides post-disbursement support — all at <strong>zero cost to you</strong>. Our clients typically save ₹1–3 lakhs in total interest.</p>
         </div>
       </div>
     </div>
@@ -2516,6 +2501,11 @@ async function submitToWorker(emailParams, telegramMessage) {
     });
   } catch (networkErr) {
     // Network error (DNS failure, no internet, CORS, timeout)
+    if (networkErr && networkErr.name === 'AbortError') {
+      const err = new Error('network_timeout');
+      err.isNetworkError = true;
+      throw err;
+    }
     const err = new Error('network_error');
     err.isNetworkError = true;
     throw err;
