@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-026HJWM3H6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-026HJWM3H6');
-  </script>
-  <!-- End Google Analytics -->
 <!-- ═══════════════════════════════════════════════════════
      TECHNICAL SEO — Core Meta & Speed Optimization
      ═══════════════════════════════════════════════════════ -->
@@ -33,7 +24,7 @@
 <link rel="dns-prefetch" href="//wa.me">
 
 <!-- PWA: Web App Manifest (inline — avoids 404 when manifest.json file is missing on server) -->
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22StudyCapital%22,%22short_name%22:%22StudyCapital%22,%22start_url%22:%22/%22,%22display%22:%22browser%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%231A56DB%22}">
 
 <!-- ON-PAGE SEO: Optimised Title Tag (primary keyword first, brand last, 58 chars) -->
 <title>Education Loan Consultant in Delhi | StudyCapital – India &amp; Abroad</title>
@@ -132,7 +123,7 @@
 <meta name="twitter:image:alt" content="StudyCapital – Education Loan Experts India">
 
 <!-- YouTube / Video SEO (itemprop for Google video rich results) -->
-<meta content="StudyCapital – Education Loan Consultants India">
+<meta itemprop="name" content="StudyCapital – Education Loan Consultants India">
 <meta itemprop="description" content="India's trusted education loan consultant. Free consultation for domestic and international education loans. Offices in Delhi, Prayagraj and Zirakpur.">
 <meta itemprop="image" content="https://www.studycapital.in/og-image.jpg">
 
@@ -346,6 +337,21 @@
 }
 </script>
 
+<!-- TECHNICAL SEO: BreadcrumbList for site navigation signals -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.studycapital.in/"},
+    {"@type":"ListItem","position":2,"name":"Services","item":"https://www.studycapital.in/#services"},
+    {"@type":"ListItem","position":3,"name":"EMI Calculator","item":"https://www.studycapital.in/#calculator"},
+    {"@type":"ListItem","position":4,"name":"Eligibility","item":"https://www.studycapital.in/#eligibility"},
+    {"@type":"ListItem","position":5,"name":"Testimonials","item":"https://www.studycapital.in/#testimonials"},
+    {"@type":"ListItem","position":6,"name":"Contact","item":"https://www.studycapital.in/#contact"}
+  ]
+}
+</script>
 
 <!-- TECHNICAL SEO: WebSite with SearchAction -->
 <script type="application/ld+json">
@@ -623,45 +629,26 @@ img { max-width: 100%; display: block; }
 
 /* ── MOBILE NAV ── */
 .mobile-nav {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: #0A1628; overflow-y: auto; z-index: 999;
-  flex-direction: column;
+  display: none; position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+  background: white; overflow-y: auto; z-index: 998;
+  padding: 1.25rem 5% 5rem; border-top: 1px solid #E5E7EB;
 }
-.mobile-nav.open { display: flex; }
-.mobile-nav-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08);
-  flex-shrink: 0;
-}
-.mobile-nav-logo { color: white; font-size: 1rem; font-weight: 700; text-decoration: none; }
-.mobile-nav-logo span { color: #f5a623; }
-.mobile-nav-close {
-  background: rgba(255,255,255,0.1); border: none; color: white;
-  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
-  font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s;
-}
-.mobile-nav-close:hover { background: rgba(255,255,255,0.2); }
-.mobile-nav-body { flex: 1; overflow-y: auto; padding: 0 0 2rem; }
+.mobile-nav.open { display: block; }
 .mobile-nav .mob-section-label {
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 1.8px;
-  text-transform: uppercase; color: rgba(255,255,255,0.35);
-  padding: 1.1rem 20px 0.4rem; display: block;
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #9CA3AF; margin: 1.25rem 0 0.5rem;
 }
-.mobile-nav-section { border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 0.5rem; margin-bottom: 0.25rem; }
 .mobile-nav a {
   display: flex; align-items: center; gap: 10px;
-  padding: 0.65rem 20px;
-  font-size: 0.92rem; font-weight: 500; color: rgba(255,255,255,0.78);
-  text-decoration: none; transition: color 0.2s, background 0.2s;
+  padding: 0.7rem 0.5rem; border-bottom: 1px solid #F9FAFB;
+  font-size: 0.9rem; font-weight: 500; color: #1F2937;
+  text-decoration: none;
 }
-.mobile-nav a:hover { color: white; background: rgba(255,255,255,0.06); }
-.mobile-nav-footer {
-  display: flex; gap: 10px; padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
-}
-.mob-cta { flex:1; background:#1A56DB; color:white!important; text-align:center; padding:0.9rem; border-radius:10px; font-weight:700; font-size:0.9rem; text-decoration:none; }
-.mob-wa { flex:1; background:#25D366; color:white!important; text-align:center; padding:0.9rem; border-radius:10px; font-weight:700; font-size:0.9rem; text-decoration:none; }
+.mobile-nav a:last-of-type { border-bottom: none; }
+.mobile-nav a:hover { color: #1A56DB; background: #EFF6FF; border-radius: 8px; }
+.mobile-nav .mob-cta-wrap { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+.mobile-nav .mob-cta { flex:1; background:#1A56DB; color:white!important; text-align:center; padding:0.9rem; border-radius:10px; font-weight:700; font-size:0.9rem; }
+.mobile-nav .mob-wa { flex:1; background:#25D366; color:white!important; text-align:center; padding:0.9rem; border-radius:10px; font-weight:700; font-size:0.9rem; }
 
 @media (max-width: 1024px) {
   .nav-center { display: none; }
@@ -944,7 +931,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px;
 .btn-outline-white-cta:hover { background: rgba(255,255,255,0.1); }
 
 /* ── FOOTER ── */
-footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5% 30px; overflow-x: hidden; }
+footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5% 30px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; }
 .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
 .footer-brand p { font-size: 0.85rem; line-height: 1.7; margin: 1rem 0; max-width: 280px; }
@@ -964,7 +951,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 .social-btn-li   { background: #0A66C2; }
 .social-btn-tw   { background: #000000; }
 .social-btn-yt   { background: #FF0000; }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; flex-wrap: wrap; gap: 0.75rem; padding-right: 1rem; box-sizing: border-box; width: 100%; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
 
 
 /* ── FAQ SECTION (Content Optimization) ── */
@@ -1266,13 +1253,6 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
       </div>
     </li>
 
-    <!-- Resources -->
-    <li>
-      <a href="/resources/" style="display:flex;align-items:center;gap:6px;">
-        📚 Resources
-      </a>
-    </li>
-
   </ul>
 
   <!-- Right side actions -->
@@ -1288,67 +1268,41 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
   </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-header">
-    <a href="/" class="mobile-nav-logo">Study<span>Capital</span></a>
-    <button class="mobile-nav-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
-  </div>
-  <div class="mobile-nav-body">
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">Main</span>
-      <a href="#about" onclick="closeMenu()">About Us</a>
-      <a href="#services" onclick="closeMenu()">Services</a>
-      <a href="#calculator" onclick="closeMenu()">EMI Calculator</a>
-      <a href="#eligibility" onclick="closeMenu()">Eligibility</a>
-      <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
-      <a href="#faq" onclick="closeMenu()">FAQ</a>
-      <a href="#contact" onclick="closeMenu()">Contact</a>
-    </div>
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">🌍 Study Abroad</span>
-      <a href="/education-loan-usa/" onclick="closeMenu()">🇺🇸 USA Education Loan</a>
-      <a href="/education-loan-canada/" onclick="closeMenu()">🇨🇦 Canada Education Loan</a>
-      <a href="/education-loan-uk/" onclick="closeMenu()">🇬🇧 UK Education Loan</a>
-      <a href="/education-loan-australia/" onclick="closeMenu()">🇦🇺 Australia Education Loan</a>
-      <a href="/education-loan-germany/" onclick="closeMenu()">🇩🇪 Germany Education Loan</a>
-    </div>
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">🎓 India Loans</span>
-      <a href="/education-loan-for-iit/" onclick="closeMenu()">🏛️ IIT Education Loan</a>
-      <a href="/education-loan-for-mbbs/" onclick="closeMenu()">🏥 MBBS Education Loan</a>
-      <a href="/education-loan-without-collateral/" onclick="closeMenu()">🔓 No Collateral Loans</a>
-      <a href="/section-80e-tax-benefit/" onclick="closeMenu()">💰 Section 80E Benefit</a>
-    </div>
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">📍 Offices</span>
-      <a href="/education-loan-delhi/" onclick="closeMenu()">🏙️ Delhi Office</a>
-      <a href="/education-loan-prayagraj/" onclick="closeMenu()">🕌 Prayagraj Branch</a>
-      <a href="/education-loan-zirakpur/" onclick="closeMenu()">🏘️ Zirakpur Branch</a>
-    </div>
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">📝 Blog & Tools</span>
-      <a href="/blog/" onclick="closeMenu()">📝 All Blog Posts</a>
-      <a href="/blog/education-loan-documents-checklist/" onclick="closeMenu()">📋 Documents Checklist</a>
-      <a href="/blog/education-loan-moratorium-period/" onclick="closeMenu()">⏳ Moratorium Guide</a>
-      <a href="/blog/gic-canada-guide/" onclick="closeMenu()">🇨🇦 GIC Canada Guide</a>
-      <a href="/blog/education-loan-rejection-reasons/" onclick="closeMenu()">❌ Rejection Reasons</a>
-      <a href="/hdfc-credila-vs-sbi/" onclick="closeMenu()">⚖️ HDFC vs SBI</a>
-      <a href="/emi-calculator/" onclick="closeMenu()">📊 EMI Calculator</a>
-    </div>
-    <div class="mobile-nav-section">
-      <span class="mob-section-label">📚 Resources</span>
-      <a href="/resources/" onclick="closeMenu()">📥 Free Guides & Whitepapers</a>
-      <a href="/resources/StudyCapital_Education_Loan_Hidden_Costs_Whitepaper.pdf" target="_blank">📊 Hidden Costs Whitepaper</a>
-      <a href="/resources/StudyCapital_USA_Collateral_Free_Loan_Guide_2026.pdf" target="_blank">🇺🇸 USA Collateral-Free Guide</a>
-    </div>
-  </div>
-  <div class="mobile-nav-footer">
-    <a href="#contact" class="mob-cta" onclick="closeMenu()">Apply Now — Free</a>
-    <a href="https://wa.me/919811419910" class="mob-wa" target="_blank">WhatsApp Us</a>
-  </div>
+  <a href="#about" onclick="closeMenu()">About Us</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#calculator" onclick="closeMenu()">EMI Calculator</a>
+  <a href="#eligibility" onclick="closeMenu()">Eligibility</a>
+  <a href="#testimonials" onclick="closeMenu()">Testimonials</a>
+  <a href="#faq" onclick="closeMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <div style="font-size:0.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;padding:0.75rem 0 0.4rem;">🌍 Study Abroad</div>
+  <a href="/education-loan-usa/" onclick="closeMenu()">🇺🇸 USA Education Loan</a>
+  <a href="/education-loan-canada/" onclick="closeMenu()">🇨🇦 Canada Education Loan</a>
+  <a href="/education-loan-uk/" onclick="closeMenu()">🇬🇧 UK Education Loan</a>
+  <a href="/education-loan-australia/" onclick="closeMenu()">🇦🇺 Australia Education Loan</a>
+  <a href="/education-loan-germany/" onclick="closeMenu()">🇩🇪 Germany Education Loan</a>
+  <div style="font-size:0.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;padding:0.75rem 0 0.4rem;">🎓 India Loans</div>
+  <a href="/education-loan-for-iit/" onclick="closeMenu()">🏛️ IIT Education Loan</a>
+  <a href="/education-loan-for-mbbs/" onclick="closeMenu()">🏥 MBBS Education Loan</a>
+  <a href="/education-loan-without-collateral/" onclick="closeMenu()">🔓 No Collateral Loans</a>
+  <a href="/section-80e-tax-benefit/" onclick="closeMenu()">💰 Section 80E Benefit</a>
+  <div style="font-size:0.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;padding:0.75rem 0 0.4rem;">📍 Offices</div>
+  <a href="/education-loan-delhi/" onclick="closeMenu()">🏙️ Delhi Office</a>
+  <a href="/education-loan-prayagraj/" onclick="closeMenu()">🕌 Prayagraj Branch</a>
+  <a href="/education-loan-zirakpur/" onclick="closeMenu()">🏘️ Zirakpur Branch</a>
+  <div style="font-size:0.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;padding:0.75rem 0 0.4rem;">📝 Blog & Tools</div>
+  <a href="/blog/" onclick="closeMenu()">📝 All Blog Posts</a>
+  <a href="/blog/education-loan-documents-checklist/" onclick="closeMenu()">📋 Documents Checklist</a>
+  <a href="/blog/education-loan-moratorium-period/" onclick="closeMenu()">⏳ Moratorium Guide</a>
+  <a href="/blog/gic-canada-guide/" onclick="closeMenu()">🇨🇦 GIC Canada Guide</a>
+  <a href="/blog/education-loan-rejection-reasons/" onclick="closeMenu()">❌ Rejection Reasons</a>
+  <a href="/hdfc-credila-vs-sbi/" onclick="closeMenu()">⚖️ HDFC vs SBI</a>
+  <a href="/emi-calculator/" onclick="closeMenu()">📊 EMI Calculator</a>
+  <a href="#contact" class="nav-cta" onclick="closeMenu()" style="margin-top:0.75rem;">Apply Now — Free</a>
 </div>
 
 <!-- HERO -->
-<section id="home" class="hero" role="banner" aria-label="Education Loan Hero Section">
+<section id="home" class="hero" role="banner" aria-label="Education Loan Hero Section" itemscope itemtype="https://schema.org/WPHeader">
   <div class="hero-bg-pattern"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
@@ -1357,7 +1311,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         <span class="hero-badge-dot"></span>
         Trusted Education Finance Partner
       </div>
-      <h1>India's Trusted <span>Education Loan Consultant</span> — Study in India &amp; Abroad</h1>
+      <h1 itemprop="headline">India's Trusted <span>Education Loan Consultant</span> — Study in India &amp; Abroad</h1>
       <p>StudyCapital bridges the gap between your academic ambitions and financial realities. Whether studying domestically or abroad, we make funding your future simple, fast, and stress-free.</p>
       <div class="hero-btns">
         <a href="#contact" class="btn-primary">🎓 Apply Now</a>
@@ -1468,7 +1422,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </div>
 
 <!-- ABOUT -->
-<section id="about" aria-label="About StudyCapital Education Loan Consultants">
+<section id="about" aria-label="About StudyCapital Education Loan Consultants" itemscope itemtype="https://schema.org/AboutPage">
   <div class="about-inner">
     <div class="about-visual">
       <div class="about-card-main">
@@ -1530,7 +1484,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </section>
 
 <!-- SERVICES -->
-<section id="services" aria-label="Education Loan Services">
+<section id="services" aria-label="Education Loan Services" itemscope itemtype="https://schema.org/Service">
   <div class="services-inner">
     <div class="section-header center">
       <div class="section-label">What We Offer</div>
@@ -1818,7 +1772,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     <script>
     (function () {
       /* ── CONFIG — paste your key here ── */
-      var API_KEY  = 'AIzaSyAlzfZHcg7ak9RPe6m64K-is6WVHx8A-vk';
+      var API_KEY  = 'YOUR_GOOGLE_API_KEY';   // ← replace this
       var PLACE_ID = 'ChIJHxAQUGEFDTkRWKKc58QowVs';
 
       var AVATAR_COLORS = ['#1A56DB','#7c3aed','#059669','#dc2626','#d97706','#0891b2','#be185d'];
@@ -1833,7 +1787,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 
       function avatarHTML(r, idx) {
         if (r.profile_photo_url) {
-          return '<img class="rv-avatar" src="' + r.profile_photo_url + '" alt="' + r.author_name + '" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'">' +
+          return '<img class="rv-avatar" src="' + r.profile_photo_url + '" alt="' + r.author_name + '" onerror="this.style.display='none';this.nextSibling.style.display='flex'">' +
                  '<div class="rv-avatar-init" style="background:' + AVATAR_COLORS[idx % AVATAR_COLORS.length] + ';display:none">' + (r.author_name||'?')[0].toUpperCase() + '</div>';
         }
         return '<div class="rv-avatar-init" style="background:' + AVATAR_COLORS[idx % AVATAR_COLORS.length] + '">' + (r.author_name||'?')[0].toUpperCase() + '</div>';
@@ -1936,7 +1890,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 
       function render(place) {
         /* Summary bar */
-        document.getElementById('rv-score').textContent = place.rating ? parseFloat(place.rating).toFixed(1) : '—';
+        document.getElementById('rv-score').textContent = place.rating || '—';
         document.getElementById('rv-stars-summary').textContent = starsHTML(Math.round(place.rating||0));
         document.getElementById('rv-stars-summary').style.color = '#F59E0B';
         document.getElementById('rv-total-text').textContent = (place.user_ratings_total || 0) + ' Google Reviews';
@@ -1953,53 +1907,40 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         renderSlider();
       }
 
-      /* ── Fetch using new Places API v1 (REST) ── */
-      function fetchReviews() {
-        if (!API_KEY || API_KEY === 'YOUR_GOOGLE_API_KEY') {
-          // Reviews: Add Google API key to activate live reviews.
-          document.getElementById('rv-loading').innerHTML = '🔑 <strong>API key needed.</strong> See the HTML comment above this section to activate live Google Reviews.';
-          return;
-        }
-
-        var url = 'https://places.googleapis.com/v1/places/' + PLACE_ID +
-                  '?languageCode=en&key=' + API_KEY;
-
-        fetch(url, {
-          method: 'GET',
-          headers: {
-            'X-Goog-FieldMask': 'rating,userRatingCount,reviews'
+      /* CORS-safe: use Maps JavaScript API callback approach */
+      window.__rvCallback = function() {
+        if (typeof google === 'undefined' || !google.maps || !google.maps.places) { showError(); return; }
+        var svc = new google.maps.places.PlacesService(document.createElement('div'));
+        svc.getDetails({
+          placeId: PLACE_ID,
+          fields: ['rating','user_ratings_total','reviews']
+        }, function(place, status) {
+          if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+            render(place);
+          } else {
+            showError();
           }
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data.error) { console.error('[Reviews]', data.error); showError(); return; }
+        });
+      };
 
-          /* Map new API shape to existing render() expectations */
-          var mapped = {
-            rating: data.rating,
-            user_ratings_total: data.userRatingCount,
-            reviews: (data.reviews || []).map(function(r) {
-              return {
-                author_name: (r.authorAttribution && r.authorAttribution.displayName) || 'Google User',
-                profile_photo_url: (r.authorAttribution && r.authorAttribution.photoUri) || '',
-                rating: r.rating,
-                relative_time_description: r.relativePublishTimeDescription || '',
-                text: (r.text && r.text.text) || ''
-              };
-            })
-          };
-          render(mapped);
-        })
-        .catch(function(err) { console.error('[Reviews] Fetch error:', err); showError(); });
+      /* Load Maps JS API only when API key is set */
+      if (API_KEY && API_KEY !== 'YOUR_GOOGLE_API_KEY') {
+        var s = document.createElement('script');
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&libraries=places&callback=__rvCallback';
+        s.async = true; s.defer = true;
+        s.onerror = showError;
+        document.head.appendChild(s);
+      } else {
+        /* API key not set yet — show a prompt in console */
+        console.warn('[StudyCapital Reviews] Add your Google API key to activate live reviews. See the comment in the HTML above the reviews section.');
+        document.getElementById('rv-loading').innerHTML = '🔑 <strong>API key needed.</strong> See the HTML comment above this section to activate live Google Reviews.';
       }
-
-      fetchReviews();
     })();
     </script>
 
 
 
-<section id="faq" aria-label="Frequently Asked Questions about Education Loans" style="background: var(--white); padding: 80px 5%;">
+<section id="faq" aria-label="Frequently Asked Questions about Education Loans" itemscope itemtype="https://schema.org/FAQPage" style="background: var(--white); padding: 80px 5%;">
   <div style="max-width: 900px; margin: 0 auto;">
     <div class="section-header center">
       <div class="section-label">FAQ</div>
@@ -2008,63 +1949,63 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     </div>
     <div style="margin-top: 2rem;">
       <!-- FAQ 1 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>What is the interest rate for education loans in India in 2026?</span>
+          <span itemprop="name">What is the interest rate for education loans in India in 2026?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>Education loan interest rates in India start from <strong>8.5% per annum</strong> for government banks like SBI, Bank of Baroda, and Union Bank. Private banks like HDFC Credila and Axis Bank typically offer rates between 10–13% p.a. StudyCapital compares rates across 50+ lenders to find you the lowest rate based on your profile, loan amount, and destination country.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Education loan interest rates in India start from <strong>8.5% per annum</strong> for government banks like SBI, Bank of Baroda, and Union Bank. Private banks like HDFC Credila and Axis Bank typically offer rates between 10–13% p.a. StudyCapital compares rates across 50+ lenders to find you the lowest rate based on your profile, loan amount, and destination country.</p>
         </div>
       </div>
       <!-- FAQ 2 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>How much education loan can I get without collateral?</span>
+          <span itemprop="name">How much education loan can I get without collateral?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>Most banks in India offer <strong>collateral-free education loans up to ₹7.5 lakhs</strong> under the IBA model. For loans above ₹7.5 lakhs (up to ₹75 lakhs), collateral such as property, FD, or LIC policy may be required. Private lenders like HDFC Credila and Prodigy Finance offer higher unsecured loans based on your university's ranking and co-applicant income.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Most banks in India offer <strong>collateral-free education loans up to ₹7.5 lakhs</strong> under the IBA model. For loans above ₹7.5 lakhs (up to ₹75 lakhs), collateral such as property, FD, or LIC policy may be required. Private lenders like HDFC Credila and Prodigy Finance offer higher unsecured loans based on your university's ranking and co-applicant income.</p>
         </div>
       </div>
       <!-- FAQ 3 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>What is the moratorium period in an education loan?</span>
+          <span itemprop="name">What is the moratorium period in an education loan?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>The <strong>moratorium period</strong> in an education loan is the grace period during which you are not required to pay EMIs — typically the <strong>course duration + 6 to 12 months</strong> after course completion or getting a job, whichever is earlier. During this period, simple interest accrues which can optionally be paid to reduce overall interest burden.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">The <strong>moratorium period</strong> in an education loan is the grace period during which you are not required to pay EMIs — typically the <strong>course duration + 6 to 12 months</strong> after course completion or getting a job, whichever is earlier. During this period, simple interest accrues which can optionally be paid to reduce overall interest burden.</p>
         </div>
       </div>
       <!-- FAQ 4 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>Can I get an education loan for studying in Canada, USA or UK?</span>
+          <span itemprop="name">Can I get an education loan for studying in Canada, USA or UK?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>Yes! StudyCapital facilitates education loans for <strong>50+ countries</strong> including USA, UK, Canada, Australia, Germany, Ireland, France and more. For Canada, we also assist with <strong>GIC (Guaranteed Investment Certificate)</strong> requirements. Loans cover tuition, accommodation, travel, study materials, and living expenses abroad.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes! StudyCapital facilitates education loans for <strong>50+ countries</strong> including USA, UK, Canada, Australia, Germany, Ireland, France and more. For Canada, we also assist with <strong>GIC (Guaranteed Investment Certificate)</strong> requirements. Loans cover tuition, accommodation, travel, study materials, and living expenses abroad.</p>
         </div>
       </div>
       <!-- FAQ 5 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>What is the tax benefit on education loan in India?</span>
+          <span itemprop="name">What is the tax benefit on education loan in India?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>Under <strong>Section 80E of the Income Tax Act</strong>, the interest paid on education loans is fully deductible from taxable income for up to <strong>8 consecutive years</strong> from the year repayment begins. There is <strong>no upper limit</strong> on the deduction amount. This applies to loans taken for higher education in India or abroad.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Under <strong>Section 80E of the Income Tax Act</strong>, the interest paid on education loans is fully deductible from taxable income for up to <strong>8 consecutive years</strong> from the year repayment begins. There is <strong>no upper limit</strong> on the deduction amount. This applies to loans taken for higher education in India or abroad.</p>
         </div>
       </div>
       <!-- FAQ 6 -->
-      <div class="faq-item">
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
-          <span>How does StudyCapital differ from going directly to a bank?</span>
+          <span itemprop="name">How does StudyCapital differ from going directly to a bank?</span>
           <span class="faq-arrow" aria-hidden="true">▼</span>
         </button>
-        <div class="faq-a">
-          <p>Going to a single bank means you see only their rates and products. StudyCapital <strong>compares 50+ banks</strong> simultaneously, negotiates preferential rates on your behalf, handles all documentation end-to-end, reduces rejection risk through correct filing, and provides post-disbursement support — all at <strong>zero cost to you</strong>. Our clients typically save ₹1–3 lakhs in total interest.</p>
+        <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Going to a single bank means you see only their rates and products. StudyCapital <strong>compares 50+ banks</strong> simultaneously, negotiates preferential rates on your behalf, handles all documentation end-to-end, reduces rejection risk through correct filing, and provides post-disbursement support — all at <strong>zero cost to you</strong>. Our clients typically save ₹1–3 lakhs in total interest.</p>
         </div>
       </div>
     </div>
@@ -2353,7 +2294,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     </div>
     <div class="footer-bottom">
       <span>© 2026 StudyCapital. All rights reserved. | <a href="/sitemap.xml" style="color:rgba(255,255,255,0.5)">Sitemap</a></span>
-      <span style="display:flex;flex-wrap:wrap;gap:0.4rem 0.75rem;align-items:center;justify-content:flex-end;"><a href="https://www.studycapital.in/privacy-policy.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Privacy Policy</a><span style="color:rgba(255,255,255,0.3)">·</span><a href="https://www.studycapital.in/terms-of-service.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Terms of Service</a><span style="color:rgba(255,255,255,0.3)">·</span><a href="https://www.studycapital.in/disclaimer.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Disclaimer</a></span>
+      <span><a href="https://www.studycapital.in/privacy-policy.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Privacy Policy</a> · <a href="https://www.studycapital.in/terms-of-service.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Terms of Service</a> · <a href="https://www.studycapital.in/disclaimer.html" target="_blank" rel="noopener noreferrer" style="color:rgba(255,255,255,0.5)">Disclaimer</a></span>
     </div>
   </div>
 </footer>
@@ -2501,11 +2442,6 @@ async function submitToWorker(emailParams, telegramMessage) {
     });
   } catch (networkErr) {
     // Network error (DNS failure, no internet, CORS, timeout)
-    if (networkErr && networkErr.name === 'AbortError') {
-      const err = new Error('network_timeout');
-      err.isNetworkError = true;
-      throw err;
-    }
     const err = new Error('network_error');
     err.isNetworkError = true;
     throw err;
