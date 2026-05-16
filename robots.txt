@@ -4,14 +4,14 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /?s=
 
-# Block common junk crawlers
+# Allow SEO crawlers with a crawl delay
 User-agent: AhrefsBot
 Crawl-delay: 10
-Disallow:
+Allow: /
 
 User-agent: SemrushBot
 Crawl-delay: 10
-Disallow:
+Allow: /
 
 # Sitemap
 Sitemap: https://www.studycapital.in/sitemap.xml
