@@ -1,35 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
-  <meta charset="UTF-8">
-  <title>Redirecting… | StudyCapital</title>
-  <script>
-    // GitHub Pages doesn't support .htaccess redirects.
-    // This script handles trailing-slash and clean-URL redirects.
-    (function() {
-      var path = window.location.pathname;
-      var search = window.location.search;
-      var hash = window.location.hash;
-
-      // If path doesn't end with / and doesn't have a file extension, add trailing slash
-      if (path.slice(-1) !== '/' && path.indexOf('.') === -1) {
-        window.location.replace('https://www.studycapital.in' + path + '/' + search + hash);
-        return;
-      }
-
-      // If reached here it's a genuine 404 — redirect to homepage after 3s
-      document.getElementById('msg').style.display = 'block';
-      setTimeout(function() {
-        window.location.replace('https://www.studycapital.in/');
-      }, 3000);
-    })();
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page Not Found – StudyCapital</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="/manifest.json">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9fafb;color:#0A1628;display:flex;flex-direction:column;min-height:100vh;align-items:center;justify-content:center;padding:2rem;text-align:center}
+  .logo{font-weight:800;font-size:1.5rem;color:#1A56DB;margin-bottom:2rem}
+  .code{font-size:5rem;font-weight:800;color:#1A56DB;line-height:1}
+  .msg{font-size:1.4rem;font-weight:600;margin:1rem 0 0.5rem}
+  .sub{color:#6B7280;max-width:420px;line-height:1.6}
+  .btns{display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap;justify-content:center}
+  .btn{padding:0.75rem 1.5rem;border-radius:50px;font-weight:600;text-decoration:none;font-size:0.95rem;transition:all 0.2s}
+  .btn-primary{background:#1A56DB;color:#fff}
+  .btn-primary:hover{background:#1e40af}
+  .btn-outline{border:2px solid #1A56DB;color:#1A56DB}
+  .btn-outline:hover{background:#1A56DB;color:#fff}
+  .popular{margin-top:2.5rem;color:#6B7280;font-size:0.9rem}
+  .popular a{color:#1A56DB;text-decoration:none;font-weight:500}
+  .popular a:hover{text-decoration:underline}
+  .list{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+</style>
 </head>
-<body style="font-family:sans-serif;text-align:center;padding:60px 20px;color:#333">
-  <div id="msg" style="display:none">
-    <h1 style="font-size:48px;margin:0">404</h1>
-    <p style="font-size:18px">Page not found. Redirecting you to the homepage…</p>
-    <p><a href="https://www.studycapital.in/" style="color:#1a73e8">Click here if not redirected</a></p>
+<body>
+  <div class="logo">📚 StudyCapital</div>
+  <div class="code">404</div>
+  <div class="msg">Page Not Found</div>
+  <p class="sub">The page you were looking for doesn't exist or may have been moved. Let us help you find what you need.</p>
+  <div class="btns">
+    <a href="/" class="btn btn-primary">🏠 Go to Homepage</a>
+    <a href="https://wa.me/919811419910?text=Hi%20StudyCapital!%20I%20landed%20on%20a%20404%20page." class="btn btn-outline" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+  </div>
+  <div class="popular">
+    <div>Popular pages:</div>
+    <div class="list">
+      <a href="/emi-calculator/">EMI Calculator</a> ·
+      <a href="/education-loan-usa/">USA Loan</a> ·
+      <a href="/education-loan-canada/">Canada Loan</a> ·
+      <a href="/education-loan-without-collateral/">No Collateral</a> ·
+      <a href="/education-loan-for-mbbs/">MBBS Loan</a>
+    </div>
   </div>
 </body>
 </html>

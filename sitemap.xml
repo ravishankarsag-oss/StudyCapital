@@ -86,15 +86,13 @@
   <url><loc>https://www.studycapital.in/blog/education-loan-rejection-reasons/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
 
   <!-- TIER 6c — Blog posts (to create) -->
-  <url><loc>https://www.studycapital.in/blog/education-loan-interest-rates-2026/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/how-to-apply-education-loan/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/education-loan-vs-scholarship/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/gre-score-education-loan-impact/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/education-loan-repayment-tips/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
-  <url><loc>https://www.studycapital.in/blog/collateral-vs-non-collateral-education-loan/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>
 
   <!-- NOTE: Legal pages intentionally excluded from sitemap -->
   <!-- Add <meta name="robots" content="noindex"> to: -->
   <!--   /privacy-policy.html  /terms-of-service.html  /disclaimer.html -->
 
+
+  <url><loc>https://www.studycapital.in/privacy-policy/</loc><lastmod>2026-05-17</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.studycapital.in/terms-of-service/</loc><lastmod>2026-05-17</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://www.studycapital.in/disclaimer/</loc><lastmod>2026-05-17</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>

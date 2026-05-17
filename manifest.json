@@ -1,17 +1,22 @@
 {
   "name": "StudyCapital – Education Loan Consultant",
   "short_name": "StudyCapital",
-  "description": "Trusted education loan consultant in Delhi. Free consultation for India & abroad loans from 8.5% p.a.",
+  "description": "Free education loan guidance — compare 50+ banks, India & abroad.",
   "start_url": "/",
-  "display": "browser",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#1A56DB",
   "lang": "en-IN",
   "icons": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='48' fill='%231A56DB'/><path d='M96 36L24 75L96 114L168 75Z' fill='white'/><path d='M54 96v36s18 18 42 18 42-18 42-18V96' stroke='white' stroke-width='12' fill='none'/></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml"
-    }
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "categories": ["finance", "education", "business"],
+  "shortcuts": [
+    { "name": "EMI Calculator", "url": "/emi-calculator/", "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }] },
+    { "name": "Apply Now", "url": "/#contact", "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }] }
   ]
 }

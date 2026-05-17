@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-026HJWM3H6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-026HJWM3H6');
+  </script>
+  <!-- End Google Analytics -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.clarity.ms https://maps.googleapis.com https://api.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://studycapital-form-handler.studycapital2026.workers.dev https://api.telegram.org https://api.emailjs.com; frame-src https://maps.google.com; object-src 'none'; base-uri 'self';">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyCapital — SEO Deployment Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1628;--blue:#1A56DB;--green:#059669;--orange:#F97316;--red:#DC2626;--gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;--gray-600:#4B5563;--gray-800:#1F2937;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4ff;color:var(--gray-800);line-height:1.7;}
+.cover{background:linear-gradient(135deg,#0a1628,#1A56DB);padding:3rem 2.5rem;color:white;text-align:center;}
+.cover h1{font-size:2rem;margin-bottom:0.5rem;}
+.cover p{color:rgba(255,255,255,0.75);max-width:600px;margin:0 auto 1.5rem;font-size:0.95rem;}
+.chips{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;}
+.chip{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:0.8rem;}
+.wrap{max-width:960px;margin:2rem auto;padding:0 1.5rem 4rem;}
+.card{background:white;border-radius:16px;padding:2rem;margin-bottom:1.5rem;box-shadow:0 4px 24px rgba(0,0,0,0.07);}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1.5px solid var(--gray-100);}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.icon-blue{background:#EFF6FF;}
+.icon-green{background:#ECFDF5;}
+.icon-orange{background:#FFF7ED;}
+.icon-red{background:#FEF2F2;}
+.card-title{font-size:1.1rem;font-weight:700;color:var(--navy);}
+.card-sub{font-size:0.8rem;color:var(--gray-600);}
+.step-list{display:flex;flex-direction:column;gap:0.5rem;}
+.step-row{display:flex;gap:12px;align-items:flex-start;padding:0.75rem 1rem;border-radius:10px;background:var(--gray-50);border:1px solid var(--gray-200);}
+.step-badge{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0;margin-top:2px;}
+.b-blue{background:var(--blue);}
+.b-green{background:var(--green);}
+.b-orange{background:var(--orange);}
+.step-content{flex:1;}
+.step-title{font-size:0.9rem;font-weight:600;color:var(--gray-800);}
+.step-desc{font-size:0.82rem;color:var(--gray-600);margin-top:2px;}
+.step-code{font-family:monospace;background:#f1f5f9;border:1px solid var(--gray-200);border-radius:6px;padding:0.4rem 0.7rem;font-size:0.78rem;color:var(--navy);margin-top:6px;display:inline-block;word-break:break-all;}
+.urgent{background:#fef2f2;border-color:#fecaca;}
+.urgent .step-title{color:var(--red);}
+.file-table{width:100%;border-collapse:collapse;font-size:0.83rem;}
+.file-table th{background:var(--navy);color:white;padding:9px 12px;text-align:left;font-size:0.72rem;font-weight:600;letter-spacing:0.05em;}
+.file-table th:first-child{border-radius:8px 0 0 0;}.file-table th:last-child{border-radius:0 8px 0 0;}
+.file-table td{padding:9px 12px;border-bottom:1px solid var(--gray-100);vertical-align:top;}
+.file-table tr:hover td{background:var(--gray-50);}
+.status-new{background:#dbeafe;color:#1e40af;font-size:0.68rem;padding:2px 7px;border-radius:10px;font-weight:600;}
+.status-fix{background:#fee2e2;color:#991b1b;font-size:0.68rem;padding:2px 7px;border-radius:10px;font-weight:600;}
+.status-update{background:#fef3c7;color:#92400e;font-size:0.68rem;padding:2px 7px;border-radius:10px;font-weight:600;}
+.priority-1{background:#fee2e2;color:#991b1b;font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:10px;}
+.priority-2{background:#fef3c7;color:#92400e;font-weight:700;font-size:0.72px;padding:2px 8px;border-radius:10px;font-size:0.72rem;}
+.priority-3{background:#dbeafe;color:#1e40af;font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:10px;}
+.tip-box{background:#EFF6FF;border:1.5px solid #bfdbfe;border-radius:10px;padding:1rem 1.25rem;margin-top:1rem;font-size:0.85rem;color:#1e3a8a;}
+.warn-box{background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:1rem 1.25rem;margin-top:1rem;font-size:0.85rem;color:#7c2d12;}
+footer{background:var(--navy);color:rgba(255,255,255,0.6);text-align:center;padding:1.5rem;font-size:0.82rem;margin-top:2rem;}
+</style>
+</head>
+<body>
+<noscript>
+<div style="background:#dc2626;color:#fff;text-align:center;padding:12px 16px;font-family:sans-serif;font-size:14px;position:relative;z-index:99999;">
+  ⚠️ JavaScript is required for this site. Please <a href="https://wa.me/919811419910" style="color:#fff;font-weight:bold;">WhatsApp us</a> or call <a href="tel:+919811419910" style="color:#fff;font-weight:bold;">+91 98114 19910</a>.
+</div>
+</noscript>
+
+<div class="cover">
+  <h1>🚀 StudyCapital — SEO Deployment Guide</h1>
+  <p>Complete instructions for deploying all 14 SEO files to studycapital.in. Follow steps in order. Estimated deployment time: 2–3 hours.</p>
+  <div class="chips">
+    <span class="chip">14 files to deploy</span>
+    <span class="chip">1 index.html fix</span>
+    <span class="chip">12 new pages</span>
+    <span class="chip">1 updated sitemap</span>
+    <span class="chip">Generated May 2026</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- FILE MANIFEST -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-blue">📁</div>
+      <div><div class="card-title">Complete File Manifest — What You Received</div><div class="card-sub">14 files total. Deploy to your Cloudflare Pages / hosting root.</div></div>
+    </div>
+    <table class="file-table">
+      <thead><tr><th>#</th><th>Output Filename</th><th>Deploy To (URL path)</th><th>Type</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>index_fixed.html</td><td>Replace existing index.html at root /</td><td><span class="status-fix">FIX</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>2</td><td>sitemap_updated.xml</td><td>Replace existing sitemap.xml at /sitemap.xml</td><td><span class="status-update">UPDATE</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>3</td><td>page1_education-loan-delhi.html</td><td>/education-loan-delhi/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>4</td><td>page2_education-loan-without-collateral.html</td><td>/education-loan-without-collateral/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>5</td><td>page3_emi-calculator.html</td><td>/emi-calculator/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>6</td><td>page4_education-loan-prayagraj.html</td><td>/education-loan-prayagraj/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>7</td><td>page5_education-loan-zirakpur.html</td><td>/education-loan-zirakpur/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-1">CRITICAL</span></td></tr>
+        <tr><td>8</td><td>page6_section-80e-tax-benefit.html</td><td>/section-80e-tax-benefit/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-2">HIGH</span></td></tr>
+        <tr><td>9</td><td>page7_education-loan-usa.html</td><td>/education-loan-usa/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-2">HIGH</span></td></tr>
+        <tr><td>10</td><td>page8_education-loan-canada.html</td><td>/education-loan-canada/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-2">HIGH</span></td></tr>
+        <tr><td>11</td><td>page9_education-loan-uk.html</td><td>/education-loan-uk/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-2">HIGH</span></td></tr>
+        <tr><td>12</td><td>page10_sbi-education-loan.html</td><td>/sbi-education-loan/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-3">MEDIUM</span></td></tr>
+        <tr><td>13</td><td>page11_hdfc-credila-vs-sbi.html</td><td>/hdfc-credila-vs-sbi/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-3">MEDIUM</span></td></tr>
+        <tr><td>14</td><td>page12_blog.html</td><td>/blog/index.html</td><td><span class="status-new">NEW</span></td><td><span class="priority-3">MEDIUM</span></td></tr>
+      </tbody>
+    </table>
+    <div class="tip-box">💡 <strong>Folder structure rule:</strong> Each new page goes inside a folder named after its URL slug. For example, <code>page1_education-loan-delhi.html</code> → create folder <code>education-loan-delhi/</code> → save file as <code>index.html</code> inside that folder. This gives you clean URLs without .html extensions.</div>
+  </div>
+
+  <!-- STEP 1 — IMMEDIATE FIXES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-red">🔴</div>
+      <div><div class="card-title">Step 1 — Immediate Fixes (Do These First)</div><div class="card-sub">These fixes require no new pages — just replacing existing files. Do before anything else.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row urgent">
+        <div class="step-badge b-blue">1a</div>
+        <div class="step-content">
+          <div class="step-title">🔴 Replace index.html with index_fixed.html</div>
+          <div class="step-desc">This fixes the broken FAQ section (invisible to Google), the ratingValue inconsistency (4.9 vs 5.0), and removes the fabricated VideoObject interactionCount. Critical for FAQ rich results in Google SERP.</div>
+          <div class="step-code">Upload: index_fixed.html → rename to index.html → replace root file</div>
+        </div>
+      </div>
+      <div class="step-row urgent">
+        <div class="step-badge b-blue">1b</div>
+        <div class="step-content">
+          <div class="step-title">🔴 Add your Bing Webmaster verification code</div>
+          <div class="step-desc">Open index_fixed.html and find the placeholder PASTE_YOUR_BING_CODE_HERE. Go to bing.com/webmasters → Add Site → HTML Meta Tag → copy the content value → paste it in. Unlocks Bing/DuckDuckGo (30% of desktop searches).</div>
+          <div class="step-code">bing.com/webmasters → Add Site → studycapital.in → copy meta content value</div>
+        </div>
+      </div>
+      <div class="step-row urgent">
+        <div class="step-badge b-blue">1c</div>
+        <div class="step-content">
+          <div class="step-title">🔴 Upload og-image.jpg and office.jpg</div>
+          <div class="step-desc">Both images are referenced in schema markup and Open Graph tags but may be missing (returning 404). Missing images are crawl errors. Create a 1200×630px brand image for og-image.jpg and an office photo for office.jpg.</div>
+          <div class="step-code">Upload to: /og-image.jpg and /office.jpg at root of your domain</div>
+        </div>
+      </div>
+      <div class="step-row urgent">
+        <div class="step-badge b-blue">1d</div>
+        <div class="step-content">
+          <div class="step-title">🔴 Replace sitemap.xml with sitemap_updated.xml</div>
+          <div class="step-desc">The new sitemap includes all 12 new pages with correct priorities, changefreq, and lastmod dates. The old sitemap only had 2 URLs — Google was only aware of 2 pages.</div>
+          <div class="step-code">Upload: sitemap_updated.xml → rename to sitemap.xml → replace root file</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — DEPLOY NEW PAGES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-blue">📄</div>
+      <div><div class="card-title">Step 2 — Deploy All 12 New Pages (in priority order)</div><div class="card-sub">Create folders and upload files. Cloudflare Pages, GitHub Pages or any static host works.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-blue">2a</div>
+        <div class="step-content">
+          <div class="step-title">Create folder structure on your host</div>
+          <div class="step-desc">Each page needs its own folder. Create these 12 folders at the root of your site:</div>
+          <div class="step-code">education-loan-delhi/ | education-loan-without-collateral/ | emi-calculator/ | education-loan-prayagraj/ | education-loan-zirakpur/ | section-80e-tax-benefit/ | education-loan-usa/ | education-loan-canada/ | education-loan-uk/ | sbi-education-loan/ | hdfc-credila-vs-sbi/ | blog/</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-blue">2b</div>
+        <div class="step-content">
+          <div class="step-title">Upload each file as index.html inside its folder</div>
+          <div class="step-desc">Rename each downloaded file to index.html and place inside the matching folder. Example: <code>page1_education-loan-delhi.html</code> → <code>education-loan-delhi/index.html</code></div>
+          <div class="step-code">page1 → education-loan-delhi/index.html | page2 → education-loan-without-collateral/index.html | page3 → emi-calculator/index.html | [continue for all 12]</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-blue">2c</div>
+        <div class="step-content">
+          <div class="step-title">If using Cloudflare Pages (your current setup)</div>
+          <div class="step-desc">Push all files to your GitHub repo. Cloudflare Pages will automatically build and deploy. Your wrangler.toml handles the worker separately — these are static HTML pages, no worker changes needed.</div>
+          <div class="step-code">git add . && git commit -m "SEO: Add 12 landing pages + fix index.html FAQ" && git push</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 — GOOGLE SETUP -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-green">🔍</div>
+      <div><div class="card-title">Step 3 — Google Search Console & Indexing</div><div class="card-sub">Tell Google about every new page immediately after deployment.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-green">3a</div>
+        <div class="step-content">
+          <div class="step-title">Submit updated sitemap to Google Search Console</div>
+          <div class="step-desc">Go to GSC → Sitemaps → Add new sitemap → paste URL → Submit. Google will crawl all 16 URLs within 24–72 hours.</div>
+          <div class="step-code">search.google.com/search-console → Sitemaps → https://www.studycapital.in/sitemap.xml</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">3b</div>
+        <div class="step-content">
+          <div class="step-title">Request indexing for each new page via URL Inspection</div>
+          <div class="step-desc">In GSC, use URL Inspection → paste each new page URL → "Request Indexing". Do this for all 12 new pages. This signals Google to crawl immediately rather than waiting for the sitemap cycle.</div>
+          <div class="step-code">GSC → URL Inspection → paste URL → Request Indexing (repeat for all 12 pages)</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">3c</div>
+        <div class="step-content">
+          <div class="step-title">Submit sitemap to Bing Webmaster Tools</div>
+          <div class="step-desc">After adding your Bing verification code (Step 1b), go to Bing Webmaster → Sitemaps → Submit. Bing also powers DuckDuckGo, Yahoo and Microsoft Edge suggestions.</div>
+          <div class="step-code">bing.com/webmasters → Sitemaps → https://www.studycapital.in/sitemap.xml</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">3d</div>
+        <div class="step-content">
+          <div class="step-title">Validate structured data with Google Rich Results Test</div>
+          <div class="step-desc">After deploying index_fixed.html, test it at the Rich Results Test tool. You should now see FAQPage, FinancialService, LocalBusiness, HowTo, Review, VideoObject, and BreadcrumbList all passing.</div>
+          <div class="step-code">search.google.com/test/rich-results → test https://www.studycapital.in/</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 — GOOGLE BUSINESS PROFILE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-orange">📍</div>
+      <div><div class="card-title">Step 4 — Google Business Profile (Highest Impact for Local)</div><div class="card-sub">Without GBP, you cannot appear in map results. This is your single biggest local SEO lever.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-orange">4a</div>
+        <div class="step-content">
+          <div class="step-title">Create GBP — New Delhi (Sainik Nagar)</div>
+          <div class="step-desc">Business name: StudyCapital – Education Loan Consultant | Category: Financial Consultant | Address: B-158/159, Sainik Nagar, Gali No. 7, New Delhi 110059 | Phone: +91 98114 19910 | Website: studycapital.in</div>
+          <div class="step-code">business.google.com → Add business → Use exact NAP above</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-orange">4b</div>
+        <div class="step-content">
+          <div class="step-title">Create GBP — Prayagraj (Naini Branch)</div>
+          <div class="step-desc">Business name: StudyCapital – Education Loan Consultant Prayagraj | Address: D Block, ADA Colony, Naini, Prayagraj, UP 211008 | Phone: +91 98114 19910</div>
+          <div class="step-code">business.google.com → Add business → Link parent: StudyCapital Delhi</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-orange">4c</div>
+        <div class="step-content">
+          <div class="step-title">Create GBP — Zirakpur (Punjab Branch)</div>
+          <div class="step-desc">Business name: StudyCapital – Education Loan Consultant Zirakpur | Address: 244/9 South City VIP Road, Zirakpur, Punjab 140603 | Phone: +91 98114 19910</div>
+          <div class="step-code">business.google.com → Add business → Link parent: StudyCapital Delhi</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-orange">4d</div>
+        <div class="step-content">
+          <div class="step-title">Optimise each GBP listing after verification</div>
+          <div class="step-desc">Add: 10+ photos (office exterior, interior, team, certificates) | Business description (500 words) | Services list (Education Loan Consulting, Scholarship Guidance, Forex Remittance etc.) | Office hours | Q&amp;A responses | Weekly posts | Link to matching landing page</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-orange">4e</div>
+        <div class="step-content">
+          <div class="step-title">Collect 10 Google reviews per listing (first 2 weeks)</div>
+          <div class="step-desc">Send this WhatsApp template to past clients: "Hi [Name], we'd really appreciate a quick Google review for StudyCapital. Takes 2 minutes and helps other students find us! [GBP review link]". Target: 50 reviews across 3 listings within 90 days.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 — CITATIONS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-green">📋</div>
+      <div><div class="card-title">Step 5 — Business Directory Listings (Week 2–3)</div><div class="card-sub">JustDial and Sulekha appear on page 1 for "education loan consultant Delhi" — get listed on all of them.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-green">5a</div>
+        <div class="step-content">
+          <div class="step-title">Submit to JustDial — all 3 cities</div>
+          <div class="step-desc">JustDial appears in positions 1–4 for most "education loan" local searches. Free listing available. Paid listing (~₹3,000/year) gets you top placement and leads.</div>
+          <div class="step-code">justdial.com → List Your Business → Category: Education Loan Consultant</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">5b</div>
+        <div class="step-content">
+          <div class="step-title">Submit to Sulekha, IndiaMart, UrbanPro</div>
+          <div class="step-desc">All three rank well for education loan queries. Free listings. Use exact NAP (Name, Address, Phone) — must match GBP and website exactly for citation consistency.</div>
+          <div class="step-code">sulekha.com | indiamart.com | urbanpro.com → Register as service provider</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">5c</div>
+        <div class="step-content">
+          <div class="step-title">Submit to finance-specific directories</div>
+          <div class="step-desc">BankBazaar partner directory, PolicyBazaar education loans, Paisabazaar, and IndiaLends all have education loan consultant listings that generate direct leads AND backlinks.</div>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box">⚠️ <strong>NAP Consistency rule:</strong> Use exactly the same Name, Address, and Phone across every listing. Even small differences (e.g. "Sainik Nagar" vs "Sanik Nagar", or "+919811419910" vs "+91 98114 19910") confuse Google's local algorithm. Use this exact format everywhere: <strong>StudyCapital | B-158/159, Sainik Nagar, New Delhi 110059 | +91 98114 19910</strong></div>
+  </div>
+
+  <!-- STEP 6 — BACKLINKS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-blue">🔗</div>
+      <div><div class="card-title">Step 6 — Backlink Acquisition (Month 2–3)</div><div class="card-sub">Zero backlinks is your biggest weakness. Target 5 new backlinks per month minimum.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-blue">6a</div>
+        <div class="step-content">
+          <div class="step-title">Answer 20 Quora questions on education loans</div>
+          <div class="step-desc">Search Quora for "education loan India", "SBI education loan", "study abroad loan", "education loan without collateral". Write detailed answers (300+ words each). Link to your EMI calculator or relevant landing page as a resource. Target: 20 answers in first month. Each generates a nofollow backlink and direct traffic.</div>
+          <div class="step-code">quora.com → search "education loan India" → answer with expertise → link to /emi-calculator/</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-blue">6b</div>
+        <div class="step-content">
+          <div class="step-title">Guest posts on education portals</div>
+          <div class="step-desc">Target: Shiksha.com, CollegeDekho.com, Careers360.com, GetMyUni.com. Email their content teams offering a free expert article on education loans. These sites have Domain Authority 50–70+ and a single backlink from them is worth dozens of directory listings.</div>
+          <div class="step-code">Email template: "Hi, I'm [Name] from StudyCapital — we're certified education loan consultants. I'd like to contribute a guest article on [Topic] for your readers. No promotional content — purely helpful. Would this be of interest?"</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-blue">6c</div>
+        <div class="step-content">
+          <div class="step-title">Press release on education finance</div>
+          <div class="step-desc">Write a 400-word press release about StudyCapital's expansion or a study finding (e.g. "StudyCapital processes 200% more Canada study loans in 2026 as Punjab students choose Canada"). Submit to PRLog, PRNewswire India, and BusinessWire India — free tiers available.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-blue">6d</div>
+        <div class="step-content">
+          <div class="step-title">Partner with coaching centres and colleges</div>
+          <div class="step-desc">Approach IELTS/GRE coaching centres in Delhi, Prayagraj and Zirakpur. Offer to do free education loan workshops for their students. In return, ask for a mention + link on their website. These are often .edu or .org domains — gold for SEO.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACKING -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-green">📊</div>
+      <div><div class="card-title">Tracking — What to Measure Weekly</div><div class="card-sub">Set up these free tools before deploying so you have baseline data.</div></div>
+    </div>
+    <div class="step-list">
+      <div class="step-row">
+        <div class="step-badge b-green">T1</div>
+        <div class="step-content">
+          <div class="step-title">Google Search Console — Track keyword positions</div>
+          <div class="step-desc">Check weekly: Performance → Search Results → Queries. Watch for new keywords entering the top 10. Set up email alerts for significant traffic changes.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">T2</div>
+        <div class="step-content">
+          <div class="step-title">Google Analytics 4 — Track page traffic</div>
+          <div class="step-desc">Add GA4 tracking code to all 12 new pages (and the fixed index.html). Monitor: organic sessions per page, bounce rate, form submissions as conversion events.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">T3</div>
+        <div class="step-content">
+          <div class="step-title">Free rank tracker — Ubersuggest or Google Search Console</div>
+          <div class="step-desc">Track these keywords weekly: "education loan consultant Delhi", "education loan Prayagraj", "education loan Zirakpur", "education loan without collateral India", "education loan EMI calculator". Set a reminder to check every Monday.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-badge b-green">T4</div>
+        <div class="step-content">
+          <div class="step-title">GBP Insights — Track local search visibility</div>
+          <div class="step-desc">After GBP is live: check Insights weekly for "views on search", "views on maps", "calls", and "direction requests". These are leading indicators of local SEO success before website traffic increases.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPECTED TIMELINE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-orange">📅</div>
+      <div><div class="card-title">Expected Results Timeline</div><div class="card-sub">SEO is a compound investment. Here's what to expect when.</div></div>
+    </div>
+    <table class="file-table">
+      <thead><tr><th>Timeframe</th><th>Expected Outcome</th><th>Key Driver</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Week 1–2</strong></td><td>FAQ rich results appear in Google SERP for homepage. Bing begins indexing. 12 new URLs appear in GSC coverage report.</td><td>index.html fix + sitemap submission</td></tr>
+        <tr><td><strong>Week 3–4</strong></td><td>Prayagraj and Zirakpur pages rank top 3 for local queries (near-zero competition). GBP map pack appearance begins.</td><td>Local pages + GBP verification</td></tr>
+        <tr><td><strong>Month 2</strong></td><td>Delhi page enters top 10 for "education loan consultant Delhi". EMI calculator captures 200–500 organic visits/month. JustDial/Sulekha listings generate direct leads.</td><td>Content depth + citation building</td></tr>
+        <tr><td><strong>Month 3</strong></td><td>3–5× organic traffic vs current baseline. Section 80E and collateral-free pages rank top 5. First backlinks from Quora and guest posts improve domain authority from ~5 to ~12 DA.</td><td>Backlinks + content compound effect</td></tr>
+        <tr><td><strong>Month 4–6</strong></td><td>USA, Canada, UK pages start competing for mid-funnel queries. Blog posts begin ranking for long-tail keywords. 50+ Google reviews across 3 GBPs improve click-through rates significantly.</td><td>Authority buildup + reviews</td></tr>
+      </tbody>
+    </table>
+    <div class="tip-box">📌 <strong>The most important thing:</strong> Deployment alone is not enough. Google weights <em>freshness</em> and <em>engagement</em>. After deploying, share each new page on your Instagram, LinkedIn, and WhatsApp broadcast list. Real user engagement (clicks, time-on-page) reinforces Google's trust in the new pages.</div>
+  </div>
+
+</div>
+
+<footer>
+  <strong>StudyCapital SEO Deployment Guide</strong> · Generated May 2026 · studycapital.in<br>
+  All 12 pages are production-ready HTML. Deploy as static files — no server-side processing required.
+</footer>
+</body>
+</html>
