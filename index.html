@@ -187,6 +187,7 @@
       "@type": "PostalAddress",
       "streetAddress": "D Block ADA Colony Naini",
       "addressLocality": "Prayagraj",
+              "postalCode": "211001",
       "addressRegion": "Uttar Pradesh",
       "addressCountry": "IN"
     },
@@ -205,6 +206,7 @@
       "@type": "PostalAddress",
       "streetAddress": "244/9 South City VIP Road",
       "addressLocality": "Zirakpur",
+              "postalCode": "140603",
       "addressRegion": "Punjab",
       "addressCountry": "IN"
     },
@@ -366,23 +368,25 @@
 <!-- SECURITY: Permissions Policy — disables unused browser features -->
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
 <!-- SECURITY: Content-Security-Policy — restrict script/style sources -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.clarity.ms https://maps.googleapis.com https://api.emailjs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://studycapital-form-handler.studycapital2026.workers.dev https://api.telegram.org https://api.emailjs.com; frame-src https://maps.google.com https://www.google.com https://maps.googleapis.com; object-src 'none'; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.clarity.ms https://maps.googleapis.com https://api.emailjs.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://challenges.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://studycapital-form-handler.studycapital2026.workers.dev https://api.telegram.org https://api.emailjs.com https://challenges.cloudflare.com; frame-src https://maps.google.com https://www.google.com https://maps.googleapis.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self';">
 
 <!-- SPEED OPTIMIZATION: DNS Prefetch + Preconnect for zero-latency resources -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin>
 <link rel="dns-prefetch" href="//maps.google.com">
 <link rel="dns-prefetch" href="//api.telegram.org">
 <link rel="dns-prefetch" href="//api.emailjs.com">
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="dns-prefetch" href="//wa.me">
 
 <!-- PWA: Web App Manifest (inline — avoids 404 when manifest.json file is missing on server) -->
 <link rel="manifest" href="/manifest.json">
 
 <!-- ON-PAGE SEO: Optimised Title Tag (primary keyword first, brand last, 58 chars) -->
-<title>Education Loan Consultant in Delhi | StudyCapital – India &amp; Abroad</title>
+<title>Education Loan Consultant Delhi | StudyCapital</title>
 
 <!-- ON-PAGE SEO: Meta Description (155 chars, primary keyword + CTA + USP) -->
 <meta name="description" content="Trusted education loan consultant in Delhi, Prayagraj &amp; Zirakpur. 5000+ students funded across India &amp; 50+ countries from 8.5% p.a. Free consultation.">
@@ -424,9 +428,9 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <meta name="bingbot" content="index, follow">
-<!-- BING WEBMASTER: Replace PASTE_YOUR_BING_VERIFY_CODE with value from bing.com/webmasters -->
+<!-- BING WEBMASTER: Verified via Google Search Console import — no separate code needed -->
 <meta name="indexnow-verification" content="4dfb298ca4a14b79aeb9420e0ee1ed25">
-<meta name="msvalidate.01" content="PASTE_YOUR_BING_VERIFY_CODE">
+<!-- msvalidate.01: Site verified via GSC import on bing.com/webmasters -->
 <meta name="author" content="StudyCapital">
 <meta name="publisher" content="StudyCapital">
 <meta name="copyright" content="StudyCapital 2026">
@@ -1098,7 +1102,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 @media (max-width: 768px) {
   .whatsapp-btn { bottom: 80px; right: 16px; width: 50px; height: 50px; font-size: 1.4rem; }
   .call-btn { bottom: 80px; right: 76px; width: 50px; height: 50px; }
-  .back-top { bottom: 16px; right: 16px; }
+  
 }
 
 /* ── MOBILE NAV ── */
@@ -1111,19 +1115,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 .mobile-nav a { font-size: 1.05rem; font-weight: 500; color: var(--gray-800); padding: 0.75rem 0; border-bottom: 1px solid var(--gray-100); }
 .mobile-nav .nav-cta { border: none; color: white !important; border-radius: 50px; text-align: center; margin-top: 0.5rem; }
 
-/* ── BACK TO TOP ── */
-.back-top {
-  position: fixed; bottom: 20px; right: 20px; z-index: 9999;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--navy); color: white; border: none;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; pointer-events: none;
-  transition: var(--transition); box-shadow: var(--shadow-md);
-  font-size: 1.1rem;
-}
-.back-top.visible { opacity: 1; pointer-events: auto; }
-.back-top:hover { background: var(--blue); transform: translateY(-2px); }
-.back-top svg { display: block; }
+
 .success-msg { display: none; }
 
 #sc-toast-overlay {
@@ -1279,7 +1271,40 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 .whatsapp-btn, .call-btn, .fab-wa, .fab-call {
   transition: opacity 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
 }
+
+/* ── WCAG 2.4.7 Focus Styles ── */
+*:focus-visible {
+  outline: 3px solid #1A56DB !important;
+  outline-offset: 3px !important;
+  border-radius: 3px !important;
+}
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #1A56DB !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 5px rgba(26,86,219,0.15) !important;
+}
+
+/* ── Cookie Consent Banner ── */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#0A1628;color:#fff;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(0,0,0,0.18);transform:translateY(100%);transition:transform 0.35s ease;}
+#cookie-banner.show{transform:translateY(0);}
+#cookie-banner p{margin:0;font-size:13px;line-height:1.5;color:rgba(255,255,255,0.85);flex:1;min-width:200px;}
+#cookie-banner a{color:#60a5fa;text-decoration:underline;}
+.cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+.cookie-accept{background:#1A56DB;color:#fff;border:none;padding:9px 22px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.cookie-accept:hover{background:#1e40af;}
+.cookie-decline{background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.25);padding:9px 18px;border-radius:50px;font-size:13px;cursor:pointer;transition:all 0.2s;}
+.cookie-decline:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+@media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;}.cookie-btns{width:100%;}}
 </style>
+<!-- ══ GA4: Replace G-XXXXXXXXXX with your Measurement ID from analytics.google.com ══ -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script> -->
 <!-- Microsoft Clarity — Heatmaps & Session Recordings -->
 <!-- Tag ID: wrbl6b0krl | Installed: May 2026 -->
 <script>
@@ -1371,7 +1396,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         Tools
         <svg class="nav-chev" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
-      <div class="mega-panel" style="min-width:560px;">
+      <div class="mega-panel" style="min-width:680px;">
         <div class="mp-cols" style="grid-template-columns:1fr 1fr;">
           <div>
             <div class="mp-col-title">🏦 Compare & Calculate</div>
@@ -1525,7 +1550,8 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
 </div>
 
 <!-- HERO -->
-<section id="home" class="hero" role="banner" aria-label="Education Loan Hero Section" itemscope itemtype="https://schema.org/WPHeader">
+<span id="main-content" aria-hidden="true"></span>
+<section id="home" tabindex="-1" class="hero" role="banner" aria-label="Education Loan Hero Section" itemscope itemtype="https://schema.org/WPHeader">
   <div class="hero-bg-pattern"></div>
   <div class="hero-grid-overlay"></div>
   <div class="hero-content">
@@ -1612,6 +1638,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         <label>Message / Additional Info</label>
         <textarea id="h-msg" rows="3" placeholder="Tell us about your requirements, any specific questions, timeline, or details about your course..."></textarea>
       </div>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADRo6pr77mGNNfnG" data-theme="light" id="h-turnstile" style="margin-bottom:10px;"></div>
       <button class="btn-submit" onclick="submitHeroForm()">Get Free Consultation →</button>
       <div class="success-msg" id="hero-success">✅ Request received! We'll call you back shortly.</div>
       <div class="form-note">
@@ -1870,16 +1897,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     </div>
 
     <!-- ── REAL Google Reviews Slider ── -->
-    <!-- SETUP: Replace YOUR_GOOGLE_API_KEY below with your key from console.cloud.google.com -->
-    <!-- Place ID ChIJHxAQUGEFDTkRWKKc58QowVs is already set (StudyCapital Sainik Nagar Delhi) -->
-    <!-- ═══ GOOGLE REVIEWS SLIDER ═══════════════════════════════════════
-         HOW TO ACTIVATE:
-         1. Go to https://console.cloud.google.com
-         2. Create/select a project → Enable "Places API (New)" & "Maps JavaScript API"
-         3. Create an API key → restrict to your domain studycapital.in
-         4. Paste your key below where it says YOUR_GOOGLE_API_KEY
-         Your Place ID: ChIJHxAQUGEFDTkRWKKc58QowVs  ← already set, do not change
-    ════════════════════════════════════════════════════════════════════ -->
+    <!-- Google Reviews Slider — API key configured, Place ID: ChIJHxAQUGEFDTkRWKKc58QowVs -->
 
     <!-- Slider CSS -->
     <style>
@@ -1995,7 +2013,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
     <script>
     (function () {
       /* ── CONFIG — paste your key here ── */
-      var API_KEY  = 'YOUR_GOOGLE_API_KEY';   // ← replace this
+      var API_KEY  = 'AIzaSyAlzfZHcg7ak9RPe6m64K-is6WVHx8A-vk';
       var PLACE_ID = 'ChIJHxAQUGEFDTkRWKKc58QowVs';
 
       var AVATAR_COLORS = ['#1A56DB','#7c3aed','#059669','#dc2626','#d97706','#0891b2','#be185d'];
@@ -2147,7 +2165,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
       };
 
       /* Load Maps JS API only when API key is set */
-      if (API_KEY && API_KEY !== 'YOUR_GOOGLE_API_KEY') {
+      if (API_KEY && API_KEY !== 'AIzaSyAlzfZHcg7ak9RPe6m64K-is6WVHx8A-vk') {
         var s = document.createElement('script');
         s.src = 'https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&libraries=places&callback=__rvCallback';
         s.async = true; s.defer = true;
@@ -2500,6 +2518,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
         <label>Message / Additional Info</label>
         <textarea id="c-msg" rows="3" placeholder="Tell us about your requirements, timeline, or any questions..."></textarea>
       </div>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAADRo6pr77mGNNfnG" data-theme="light" id="c-turnstile" style="margin-bottom:10px;"></div>
       <button class="btn-green" onclick="submitContactForm()">📤 Send Message & Request Callback</button>
       <div class="success-msg" id="contact-success">✅ Thank you! Our advisor will contact you within 2 hours.</div>
     </div>
@@ -2695,9 +2714,6 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- BACK TO TOP -->
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
-
 <script>
 // ══════════════════════════════════════════
 //  ✅ Secure Form Handler
@@ -2819,14 +2835,14 @@ function showFormError(containerId, name, phone) {
 }
 
 // ── Single call: sends Email + Telegram + saves to D1 ──
-async function submitToWorker(emailParams, telegramMessage) {
+async function submitToWorker(emailParams, telegramMessage, turnstileToken = '') {
   let res;
   try {
     const hpVal = (document.getElementById('h-website') || document.getElementById('c-website') || {}).value || '';
     res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emailParams, telegramMessage, honeypot: hpVal }),
+      body: JSON.stringify({ emailParams, telegramMessage, honeypot: hpVal, turnstileToken }),
       signal: AbortSignal.timeout(10000)   // 10-second timeout
     });
   } catch (networkErr) {
@@ -2851,9 +2867,7 @@ async function submitToWorker(emailParams, telegramMessage) {
 // ── Navbar scroll effect + back-to-top ──
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
-  const bt = document.getElementById('backTop');
-  if (bt) bt.classList.toggle('visible', window.scrollY > 400);
-});
+  });
 
 // ── Mobile menu ──
 function toggleMenu(e) {
@@ -3048,7 +3062,17 @@ async function submitHeroForm() {
     return;
   }
 
-  await submitToWorker(emailParams, telegramMessage);
+  // Cloudflare Turnstile token verification
+  const hTsEl = document.querySelector('#h-turnstile [name="cf-turnstile-response"]');
+  if (hTsEl && !hTsEl.value) {
+    showFieldError('h-name', 'Please complete the security check.');
+    btn.textContent = 'Get Free Consultation →';
+    btn.disabled = false;
+    return;
+  }
+  const hTurnstileToken = hTsEl ? hTsEl.value : '';
+
+  await submitToWorker(emailParams, telegramMessage, hTurnstileToken);
 
   showToast(name, fullPhone);
   // Reset form fields
@@ -3129,7 +3153,17 @@ async function submitContactForm() {
     return;
   }
 
-  await submitToWorker(emailParams, telegramMessage);
+  // Cloudflare Turnstile token verification
+  const cTsEl = document.querySelector('#c-turnstile [name="cf-turnstile-response"]');
+  if (cTsEl && !cTsEl.value) {
+    showFieldError('c-name', 'Please complete the security check.');
+    btn.textContent = '📤 Send Message & Request Callback';
+    btn.disabled = false;
+    return;
+  }
+  const cTurnstileToken = cTsEl ? cTsEl.value : '';
+
+  await submitToWorker(emailParams, telegramMessage, cTurnstileToken);
 
   showToast(name, fullPhone);
   // Reset form fields
@@ -3724,6 +3758,28 @@ function openInNewTab(type) {
   var url = urls[type];
   if (url) window.open(url, '_blank', 'noopener,noreferrer');
 }
+
+
+// ── Cookie Consent ──
+(function(){
+  try {
+    if(localStorage.getItem('sc_cookie_consent')) return;
+    setTimeout(function(){
+      var b = document.getElementById('cookie-banner');
+      if(b) b.classList.add('show');
+    }, 1200);
+  } catch(e){}
+})();
+function cookieChoice(accepted){
+  try{ localStorage.setItem('sc_cookie_consent', accepted ? 'accepted' : 'declined'); }catch(e){}
+  var b = document.getElementById('cookie-banner');
+  if(b){ b.style.transition='transform 0.3s ease'; b.style.transform='translateY(100%)'; setTimeout(function(){b.remove();},350); }
+  if(accepted){
+    // Activate GA4 if consent given and Clarity already loads
+    if(typeof gtag === 'function') gtag('consent','update',{'analytics_storage':'granted'});
+  }
+}
+
 </script>
 
 
@@ -3731,6 +3787,16 @@ function openInNewTab(type) {
 <!-- TECHNICAL SEO: IndexNow — NOTE: Ping is now handled server-side via the Cloudflare Worker.
      Client-side pinging removed to avoid Bing rate-limit. Trigger manually after content updates via:
      POST /ping-indexnow on your worker, or use Bing Webmaster Tools directly. -->
+
+<!-- ── Cookie Consent Banner ── -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <p>🍪 We use cookies to improve your experience and analyse site traffic. By clicking <strong>Accept</strong>, you agree to our <a href="/disclaimer/" rel="noopener">Privacy Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-decline" onclick="cookieChoice(false)">Decline</button>
+    <button class="cookie-accept" onclick="cookieChoice(true)">Accept All</button>
+  </div>
+</div>
+
 </body>
 
 </html>
