@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Loan Documents – StudyCapital | Secure Document Submission</title>
+<meta name="description" content="Securely upload your education loan documents to StudyCapital. Submit Aadhaar, marksheets, income proof, and more — verified with OTP for your safety.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.studycapital.in/upload-documents/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231A56DB'/><path d='M16 6L4 12.5L16 19L28 12.5Z' fill='white'/><path d='M9 16v6s3 3 7 3 7-3 7-3v-6' stroke='white' stroke-width='2' fill='none'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap">
+
+<style>
+:root {
+  --navy: #0A1628;
+  --blue: #1A56DB;
+  --blue-light: #3B82F6;
+  --sky: #EFF6FF;
+  --green: #059669;
+  --green-light: #ECFDF5;
+  --orange: #F97316;
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-400: #9CA3AF;
+  --gray-600: #4B5563;
+  --gray-800: #1F2937;
+  --gold: #F59E0B;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: 'DM Sans', sans-serif; color: var(--gray-800); background: var(--gray-50); overflow-x: hidden; min-height: 100vh; }
+h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* NAVBAR */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9990;
+  background: rgba(255,255,255,0.99);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  padding: 0 4%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; color: var(--navy); }
+.logo-icon { width: 36px; height: 36px; background: var(--blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { color: white; }
+.nav-back { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 600; color: var(--blue); border: 1.5px solid var(--blue); padding: 8px 16px; border-radius: 50px; transition: var(--transition); }
+.nav-back:hover { background: var(--sky); }
+.nav-back svg { width: 16px; height: 16px; }
+
+/* PAGE LAYOUT */
+.page-wrap { padding-top: 72px; min-height: 100vh; }
+.page-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1a3a6e 100%);
+  padding: 3rem 5% 2.5rem;
+  text-align: center; color: white;
+}
+.page-hero .badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  padding: 5px 14px; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 1rem; color: rgba(255,255,255,0.9);
+}
+.page-hero h1 { font-size: clamp(1.7rem, 3vw, 2.4rem); margin-bottom: 0.75rem; line-height: 1.3; }
+.page-hero p { font-size: 1rem; color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto; }
+
+.main-content { max-width: 780px; margin: 0 auto; padding: 2.5rem 4% 4rem; }
+
+/* STEPPER */
+.stepper { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 2.5rem; }
+.step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; max-width: 140px; }
+.step-circle {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem; transition: var(--transition);
+  border: 2.5px solid var(--gray-200); background: white; color: var(--gray-400);
+}
+.step.active .step-circle { border-color: var(--blue); background: var(--blue); color: white; }
+.step.done .step-circle { border-color: var(--green); background: var(--green); color: white; }
+.step-label { font-size: 0.72rem; font-weight: 600; color: var(--gray-400); text-align: center; line-height: 1.3; }
+.step.active .step-label { color: var(--blue); }
+.step.done .step-label { color: var(--green); }
+.step-line { flex: 1; height: 2px; background: var(--gray-200); margin: 0 4px; margin-bottom: 20px; transition: var(--transition); max-width: 60px; }
+.step-line.done { background: var(--green); }
+
+/* CARDS */
+.card {
+  background: white; border-radius: var(--radius); padding: 2rem;
+  box-shadow: var(--shadow-md); margin-bottom: 1.5rem;
+}
+.card-title { font-size: 1.3rem; color: var(--navy); margin-bottom: 0.4rem; }
+.card-sub { font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.5rem; }
+
+/* FORM FIELDS */
+.field-group { margin-bottom: 1.25rem; }
+.field-label { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); margin-bottom: 0.4rem; display: block; }
+.field-label span.req { color: #EF4444; margin-left: 2px; }
+.field-row { display: flex; gap: 0.75rem; }
+.field-row .field-group { flex: 1; }
+input[type="text"], input[type="tel"], input[type="email"], select {
+  width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); font-size: 0.95rem; font-family: inherit;
+  color: var(--gray-800); background: white; transition: var(--transition);
+  outline: none;
+}
+input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,0.08); }
+input.error { border-color: #EF4444; }
+
+.otp-row { display: flex; gap: 0.5rem; align-items: flex-end; }
+.otp-row input { flex: 1; letter-spacing: 4px; font-size: 1.2rem; text-align: center; }
+.btn-otp {
+  padding: 0.75rem 1.1rem; background: var(--sky); color: var(--blue);
+  border: 1.5px solid var(--blue); border-radius: var(--radius-sm);
+  font-weight: 700; font-size: 0.85rem; cursor: pointer; white-space: nowrap;
+  transition: var(--transition); font-family: inherit; flex-shrink: 0;
+}
+.btn-otp:hover:not(:disabled) { background: var(--blue); color: white; }
+.btn-otp:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.otp-hint { font-size: 0.78rem; color: var(--gray-400); margin-top: 0.4rem; }
+.otp-timer { font-size: 0.78rem; color: var(--orange); font-weight: 600; margin-top: 0.4rem; }
+
+.btn-primary {
+  width: 100%; padding: 1rem; background: var(--blue); color: white;
+  border: none; border-radius: var(--radius-sm); font-size: 1rem;
+  font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: var(--transition); margin-top: 0.5rem; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.btn-primary:hover:not(:disabled) { background: #1648c0; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,86,219,0.25); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* DOCUMENT UPLOAD SECTION */
+.doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 580px) { .doc-grid { grid-template-columns: 1fr; } }
+
+.doc-card {
+  border: 2px dashed var(--gray-200); border-radius: var(--radius-sm);
+  padding: 1rem; cursor: pointer; transition: var(--transition);
+  position: relative; overflow: hidden;
+}
+.doc-card:hover { border-color: var(--blue); background: var(--sky); }
+.doc-card.has-file { border-color: var(--green); border-style: solid; background: var(--green-light); }
+.doc-card.required-missing { border-color: #EF4444; background: #FEF2F2; }
+
+.doc-card input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  border: none; padding: 0;
+}
+.doc-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+.doc-name { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.15rem; }
+.doc-hint { font-size: 0.72rem; color: var(--gray-400); }
+.doc-status { font-size: 0.72rem; font-weight: 600; margin-top: 0.4rem; }
+.doc-card.has-file .doc-status { color: var(--green); }
+.doc-card.required-missing .doc-status { color: #EF4444; }
+.doc-req-badge {
+  position: absolute; top: 8px; right: 8px;
+  font-size: 0.6rem; font-weight: 800; padding: 2px 6px;
+  border-radius: 50px; background: #FEF3C7; color: #92400E;
+}
+.doc-card.has-file .doc-req-badge { background: var(--green); color: white; }
+
+/* INFO BOX */
+.info-box {
+  background: var(--sky); border: 1px solid #BFDBFE; border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem; display: flex; gap: 0.75rem; align-items: flex-start;
+  font-size: 0.85rem; color: #1E40AF; margin-bottom: 1.5rem;
+}
+.info-box svg { flex-shrink: 0; margin-top: 1px; }
+
+/* PROGRESS BAR */
+.upload-progress { margin-top: 1.5rem; display: none; }
+.upload-progress.show { display: block; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
+.progress-bar-wrap { height: 8px; background: var(--gray-100); border-radius: 50px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--blue); border-radius: 50px; width: 0%; transition: width 0.4s ease; }
+.upload-status-text { font-size: 0.8rem; color: var(--gray-600); margin-top: 0.4rem; text-align: center; }
+
+/* SUCCESS STATE */
+.success-card {
+  background: white; border-radius: var(--radius); padding: 3rem 2rem;
+  text-align: center; box-shadow: var(--shadow-md); display: none;
+}
+.success-card.show { display: block; }
+.success-icon { font-size: 4rem; margin-bottom: 1rem; }
+.success-card h2 { font-size: 1.6rem; color: var(--navy); margin-bottom: 0.75rem; }
+.success-card p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.6; max-width: 400px; margin: 0 auto 1.5rem; }
+.success-ref { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--gray-600); margin-bottom: 1.5rem; }
+.success-ref strong { color: var(--navy); }
+.btn-home { display: inline-block; padding: 0.9rem 2rem; background: var(--navy); color: white; border-radius: 50px; font-weight: 700; font-size: 0.95rem; transition: var(--transition); }
+.btn-home:hover { background: var(--blue); }
+
+/* SECURITY BADGES */
+.security-strip { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; padding: 1.25rem; background: white; border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.sec-badge { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; color: var(--gray-600); }
+.sec-badge svg { color: var(--green); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--navy); color: white; padding: 0.9rem 1.5rem;
+  border-radius: 50px; font-size: 0.9rem; font-weight: 600;
+  box-shadow: var(--shadow-lg); z-index: 9999; transition: transform 0.4s ease;
+  white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--green); }
+.toast.error { background: #DC2626; }
+
+/* SECTION HIDDEN / SHOWN */
+.section-hidden { display: none; }
+
+/* WHATSAPP FLOAT */
+.wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
+.wa-float a { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #25D366; border-radius: 50%; box-shadow: 0 4px 16px rgba(37,211,102,0.35); transition: var(--transition); }
+.wa-float a:hover { transform: scale(1.1); }
+.wa-float svg { width: 28px; height: 28px; fill: white; }
+
+@media (max-width: 600px) {
+  .card { padding: 1.4rem; }
+  .page-hero { padding: 2rem 5% 2rem; }
+  .stepper { gap: 0; }
+  .step-label { font-size: 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="/" class="logo">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    </div>
+    StudyCapital
+  </div>
+  </a>
+  <a href="/" class="nav-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
+    Back to Home
+  </a>
+</nav>
+
+<div class="page-wrap">
+  <!-- HERO -->
+  <div class="page-hero">
+    <div class="badge">🔒 Secure Document Portal</div>
+    <h1>Upload Your Loan Documents</h1>
+    <p>Verify your mobile number and securely submit your documents. Files go directly to our team for fast processing.</p>
+  </div>
+
+  <div class="main-content">
+
+    <!-- STEPPER -->
+    <div class="stepper" id="stepper">
+      <div class="step active" id="step1">
+        <div class="step-circle">1</div>
+        <div class="step-label">Verify<br>Mobile</div>
+      </div>
+      <div class="step-line" id="line1"></div>
+      <div class="step active" id="step2_ind" style="opacity:0.4">
+        <div class="step-circle">2</div>
+        <div class="step-label">Student<br>Details</div>
+      </div>
+      <div class="step-line" id="line2"></div>
+      <div class="step" id="step3_ind" style="opacity:0.4">
+        <div class="step-circle">3</div>
+        <div class="step-label">Upload<br>Documents</div>
+      </div>
+      <div class="step-line" id="line3"></div>
+      <div class="step" id="step4_ind" style="opacity:0.4">
+        <div class="step-circle">✓</div>
+        <div class="step-label">Done!</div>
+      </div>
+    </div>
+
+    <!-- STEP 1: OTP VERIFICATION -->
+    <div id="sectionOTP">
+      <div class="card">
+        <h2 class="card-title">📱 Verify Your Mobile Number</h2>
+        <p class="card-sub">We'll send a 6-digit OTP to confirm your identity before you upload any documents.</p>
+
+        <div class="info-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>Your mobile number is used only for verification and to link your documents to your application. We never share it.</span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Mobile Number <span class="req">*</span></label>
+          <div class="otp-row">
+            <input type="tel" id="phoneInput" placeholder="10-digit mobile number" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'')">
+            <button class="btn-otp" id="btnSendOTP" onclick="sendOTP()">Send OTP</button>
+          </div>
+        </div>
+
+        <div class="field-group section-hidden" id="otpField">
+          <label class="field-label">Enter OTP <span class="req">*</span></label>
+          <div class="otp-row">
+            <input type="tel" id="otpInput" placeholder="6-digit OTP" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'')">
+            <button class="btn-otp" id="btnResendOTP" onclick="resendOTP()" disabled>Resend OTP</button>
+          </div>
+          <div class="otp-hint" id="otpHint">OTP sent to your mobile. Valid for 10 minutes.</div>
+          <div class="otp-timer" id="otpTimer"></div>
+        </div>
+
+        <button class="btn-primary section-hidden" id="btnVerifyOTP" onclick="verifyOTP()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+          Verify & Continue
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: STUDENT DETAILS -->
+    <div id="sectionDetails" class="section-hidden">
+      <div class="card">
+        <h2 class="card-title">🎓 Student Information</h2>
+        <p class="card-sub">Tell us a bit about yourself so we can match your documents to your loan application.</p>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Full Name (as on Aadhaar) <span class="req">*</span></label>
+            <input type="text" id="studentName" placeholder="Enter your full name">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address <span class="req">*</span></label>
+            <input type="email" id="studentEmail" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Course Applied For <span class="req">*</span></label>
+            <input type="text" id="studentCourse" placeholder="e.g. MBA, B.Tech, MBBS">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Target Country / College <span class="req">*</span></label>
+            <input type="text" id="studentCollege" placeholder="e.g. USA – Georgia Tech">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Loan Amount Required <span class="req">*</span></label>
+            <select id="loanAmount">
+              <option value="">Select range</option>
+              <option>Up to ₹5 Lakhs</option>
+              <option>₹5 – 10 Lakhs</option>
+              <option>₹10 – 20 Lakhs</option>
+              <option>₹20 – 40 Lakhs</option>
+              <option>₹40 Lakhs – ₹1 Crore</option>
+              <option>Above ₹1 Crore</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Preferred Bank / NBFC</label>
+            <select id="prefBank">
+              <option value="">No preference</option>
+              <option>SBI</option>
+              <option>HDFC Credila</option>
+              <option>Avanse</option>
+              <option>Axis Bank</option>
+              <option>Bank of Baroda</option>
+              <option>Canara Bank</option>
+              <option>Any – best rate</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="goToUpload()">
+          Continue to Document Upload →
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: DOCUMENT UPLOAD -->
+    <div id="sectionUpload" class="section-hidden">
+      <div class="card">
+        <h2 class="card-title">📄 Upload Your Documents</h2>
+        <p class="card-sub">Upload clearly scanned copies. Accepted formats: PDF, JPG, PNG (max 5 MB per file). Required documents are marked.</p>
+
+        <div class="info-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span>All files are uploaded directly to our private, encrypted Google Drive folder. Only our team can access them.</span>
+        </div>
+
+        <div class="doc-grid" id="docGrid">
+
+          <div class="doc-card" id="dc_aadhaar">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'aadhaar')" id="f_aadhaar">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">🪪</div>
+            <div class="doc-name">Aadhaar Card</div>
+            <div class="doc-hint">Front & back (single PDF)</div>
+            <div class="doc-status" id="ds_aadhaar">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_pan">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'pan')" id="f_pan">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">💳</div>
+            <div class="doc-name">PAN Card</div>
+            <div class="doc-hint">Student or co-applicant</div>
+            <div class="doc-status" id="ds_pan">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_10th">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'tenth')" id="f_tenth">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">📋</div>
+            <div class="doc-name">10th Marksheet</div>
+            <div class="doc-hint">Board certificate + marksheet</div>
+            <div class="doc-status" id="ds_tenth">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_12th">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'twelfth')" id="f_twelfth">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">📋</div>
+            <div class="doc-name">12th Marksheet</div>
+            <div class="doc-hint">Board certificate + marksheet</div>
+            <div class="doc-status" id="ds_twelfth">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_grad">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'grad')" id="f_grad">
+            <div class="doc-icon">🎓</div>
+            <div class="doc-name">Graduation Marksheets</div>
+            <div class="doc-hint">All semesters / years</div>
+            <div class="doc-status" id="ds_grad">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_admit">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'admit')" id="f_admit">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">📩</div>
+            <div class="doc-name">Admission Letter</div>
+            <div class="doc-hint">College / university offer letter</div>
+            <div class="doc-status" id="ds_admit">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_income">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'income')" id="f_income">
+            <div class="doc-req-badge">Required</div>
+            <div class="doc-icon">💰</div>
+            <div class="doc-name">Income Proof</div>
+            <div class="doc-hint">Salary slips / ITR (co-applicant)</div>
+            <div class="doc-status" id="ds_income">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_bank">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'bank')" id="f_bank">
+            <div class="doc-icon">🏦</div>
+            <div class="doc-name">Bank Statement</div>
+            <div class="doc-hint">Last 6 months (co-applicant)</div>
+            <div class="doc-status" id="ds_bank">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_photo">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'photo')" id="f_photo">
+            <div class="doc-icon">🖼️</div>
+            <div class="doc-name">Passport Size Photo</div>
+            <div class="doc-hint">White background, recent</div>
+            <div class="doc-status" id="ds_photo">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_passport">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'passport')" id="f_passport">
+            <div class="doc-icon">✈️</div>
+            <div class="doc-name">Passport (if abroad)</div>
+            <div class="doc-hint">First & last page</div>
+            <div class="doc-status" id="ds_passport">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_gre">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'gre')" id="f_gre">
+            <div class="doc-icon">📝</div>
+            <div class="doc-name">GRE / GMAT / IELTS</div>
+            <div class="doc-hint">Score card (if applicable)</div>
+            <div class="doc-status" id="ds_gre">Click to upload</div>
+          </div>
+
+          <div class="doc-card" id="dc_other">
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'other')" id="f_other">
+            <div class="doc-icon">📎</div>
+            <div class="doc-name">Other / Additional Docs</div>
+            <div class="doc-hint">Collateral, property docs, etc.</div>
+            <div class="doc-status" id="ds_other">Click to upload</div>
+          </div>
+
+        </div>
+
+        <!-- Upload Progress -->
+        <div class="upload-progress" id="uploadProgress">
+          <div class="progress-label">
+            <span>Uploading to Drive…</span>
+            <span id="progressPct">0%</span>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div class="upload-status-text" id="uploadStatusText">Preparing files…</div>
+        </div>
+
+        <button class="btn-primary" id="btnSubmit" onclick="submitDocuments()" style="margin-top:1.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Submit Documents to StudyCapital
+        </button>
+        <p style="text-align:center;font-size:0.78rem;color:var(--gray-400);margin-top:0.75rem;">You can submit additional documents later by contacting us directly.</p>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">🎉</div>
+      <h2>Documents Submitted!</h2>
+      <p>Your documents have been securely uploaded to our system. Our team will review them and contact you within 24–48 hours.</p>
+      <div class="success-ref" id="successRef"></div>
+      <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1.5rem;">Have questions? WhatsApp us at <strong>+91 98114 19910</strong></p>
+      <a href="/" class="btn-home">← Back to StudyCapital</a>
+    </div>
+
+    <!-- SECURITY STRIP -->
+    <div class="security-strip" id="securityStrip">
+      <div class="sec-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Secure Google Drive Upload
+      </div>
+      <div class="sec-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        OTP Verified Identity
+      </div>
+      <div class="sec-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Accessed by Team Only
+      </div>
+      <div class="sec-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        DPDP Compliant
+      </div>
+    </div>
+
+  </div><!-- end main-content -->
+</div><!-- end page-wrap -->
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WHATSAPP FLOAT -->
+<div class="wa-float">
+  <a href="https://wa.me/919811419910?text=Hi%2C+I+have+uploaded+my+loan+documents+on+StudyCapital+portal." target="_blank" rel="noopener" aria-label="WhatsApp us">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const STATE = {
+  phone: '',
+  otpSent: false,
+  otpVerified: false,
+  generatedOTP: '',
+  timerInterval: null,
+  timerSeconds: 0,
+  files: {},
+  studentInfo: {}
+};
+
+const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
+
+// ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
+// IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
+// See setup instructions at the bottom of this file
+const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+// ─── OTP SEND ────────────────────────────────────────────────────────────────
+async function sendOTP() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  if (!/^\d{10}$/.test(phone)) {
+    showToast('Please enter a valid 10-digit mobile number', 'error');
+    document.getElementById('phoneInput').classList.add('error');
+    return;
+  }
+  document.getElementById('phoneInput').classList.remove('error');
+  STATE.phone = phone;
+
+  // Generate 6-digit OTP
+  STATE.generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Send OTP via Apps Script (which will email/SMS it)
+  const btn = document.getElementById('btnSendOTP');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    // Call Google Apps Script to send OTP via email/SMS
+    await sendOTPViaAppsScript(phone, STATE.generatedOTP);
+
+    // Show OTP field
+    document.getElementById('otpField').classList.remove('section-hidden');
+    document.getElementById('btnVerifyOTP').classList.remove('section-hidden');
+    document.getElementById('phoneInput').disabled = true;
+    btn.textContent = 'OTP Sent ✓';
+    STATE.otpSent = true;
+
+    startOTPTimer();
+    showToast('OTP sent successfully!', 'success');
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Send OTP';
+    showToast('Could not send OTP. Please try again.', 'error');
+  }
+}
+
+async function sendOTPViaAppsScript(phone, otp) {
+  // This calls the Google Apps Script to send the OTP
+  // The script will send via email to the team AND send SMS (if configured)
+  const payload = {
+    action: 'sendOTP',
+    phone: phone,
+    otp: otp
+  };
+
+  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+    // DEMO MODE: just simulate for testing
+    console.log(`[DEMO] OTP for ${phone}: ${otp}`);
+    await new Promise(r => setTimeout(r, 800));
+    // Show OTP in alert for demo purposes — remove in production
+    alert(`[DEMO MODE] Your OTP is: ${otp}\n\nIn production, this will be sent via SMS to ${phone}`);
+    return;
+  }
+
+  const resp = await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!resp.ok) throw new Error('Failed');
+}
+
+// ─── OTP TIMER ───────────────────────────────────────────────────────────────
+function startOTPTimer() {
+  STATE.timerSeconds = 30;
+  const resendBtn = document.getElementById('btnResendOTP');
+  const timerEl = document.getElementById('otpTimer');
+  resendBtn.disabled = true;
+
+  clearInterval(STATE.timerInterval);
+  STATE.timerInterval = setInterval(() => {
+    STATE.timerSeconds--;
+    timerEl.textContent = `Resend available in ${STATE.timerSeconds}s`;
+    if (STATE.timerSeconds <= 0) {
+      clearInterval(STATE.timerInterval);
+      timerEl.textContent = '';
+      resendBtn.disabled = false;
+    }
+  }, 1000);
+}
+
+async function resendOTP() {
+  STATE.generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  document.getElementById('btnResendOTP').disabled = true;
+  try {
+    await sendOTPViaAppsScript(STATE.phone, STATE.generatedOTP);
+    showToast('OTP resent successfully!', 'success');
+    startOTPTimer();
+  } catch(e) {
+    showToast('Could not resend OTP.', 'error');
+    document.getElementById('btnResendOTP').disabled = false;
+  }
+}
+
+// ─── OTP VERIFY ──────────────────────────────────────────────────────────────
+function verifyOTP() {
+  const entered = document.getElementById('otpInput').value.trim();
+  if (entered.length !== 6) {
+    showToast('Please enter the 6-digit OTP', 'error');
+    return;
+  }
+
+  if (entered === STATE.generatedOTP) {
+    STATE.otpVerified = true;
+    clearInterval(STATE.timerInterval);
+    showToast('Mobile verified successfully! ✓', 'success');
+
+    // Transition to step 2
+    setTimeout(() => {
+      document.getElementById('sectionOTP').classList.add('section-hidden');
+      document.getElementById('sectionDetails').classList.remove('section-hidden');
+      updateStepper(2);
+    }, 600);
+  } else {
+    showToast('Incorrect OTP. Please try again.', 'error');
+    document.getElementById('otpInput').classList.add('error');
+    document.getElementById('otpInput').value = '';
+    setTimeout(() => document.getElementById('otpInput').classList.remove('error'), 1500);
+  }
+}
+
+// ─── GO TO UPLOAD ─────────────────────────────────────────────────────────────
+function goToUpload() {
+  const name = document.getElementById('studentName').value.trim();
+  const email = document.getElementById('studentEmail').value.trim();
+  const course = document.getElementById('studentCourse').value.trim();
+  const college = document.getElementById('studentCollege').value.trim();
+  const amount = document.getElementById('loanAmount').value;
+
+  if (!name || !email || !course || !college || !amount) {
+    showToast('Please fill all required fields', 'error');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('Please enter a valid email address', 'error');
+    return;
+  }
+
+  STATE.studentInfo = { name, email, course, college, amount,
+    bank: document.getElementById('prefBank').value,
+    phone: STATE.phone };
+
+  document.getElementById('sectionDetails').classList.add('section-hidden');
+  document.getElementById('sectionUpload').classList.remove('section-hidden');
+  updateStepper(3);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── FILE CHOSEN ─────────────────────────────────────────────────────────────
+function fileChosen(input, docKey) {
+  const file = input.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast(`${file.name} is too large. Max 5 MB per file.`, 'error');
+    input.value = '';
+    return;
+  }
+
+  STATE.files[docKey] = file;
+  const card = document.getElementById(`dc_${docKey === 'tenth' ? '10th' : docKey === 'twelfth' ? '12th' : docKey}`);
+  const status = document.getElementById(`ds_${docKey}`);
+
+  // Find the right card
+  const allCards = document.querySelectorAll('.doc-card');
+  allCards.forEach(c => {
+    if (c.querySelector(`#f_${docKey}`)) {
+      c.classList.add('has-file');
+      const badge = c.querySelector('.doc-req-badge');
+      if (badge) badge.textContent = '✓ Uploaded';
+    }
+  });
+
+  if (status) {
+    const fname = file.name.length > 20 ? file.name.substring(0,18)+'…' : file.name;
+    status.textContent = '✓ ' + fname;
+  }
+}
+
+// ─── SUBMIT DOCUMENTS ─────────────────────────────────────────────────────────
+async function submitDocuments() {
+  // Validate required docs
+  const missing = REQUIRED_DOCS.filter(k => !STATE.files[k]);
+  if (missing.length > 0) {
+    const labels = { aadhaar:'Aadhaar', pan:'PAN Card', tenth:'10th Marksheet',
+      twelfth:'12th Marksheet', admit:'Admission Letter', income:'Income Proof' };
+    showToast(`Please upload: ${missing.map(k=>labels[k]).join(', ')}`, 'error');
+
+    // Highlight missing
+    REQUIRED_DOCS.forEach(k => {
+      if (!STATE.files[k]) {
+        document.querySelectorAll('.doc-card').forEach(c => {
+          if (c.querySelector(`#f_${k}`)) c.classList.add('required-missing');
+        });
+      }
+    });
+    return;
+  }
+
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0"/></svg> Uploading…';
+
+  const prog = document.getElementById('uploadProgress');
+  prog.classList.add('show');
+
+  try {
+    await uploadAllToDrive();
+    // Success
+    document.getElementById('sectionUpload').classList.add('section-hidden');
+    document.getElementById('securityStrip').style.display = 'none';
+    const sc = document.getElementById('successCard');
+    sc.classList.add('show');
+    updateStepper(4);
+
+    const refId = 'SC-' + Date.now().toString(36).toUpperCase() + '-' + STATE.phone.slice(-4);
+    document.getElementById('successRef').innerHTML =
+      `Reference ID: <strong>${refId}</strong> | Phone: <strong>+91 ${STATE.phone}</strong>`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch(e) {
+    showToast('Upload failed. Please try again or WhatsApp us.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Submit Documents to StudyCapital';
+  }
+}
+
+async function uploadAllToDrive() {
+  const fileKeys = Object.keys(STATE.files);
+  const total = fileKeys.length;
+  let done = 0;
+
+  setProgress(0, `Preparing ${total} file${total>1?'s':''}…`);
+
+  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+    // DEMO MODE — simulate upload
+    for (let i = 0; i < total; i++) {
+      await new Promise(r => setTimeout(r, 600 + Math.random() * 400));
+      done++;
+      setProgress(Math.round((done / total) * 90), `Uploading ${fileKeys[i]}…`);
+    }
+    setProgress(100, 'All files uploaded! ✓');
+    await new Promise(r => setTimeout(r, 500));
+    return;
+  }
+
+  // Real upload via Google Apps Script
+  for (const key of fileKeys) {
+    const file = STATE.files[key];
+    const base64 = await fileToBase64(file);
+
+    setProgress(Math.round((done / total) * 85), `Uploading ${key}…`);
+
+    const payload = {
+      action: 'uploadFile',
+      studentInfo: STATE.studentInfo,
+      docKey: key,
+      fileName: file.name,
+      mimeType: file.type,
+      data: base64
+    };
+
+    const resp = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!resp.ok) throw new Error(`Upload failed for ${key}`);
+    done++;
+    setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
+  }
+
+  // Send summary notification
+  await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'sendSummary', studentInfo: STATE.studentInfo,
+      docsUploaded: Object.keys(STATE.files) })
+  });
+
+  setProgress(100, 'All files uploaded! ✓');
+  await new Promise(r => setTimeout(r, 500));
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function setProgress(pct, text) {
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('uploadStatusText').textContent = text;
+}
+
+// ─── STEPPER ─────────────────────────────────────────────────────────────────
+function updateStepper(activeStep) {
+  const steps = [null, 'step1', 'step2_ind', 'step3_ind', 'step4_ind'];
+  const lines = [null, 'line1', 'line2', 'line3'];
+
+  steps.forEach((id, i) => {
+    if (!id) return;
+    const el = document.getElementById(id);
+    el.style.opacity = '1';
+    el.classList.remove('active', 'done');
+    if (i < activeStep) el.classList.add('done');
+    else if (i === activeStep) el.classList.add('active');
+  });
+
+  lines.forEach((id, i) => {
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (i < activeStep) el.classList.add('done');
+    else el.classList.remove('done');
+  });
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3500);
+}
+
+// Spinner animation
+const style = document.createElement('style');
+style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+document.head.appendChild(style);
+</script>
+
+<!--
+═══════════════════════════════════════════════════════════════════════
+  GOOGLE APPS SCRIPT SETUP INSTRUCTIONS
+  studycapitaldelhi@gmail.com
+═══════════════════════════════════════════════════════════════════════
+
+1. Go to script.google.com (sign in as studycapitaldelhi@gmail.com)
+
+2. Create a new project: "StudyCapital Document Upload"
+
+3. Paste the following code into Code.gs:
+
+─────────────────────────────────────────────────────────────────────
+const DRIVE_FOLDER_NAME = "StudyCapital – Loan Documents";
+const NOTIFY_EMAIL = "studycapitaldelhi@gmail.com";
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    let result = {};
+
+    if (data.action === 'sendOTP') {
+      result = handleSendOTP(data);
+    } else if (data.action === 'uploadFile') {
+      result = handleUploadFile(data);
+    } else if (data.action === 'sendSummary') {
+      result = handleSendSummary(data);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true, ...result }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: false, error: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function handleSendOTP(data) {
+  // Send OTP to team email (for reference) and notify the phone owner
+  const subject = `StudyCapital OTP for ${data.phone}`;
+  const body = `OTP ${data.otp} has been requested for mobile +91 ${data.phone} on the StudyCapital document portal.\n\nIf this wasn't you, ignore this message.`;
+  GmailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+  // For SMS, integrate with Fast2SMS / MSG91 API here
+  return { sent: true };
+}
+
+function handleUploadFile(data) {
+  const folder = getOrCreateFolder(data.studentInfo);
+  const blob = Utilities.newBlob(
+    Utilities.base64Decode(data.data),
+    data.mimeType,
+    data.docKey + '_' + data.fileName
+  );
+  const file = folder.createFile(blob);
+  return { fileId: file.getId(), url: file.getUrl() };
+}
+
+function handleSendSummary(data) {
+  const info = data.studentInfo;
+  const docs = data.docsUploaded.join(', ');
+  const subject = `📄 New Documents – ${info.name} | ${info.phone}`;
+  const body = `New document submission received!\n\n` +
+    `Name: ${info.name}\nPhone: +91 ${info.phone}\nEmail: ${info.email}\n` +
+    `Course: ${info.course}\nCollege: ${info.college}\n` +
+    `Loan Amount: ${info.amount}\nPreferred Bank: ${info.bank || 'Any'}\n\n` +
+    `Documents uploaded: ${docs}\n\n` +
+    `View files in Google Drive: https://drive.google.com/drive/folders/`;
+  GmailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+  return { notified: true };
+}
+
+function getOrCreateFolder(studentInfo) {
+  const root = getOrCreateRootFolder();
+  const folderName = `${studentInfo.name} – ${studentInfo.phone}`;
+  const existing = root.getFoldersByName(folderName);
+  if (existing.hasNext()) return existing.next();
+  return root.createFolder(folderName);
+}
+
+function getOrCreateRootFolder() {
+  const folders = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
+  if (folders.hasNext()) return folders.next();
+  return DriveApp.createFolder(DRIVE_FOLDER_NAME);
+}
+─────────────────────────────────────────────────────────────────────
+
+4. Deploy: Extensions → Apps Script → Deploy → New deployment
+   - Type: Web App
+   - Execute as: Me (studycapitaldelhi@gmail.com)
+   - Who has access: Anyone
+   - Click Deploy, copy the Web App URL
+
+5. Replace 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' in the JS above
+   with the copied URL.
+
+6. For SMS OTP (optional): Sign up at fast2sms.com and add API call
+   inside handleSendOTP() using their REST API.
+
+═══════════════════════════════════════════════════════════════════════
+-->
+</body>
+</html>

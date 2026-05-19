@@ -1157,10 +1157,31 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
     </li>
 
     <!-- Resources -->
-    <li>
-      <a href="/blog/" style="display:flex;align-items:center;gap:6px;">
-        📚 Resources
-      </a>
+    <li class="mega-wrap">
+      <button class="mega-btn" aria-haspopup="true" aria-expanded="false">
+        📋 Resources
+        <svg class="nav-chev" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <div class="mega-panel" style="min-width:520px;left:auto;right:0;">
+        <div class="mp-cols" style="grid-template-columns:1fr 1fr;">
+          <div>
+            <div class="mp-col-title">🧮 Tools & Calculators</div>
+            <a href="/emi-calculator/" class="mp-item"><div class="mp-ic">📊</div><div><strong>EMI Calculator</strong><span>Monthly EMI instantly</span></div></a>
+            <a href="/education-loan-interest-rates/" class="mp-item"><div class="mp-ic">📈</div><div><strong>Interest Rates 2026</strong><span>All banks compared</span></div></a>
+            <a href="/education-loan-eligibility/" class="mp-item"><div class="mp-ic">✅</div><div><strong>Check Eligibility</strong><span>Who qualifies & how</span></div></a>
+            <a href="/section-80e-tax-benefit/" class="mp-item"><div class="mp-ic">💰</div><div><strong>Section 80E</strong><span>Tax deduction guide</span></div></a>
+            <a href="/pm-vidyalaxmi-scheme/" class="mp-item"><div class="mp-ic">🏛️</div><div><strong>PM Vidya Lakshmi</strong><span>Govt scheme guide</span></div></a>
+          </div>
+          <div>
+            <div class="mp-col-title">📝 Guides & Blog</div>
+            <a href="/blog/" class="mp-item"><div class="mp-ic">📚</div><div><strong>All Blog Posts</strong><span>Loan guides & tips</span></div></a>
+            <a href="/blog/education-loan-documents-checklist/" class="mp-item"><div class="mp-ic">📋</div><div><strong>Documents Checklist</strong><span>Complete list</span></div></a>
+            <a href="/blog/education-loan-moratorium-period/" class="mp-item"><div class="mp-ic">⏳</div><div><strong>Moratorium Period</strong><span>When EMIs start</span></div></a>
+            <a href="/blog/gic-canada-guide/" class="mp-item"><div class="mp-ic">🇨🇦</div><div><strong>GIC Canada Guide</strong><span>Step by step</span></div></a>
+            <a href="/blog/education-loan-rejection-reasons/" class="mp-item"><div class="mp-ic">❌</div><div><strong>Rejection Reasons</strong><span>& how to avoid</span></div></a>
+          </div>
+        </div>
+      </div>
     </li>
 
   </ul>
@@ -1580,5 +1601,83 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
   </div>
 </div>
 
+<script>
+/* ── MEGA MENU JS ── */
+(function () {
+  var timers = {};
+  var navbar = document.querySelector('.navbar');
+
+  document.querySelectorAll('.nav-center > li.mega-wrap').forEach(function (wrap, i) {
+    var panel = wrap.querySelector('.mega-panel');
+    var btn   = wrap.querySelector('.mega-btn');
+
+    function openWrap() {
+      clearTimeout(timers[i]);
+      document.querySelectorAll('.nav-center > li.mega-wrap').forEach(function (w) {
+        if (w !== wrap) {
+          w.classList.remove('is-open');
+          var b = w.querySelector('.mega-btn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+      });
+      wrap.classList.add('is-open');
+      if (btn) btn.setAttribute('aria-expanded', 'true');
+    }
+    function scheduleClose() {
+      timers[i] = setTimeout(function () {
+        wrap.classList.remove('is-open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }, 180);
+    }
+    function cancelClose() { clearTimeout(timers[i]); }
+
+    wrap.addEventListener('mouseenter', openWrap);
+    wrap.addEventListener('mouseleave', scheduleClose);
+    if (panel) {
+      panel.addEventListener('mouseenter', cancelClose);
+      panel.addEventListener('mouseleave', scheduleClose);
+    }
+    if (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = wrap.classList.contains('is-open');
+        document.querySelectorAll('.nav-center > li.mega-wrap').forEach(function (w) {
+          w.classList.remove('is-open');
+          var b = w.querySelector('.mega-btn');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          wrap.classList.add('is-open');
+          if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  });
+
+  /* Close mega menus on outside click */
+  document.addEventListener('click', function (e) {
+    if (navbar && navbar.contains(e.target)) return;
+    document.querySelectorAll('.nav-center > li.mega-wrap').forEach(function (w) {
+      w.classList.remove('is-open');
+      var b = w.querySelector('.mega-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* Close mobile nav on outside click */
+  document.addEventListener('click', function (e) {
+    var mobileNav = document.getElementById('mobileNav');
+    var hamburger = document.getElementById('hamburger');
+    if (!mobileNav || !hamburger) return;
+    if (mobileNav.classList.contains('open') &&
+        !mobileNav.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+}());
+</script>
 </body>
 </html>
