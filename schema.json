@@ -3,14 +3,14 @@
     "@context": "https://schema.org",
     "@type": "FinancialService",
     "@id": "https://www.studycapital.in/#corporate",
-    "name": "StudyCapital – Education Loan Consultant",
+    "name": "StudyCapital \u2013 Education Loan Consultant",
     "alternateName": ["Study Capital", "StudyCapital India", "Study Capital Education Loans"],
     "image": ["https://www.studycapital.in/og-image.jpg"],
     "logo": "https://www.studycapital.in/logo.png",
     "url": "https://www.studycapital.in",
     "telephone": ["+919811419910", "+918796249926"],
     "email": "studycapitaldelhi@gmail.com",
-    "foundingDate": "2026",
+    "foundingDate": "2024",
     "currenciesAccepted": "INR",
     "paymentAccepted": "Cash, Bank Transfer, UPI, NEFT",
     "priceRange": "Free Consultation",
@@ -61,9 +61,9 @@
     "sameAs": [
       "https://www.facebook.com/profile.php?id=61560672821626",
       "https://www.instagram.com/studycapitaldelhi",
-      "https://www.youtube.com/@studycapital",
-      "https://www.linkedin.com/company/studycapital",
-      "https://twitter.com/studycapital"
+      "https://www.youtube.com/@studycapitaldelhi",
+      "https://www.linkedin.com/in/study-capital-62847a40a",
+      "https://twitter.com/studycapitaldelhi"
     ],
     "identifier": {
       "@type": "PropertyValue",
@@ -89,7 +89,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": "https://www.studycapital.in/#branch-prayagraj",
-    "name": "StudyCapital – Prayagraj Branch",
+    "name": "StudyCapital \u2013 Prayagraj Branch",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "D Block ADA Colony Naini",
@@ -104,7 +104,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": "https://www.studycapital.in/#branch-zirakpur",
-    "name": "StudyCapital – Zirakpur Branch",
+    "name": "StudyCapital \u2013 Zirakpur Branch",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "244/9 South City VIP Road",
@@ -121,7 +121,7 @@
     "@id": "https://www.studycapital.in/#website",
     "url": "https://www.studycapital.in",
     "name": "StudyCapital",
-    "description": "India's trusted education loan consultant — free guidance for domestic and international education loans.",
+    "description": "India's trusted education loan consultant \u2014 free guidance for domestic and international education loans.",
     "publisher": {"@id": "https://www.studycapital.in/#corporate"},
     "potentialAction": {
       "@type": "SearchAction",
@@ -134,8 +134,12 @@
     "@type": "BreadcrumbList",
     "@id": "https://www.studycapital.in/#breadcrumb",
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.studycapital.in/"},
-      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.studycapital.in/blog/"}
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.studycapital.in/"
+      }
     ]
   }
 ]

@@ -1,22 +1,83 @@
 {
+  "id": "/",
   "name": "StudyCapital – Education Loan Consultant",
   "short_name": "StudyCapital",
   "description": "Free education loan guidance — compare 50+ banks, India & abroad.",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#1A56DB",
   "lang": "en-IN",
+  "dir": "ltr",
   "icons": [
-    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "/favicon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Education Loan Consultant Homepage"
+    },
+    {
+      "src": "/screenshots/emi-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "EMI Calculator"
+    },
+    {
+      "src": "/screenshots/home-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "StudyCapital Desktop View"
+    }
   ],
   "categories": ["finance", "education", "business"],
   "shortcuts": [
-    { "name": "EMI Calculator", "url": "/emi-calculator/", "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }] },
-    { "name": "Apply Now", "url": "/#contact", "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }] }
-  ]
+    {
+      "name": "EMI Calculator",
+      "short_name": "EMI Calc",
+      "description": "Calculate your education loan EMI instantly",
+      "url": "/emi-calculator/?source=pwa-shortcut",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Apply Now",
+      "short_name": "Apply",
+      "description": "Submit your education loan application",
+      "url": "/#contact?source=pwa-shortcut",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Free Resources",
+      "short_name": "Resources",
+      "description": "Download free education loan guides and checklists",
+      "url": "/resources/?source=pwa-shortcut",
+      "icons": [{ "src": "/favicon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
 }

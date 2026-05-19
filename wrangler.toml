@@ -1,15 +1,66 @@
 name = "studycapital-form-handler"
 main = "worker.js"
-compatibility_date = "2024-09-23"
+compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 
-# ── D1 Database Binding ────────────────────────────────────────────────────
-# After running `wrangler d1 create studycapital-leads`, replace the
-# database_id below with the UUID printed in the terminal output.
+# ── D1 Database Bindings ───────────────────────────────────────────────────
 [[d1_databases]]
 binding = "DB"
 database_name = "studycapital-leads"
 database_id = "68e02d3e-6bfa-4f4c-bf2d-643a74fde434"
+
+# ── D1 Schema Bootstrap (run once via: wrangler d1 execute studycapital-leads --file=schema.sql)
+# ── schema.sql should contain:
+#
+#   CREATE TABLE IF NOT EXISTS leads (
+#     id TEXT PRIMARY KEY,
+#     name TEXT NOT NULL,
+#     phone TEXT NOT NULL,
+#     email TEXT,
+#     city TEXT,
+#     loanType TEXT,
+#     loanAmount TEXT,
+#     course TEXT,
+#     destination TEXT,
+#     source TEXT DEFAULT 'Website',
+#     status TEXT DEFAULT 'New',
+#     assignedTo TEXT DEFAULT '',
+#     followup TEXT DEFAULT '',
+#     message TEXT,
+#     notes TEXT DEFAULT '[]',
+#     createdAt TEXT NOT NULL
+#   );
+#
+#   -- FIX: rate_limits table for persistent distributed rate limiting (replaces in-memory Map)
+#   CREATE TABLE IF NOT EXISTS rate_limits (
+#     ip TEXT PRIMARY KEY,
+#     timestamps TEXT NOT NULL DEFAULT '[]',
+#     updatedAt TEXT NOT NULL
+#   );
+#
+#   -- Optional: auto-clean old rate limit entries older than 1 hour
+#   CREATE INDEX IF NOT EXISTS idx_rate_limits_updated ON rate_limits(updatedAt);
+
+# ── Environment Variables (set via Dashboard or `wrangler secret put`) ─────
+# All secrets are encrypted in the Cloudflare dashboard.
+# To add/update via CLI:
+#
+#   wrangler secret put TELEGRAM_BOT_TOKEN
+#   wrangler secret put TELEGRAM_CHAT_ID
+#   wrangler secret put EMAILJS_SERVICE_ID
+#   wrangler secret put EMAILJS_TEMPLATE_ID
+#   wrangler secret put EMAILJS_PUBLIC_KEY
+#   wrangler secret put EMAILJS_PRIVATE_KEY
+#   wrangler secret put CRM_SECRET
+#   wrangler secret put WHATSAPP_TOKEN
+#   wrangler secret put WHATSAPP_PHONE_ID
+#   wrangler secret put WHATSAPP_RECIPIENT
+#   wrangler secret put TURNSTILE_SECRET        ← Cloudflare Turnstile secret key
+#   wrangler secret put ALLOWED_ORIGIN
+#   wrangler secret put INDEXNOW_KEY            ← Used by POST /indexnow endpoint
+#
+# TURNSTILE_SECRET = 0x4AAAAAADRo6rCqK7FiDbQI6UgZp3si5XA
+# (already added to dashboard — do NOT hardcode here in production)
 
 # ── Routes ────────────────────────────────────────────────────────────────
 # Uncomment and set your custom domain if desired:
