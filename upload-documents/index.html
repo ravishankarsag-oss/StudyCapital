@@ -583,7 +583,7 @@ const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See setup instructions at the bottom of this file
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbylBmNY2XXhAJbmyfjciH8nGt2gzmKQGri28Q-dnYJnZYDoSlHsblcUtmrLT4U6hbB4Cg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaxLkXXhLBiCPUV21f-XtE0k_DEhyVDBONREMcYyTbEMmsix7r-zdYDFgCi7J2RdkIDA/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
 async function sendOTP() {
@@ -959,14 +959,117 @@ function doPost(e) {
   }
 }
 
+// ─── WHATSAPP OTP CONFIGURATION ───────────────────────────────────────────────
+// Step 1: Get these from Meta Developer Console → Your App → WhatsApp → API Setup
+const WA_TOKEN    = 'EAAS5vcmZAEagBRmquYIFmufmtREFiZAwEIpDhQA6FS21UQhuC13a0SsyELehZBq8GbcSpNjONtJuPXCTNrHVUHe0uy3Ujz9mkQVfRfGpGCYnfB0QcxQZCwrDXgrnP0UB4qmlyLURIVjh86Ob7ZAkfwdrTyOoJCBaeERJXxx1j2CDdjZCoiOkjSpKiZCowipgKhPv7Rw11YGZBZCpEUmcSgJcGpxXzVZBsxEuZAcshK9hP0ojpaWrJxdv4ljtA7zCt17SfowHpTT8pAM0lYwHJVxoaFzfpwY';
+const WA_PHONE_ID = '11461516585733233';
+const WA_TEMPLATE = 'studycapital_otp';  // Your approved template name (see setup below)
+// ──────────────────────────────────────────────────────────────────────────────
+
 function handleSendOTP(data) {
-  // Send OTP to team email (for reference) and notify the phone owner
-  const subject = `StudyCapital OTP for ${data.phone}`;
-  const body = `OTP ${data.otp} has been requested for mobile +91 ${data.phone} on the StudyCapital document portal.\n\nIf this wasn't you, ignore this message.`;
-  GmailApp.sendEmail(NOTIFY_EMAIL, subject, body);
-  // For SMS, integrate with Fast2SMS / MSG91 API here
-  return { sent: true };
+  const phone = data.phone;   // 10-digit Indian mobile number
+  const otp   = data.otp;
+
+  // 1. Always email OTP to team as backup/log
+  const subject = 'StudyCapital OTP for ' + phone;
+  const emailBody = 'OTP: ' + otp + '\nFor mobile +91 ' + phone + '\n\nThis was requested on the StudyCapital document portal.';
+  GmailApp.sendEmail(NOTIFY_EMAIL, subject, emailBody);
+
+  // 2. Send OTP via WhatsApp (Meta Cloud API — free, no DLT needed)
+  if (WA_TOKEN && WA_PHONE_ID) {
+    const url = 'https://graph.facebook.com/v19.0/' + WA_PHONE_ID + '/messages';
+
+    const payload = {
+      messaging_product: 'whatsapp',
+      to: '91' + phone,
+      type: 'template',
+      template: {
+        name: WA_TEMPLATE,
+        language: { code: 'en' },
+        components: [
+          {
+            type: 'body',
+            parameters: [{ type: 'text', text: otp }]
+          },
+          {
+            type: 'button',
+            sub_type: 'url',
+            index: '0',
+            parameters: [{ type: 'text', text: otp }]
+          }
+        ]
+      }
+    };
+
+    const response = UrlFetchApp.fetch(url, {
+      method: 'post',
+      headers: {
+        Authorization: 'Bearer ' + WA_TOKEN,
+        'Content-Type': 'application/json'
+      },
+      payload: JSON.stringify(payload),
+      muteHttpExceptions: true
+    });
+
+    const result = JSON.parse(response.getContentText());
+    Logger.log('WhatsApp OTP response: ' + JSON.stringify(result));
+
+    if (result.messages && result.messages[0].id) {
+      return { sent: true, channel: 'whatsapp', msgId: result.messages[0].id };
+    } else {
+      // WhatsApp failed — log error, email fallback already sent above
+      Logger.log('WhatsApp send FAILED: ' + JSON.stringify(result));
+      return { sent: true, channel: 'email-fallback', error: JSON.stringify(result) };
+    }
+  }
+
+  // 3. WhatsApp not configured — OTP only emailed to team
+  Logger.log('WARNING: WA_TOKEN or WA_PHONE_ID not set. OTP emailed to team only. Phone: ' + phone);
+  return { sent: true, channel: 'email-only' };
 }
+
+/*
+════════════════════════════════════════════════════════════════
+  HOW TO SET UP META WHATSAPP CLOUD API (Free — 1000 msg/month)
+════════════════════════════════════════════════════════════════
+
+STEP 1 — Create Meta App
+  1. Go to: https://developers.facebook.com/apps
+  2. Click "Create App" → Choose "Business" → Next
+  3. App name: "StudyCapital" → Create
+
+STEP 2 — Add WhatsApp Product
+  1. In your app dashboard → "Add a Product"
+  2. Find WhatsApp → click "Set Up"
+  3. You'll land on "WhatsApp > API Setup"
+
+STEP 3 — Get Credentials
+  1. Copy "Temporary access token" → paste into WA_TOKEN above
+     (or generate a permanent token via System User in Meta Business)
+  2. Copy "Phone number ID" → paste into WA_PHONE_ID above
+  3. Meta gives you a FREE test number to send from
+
+STEP 4 — Add a recipient (test mode)
+  1. Scroll to "Send and receive messages"
+  2. Add your WhatsApp number as a test recipient
+  3. You can now send to up to 5 numbers for free in test mode
+
+STEP 5 — Create OTP Template
+  1. Go to: https://business.facebook.com/wa/manage/message-templates/
+  2. Click "Create Template"
+  3. Category: "Authentication" (OTP templates get auto-approved!)
+  4. Name: studycapital_otp
+  5. Language: English (US)
+  6. Body: "Your StudyCapital OTP is {{1}}. Valid for 10 minutes. Do not share with anyone."
+  7. Submit → usually approved within minutes for Authentication category
+
+STEP 6 — Go Live (to message any number, not just test numbers)
+  1. In App Dashboard → App Review → Request "whatsapp_business_messaging" permission
+  2. Connect a real WhatsApp Business number (or use Meta's free test number)
+
+FREE TIER: 1,000 conversations/month free forever.
+Each OTP = 1 conversation (24-hr window).
+*/
 
 function handleUploadFile(data) {
   const folder = getOrCreateFolder(data.studentInfo);
