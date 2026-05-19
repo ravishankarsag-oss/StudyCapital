@@ -626,20 +626,21 @@ async function sendOTP() {
 }
 
 async function sendOTPViaAppsScript(phone, otp) {
-  // This calls the Google Apps Script to send the OTP
-  // The script will send via email to the team AND send SMS (if configured)
-  const payload = {
+  // Google Apps Script requires URLSearchParams body and no-cors mode
+  // (JSON + resp.ok check fails due to CORS opaque response)
+  const params = new URLSearchParams({
     action: 'sendOTP',
     phone: phone,
     otp: otp
-  };
-
-  const resp = await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
   });
-  if (!resp.ok) throw new Error('Failed');
+
+  await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString()
+  });
+  // no-cors returns an opaque response; we assume success if no network error is thrown
 }
 
 // ─── OTP TIMER ───────────────────────────────────────────────────────────────
@@ -830,13 +831,13 @@ async function uploadAllToDrive() {
       data: base64
     };
 
-    const resp = await fetch(APPS_SCRIPT_URL, {
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ data: JSON.stringify(payload) }).toString()
     });
-
-    if (!resp.ok) throw new Error(`Upload failed for ${key}`);
+    // no-cors: opaque response, assume success if no network error
     done++;
     setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
   }
@@ -844,9 +845,10 @@ async function uploadAllToDrive() {
   // Send summary notification
   await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'sendSummary', studentInfo: STATE.studentInfo,
-      docsUploaded: Object.keys(STATE.files) })
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ data: JSON.stringify({ action: 'sendSummary', studentInfo: STATE.studentInfo,
+      docsUploaded: Object.keys(STATE.files) }) }).toString()
   });
 
   setProgress(100, 'All files uploaded! ✓');
@@ -924,9 +926,21 @@ const NOTIFY_EMAIL = "studycapitaldelhi@gmail.com";
 
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
-    let result = {};
+    // Support both URLSearchParams (no-cors, form-encoded) and JSON bodies
+    let data;
+    const ct = (e.postData && e.postData.type) || '';
+    if (ct.indexOf('application/x-www-form-urlencoded') !== -1) {
+      // Fields sent as individual params OR wrapped in a 'data' JSON field
+      if (e.parameter && e.parameter.data) {
+        data = JSON.parse(e.parameter.data);
+      } else {
+        data = e.parameter; // action, phone, otp sent as flat params
+      }
+    } else {
+      data = JSON.parse(e.postData.contents);
+    }
 
+    let result = {};
     if (data.action === 'sendOTP') {
       result = handleSendOTP(data);
     } else if (data.action === 'uploadFile') {
