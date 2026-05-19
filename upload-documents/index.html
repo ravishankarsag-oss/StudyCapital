@@ -583,7 +583,7 @@ const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See setup instructions at the bottom of this file
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaxLkXXhLBiCPUV21f-XtE0k_DEhyVDBONREMcYyTbEMmsix7r-zdYDFgCi7J2RdkIDA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvmKtIE6ZUXxkypeoYpHzxmBIFqJfJAJ4xKUatBXAbS0JXc66L-uqLSqElBbeYpWobkQ/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
 async function sendOTP() {
@@ -993,9 +993,9 @@ function handleSendOTP(data) {
           },
           {
             type: 'button',
-            sub_type: 'url',
+            sub_type: 'COPY_CODE',
             index: '0',
-            parameters: [{ type: 'text', text: otp }]
+            parameters: [{ type: 'coupon_code', coupon_code: otp }]
           }
         ]
       }
