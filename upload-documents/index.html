@@ -583,7 +583,7 @@ const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See setup instructions at the bottom of this file
-const APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbylBmNY2XXhAJbmyfjciH8nGt2gzmKQGri28Q-dnYJnZYDoSlHsblcUtmrLT4U6hbB4Cg/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
 async function sendOTP() {
@@ -633,15 +633,6 @@ async function sendOTPViaAppsScript(phone, otp) {
     phone: phone,
     otp: otp
   };
-
-  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-    // DEMO MODE: just simulate for testing
-    console.log(`[DEMO] OTP for ${phone}: ${otp}`);
-    await new Promise(r => setTimeout(r, 800));
-    // Show OTP in alert for demo purposes — remove in production
-    alert(`[DEMO MODE] Your OTP is: ${otp}\n\nIn production, this will be sent via SMS to ${phone}`);
-    return;
-  }
 
   const resp = await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
@@ -822,18 +813,6 @@ async function uploadAllToDrive() {
   let done = 0;
 
   setProgress(0, `Preparing ${total} file${total>1?'s':''}…`);
-
-  if (APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-    // DEMO MODE — simulate upload
-    for (let i = 0; i < total; i++) {
-      await new Promise(r => setTimeout(r, 600 + Math.random() * 400));
-      done++;
-      setProgress(Math.round((done / total) * 90), `Uploading ${fileKeys[i]}…`);
-    }
-    setProgress(100, 'All files uploaded! ✓');
-    await new Promise(r => setTimeout(r, 500));
-    return;
-  }
 
   // Real upload via Google Apps Script
   for (const key of fileKeys) {
