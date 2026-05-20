@@ -566,7 +566,7 @@ const STATE = {
 const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2CQvPDM2N8wMMgXBe_VhDQoz4OnQtAQcBlK2cuU0ldUeUvahJUvrxquX_I5VyevT7IQ/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkSGVDxaocrP0SBgzqlkx5j9-LdrEbK8GxsEg-oh1n_ykY3NqeShTxCgnBTcwJYX0SYw/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
 async function sendOTP() {
@@ -609,18 +609,15 @@ async function sendOTP() {
 }
 
 async function sendOTPViaAppsScript(phone, otp) {
-  const params = new URLSearchParams({
-    action: 'sendOTP',
-    phone: phone,
-    otp: otp
-  });
+  // Use GET with query params — avoids CORS preflight entirely
+  // Apps Script doGet handles this and sends WhatsApp OTP
+  const url = APPS_SCRIPT_URL
+    + '?action=sendOTP'
+    + '&phone=' + encodeURIComponent(phone)
+    + '&otp='   + encodeURIComponent(otp);
 
-  await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString()
-  });
+  await fetch(url, { method: 'GET', mode: 'no-cors' });
+  // no-cors GET always succeeds — Apps Script receives params correctly
 }
 
 // ─── OTP TIMER ───────────────────────────────────────────────────────────────
@@ -806,23 +803,20 @@ async function uploadAllToDrive() {
       data: base64
     };
 
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ data: JSON.stringify(payload) }).toString()
-    });
+    const fd = new FormData();
+    fd.append('data', JSON.stringify(payload));
+    await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: fd });
     done++;
     setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
   }
 
-  await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ data: JSON.stringify({ action: 'sendSummary', studentInfo: STATE.studentInfo,
-      docsUploaded: Object.keys(STATE.files) }) }).toString()
-  });
+  const summaryFd = new FormData();
+  summaryFd.append('data', JSON.stringify({
+    action: 'sendSummary',
+    studentInfo: STATE.studentInfo,
+    docsUploaded: Object.keys(STATE.files)
+  }));
+  await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: summaryFd });
 
   setProgress(100, 'All files uploaded! ✓');
   await new Promise(r => setTimeout(r, 500));
