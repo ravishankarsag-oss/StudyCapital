@@ -239,14 +239,12 @@ input.error { border-color: #EF4444; }
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <a href="/" class="logo">
     <div class="logo-icon">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
     </div>
     StudyCapital
-  </div>
   </a>
   <a href="/" class="nav-back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>
@@ -255,7 +253,6 @@ input.error { border-color: #EF4444; }
 </nav>
 
 <div class="page-wrap">
-  <!-- HERO -->
   <div class="page-hero">
     <div class="badge">🔒 Secure Document Portal</div>
     <h1>Upload Your Loan Documents</h1>
@@ -264,7 +261,6 @@ input.error { border-color: #EF4444; }
 
   <div class="main-content">
 
-    <!-- STEPPER -->
     <div class="stepper" id="stepper">
       <div class="step active" id="step1">
         <div class="step-circle">1</div>
@@ -287,7 +283,6 @@ input.error { border-color: #EF4444; }
       </div>
     </div>
 
-    <!-- STEP 1: OTP VERIFICATION -->
     <div id="sectionOTP">
       <div class="card">
         <h2 class="card-title">📱 Verify Your Mobile Number</h2>
@@ -323,7 +318,6 @@ input.error { border-color: #EF4444; }
       </div>
     </div>
 
-    <!-- STEP 2: STUDENT DETAILS -->
     <div id="sectionDetails" class="section-hidden">
       <div class="card">
         <h2 class="card-title">🎓 Student Information</h2>
@@ -331,7 +325,7 @@ input.error { border-color: #EF4444; }
 
         <div class="field-row">
           <div class="field-group">
-            <label class="field-label">Full Name (as on Aadhaar) <span class="req">*</span></label>
+            <label class="field-label">Full Name <span class="req">*</span></label>
             <input type="text" id="studentName" placeholder="Enter your full name">
           </div>
           <div class="field-group">
@@ -385,7 +379,6 @@ input.error { border-color: #EF4444; }
       </div>
     </div>
 
-    <!-- STEP 3: DOCUMENT UPLOAD -->
     <div id="sectionUpload" class="section-hidden">
       <div class="card">
         <h2 class="card-title">📄 Upload Your Documents</h2>
@@ -502,7 +495,6 @@ input.error { border-color: #EF4444; }
 
         </div>
 
-        <!-- Upload Progress -->
         <div class="upload-progress" id="uploadProgress">
           <div class="progress-label">
             <span>Uploading to Drive…</span>
@@ -522,7 +514,6 @@ input.error { border-color: #EF4444; }
       </div>
     </div>
 
-    <!-- SUCCESS -->
     <div class="success-card" id="successCard">
       <div class="success-icon">🎉</div>
       <h2>Documents Submitted!</h2>
@@ -532,7 +523,6 @@ input.error { border-color: #EF4444; }
       <a href="/" class="btn-home">← Back to StudyCapital</a>
     </div>
 
-    <!-- SECURITY STRIP -->
     <div class="security-strip" id="securityStrip">
       <div class="sec-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -552,13 +542,8 @@ input.error { border-color: #EF4444; }
       </div>
     </div>
 
-  </div><!-- end main-content -->
-</div><!-- end page-wrap -->
+  </div></div><div class="toast" id="toast"></div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-
-<!-- WHATSAPP FLOAT -->
 <div class="wa-float">
   <a href="https://wa.me/919811419910?text=Hi%2C+I+have+uploaded+my+loan+documents+on+StudyCapital+portal." target="_blank" rel="noopener" aria-label="WhatsApp us">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -581,8 +566,6 @@ const STATE = {
 const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
-// IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
-// See setup instructions at the bottom of this file
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiaiEBJQUqa7_LQCst0-BUgryHhl5nRA3fB4XryaJN5x0KJfmJ5f9rtzzIMZ3zBg6-Cw/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
@@ -626,8 +609,6 @@ async function sendOTP() {
 }
 
 async function sendOTPViaAppsScript(phone, otp) {
-  // Google Apps Script requires URLSearchParams body and no-cors mode
-  // (JSON + resp.ok check fails due to CORS opaque response)
   const params = new URLSearchParams({
     action: 'sendOTP',
     phone: phone,
@@ -640,7 +621,6 @@ async function sendOTPViaAppsScript(phone, otp) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: params.toString()
   });
-  // no-cors returns an opaque response; we assume success if no network error is thrown
 }
 
 // ─── OTP TIMER ───────────────────────────────────────────────────────────────
@@ -744,7 +724,6 @@ function fileChosen(input, docKey) {
   const card = document.getElementById(`dc_${docKey === 'tenth' ? '10th' : docKey === 'twelfth' ? '12th' : docKey}`);
   const status = document.getElementById(`ds_${docKey}`);
 
-  // Find the right card
   const allCards = document.querySelectorAll('.doc-card');
   allCards.forEach(c => {
     if (c.querySelector(`#f_${docKey}`)) {
@@ -762,14 +741,12 @@ function fileChosen(input, docKey) {
 
 // ─── SUBMIT DOCUMENTS ─────────────────────────────────────────────────────────
 async function submitDocuments() {
-  // Validate required docs
   const missing = REQUIRED_DOCS.filter(k => !STATE.files[k]);
   if (missing.length > 0) {
     const labels = { aadhaar:'Aadhaar', pan:'PAN Card', tenth:'10th Marksheet',
       twelfth:'12th Marksheet', admit:'Admission Letter', income:'Income Proof' };
     showToast(`Please upload: ${missing.map(k=>labels[k]).join(', ')}`, 'error');
 
-    // Highlight missing
     REQUIRED_DOCS.forEach(k => {
       if (!STATE.files[k]) {
         document.querySelectorAll('.doc-card').forEach(c => {
@@ -789,7 +766,6 @@ async function submitDocuments() {
 
   try {
     await uploadAllToDrive();
-    // Success
     document.getElementById('sectionUpload').classList.add('section-hidden');
     document.getElementById('securityStrip').style.display = 'none';
     const sc = document.getElementById('successCard');
@@ -815,7 +791,6 @@ async function uploadAllToDrive() {
 
   setProgress(0, `Preparing ${total} file${total>1?'s':''}…`);
 
-  // Real upload via Google Apps Script
   for (const key of fileKeys) {
     const file = STATE.files[key];
     const base64 = await fileToBase64(file);
@@ -837,12 +812,10 @@ async function uploadAllToDrive() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ data: JSON.stringify(payload) }).toString()
     });
-    // no-cors: opaque response, assume success if no network error
     done++;
     setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
   }
 
-  // Send summary notification
   await fetch(APPS_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -902,228 +875,10 @@ function showToast(msg, type = '') {
   toastTimer = setTimeout(() => { t.classList.remove('show'); }, 3500);
 }
 
-// Spinner animation
 const style = document.createElement('style');
 style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
 document.head.appendChild(style);
 </script>
 
-<!--
-═══════════════════════════════════════════════════════════════════════
-  GOOGLE APPS SCRIPT SETUP INSTRUCTIONS
-  studycapitaldelhi@gmail.com
-═══════════════════════════════════════════════════════════════════════
-
-1. Go to script.google.com (sign in as studycapitaldelhi@gmail.com)
-
-2. Create a new project: "StudyCapital Document Upload"
-
-3. Paste the following code into Code.gs:
-
-─────────────────────────────────────────────────────────────────────
-const DRIVE_FOLDER_NAME = "StudyCapital – Loan Documents";
-const NOTIFY_EMAIL = "studycapitaldelhi@gmail.com";
-
-function doPost(e) {
-  try {
-    // Support both URLSearchParams (no-cors, form-encoded) and JSON bodies
-    let data;
-    const ct = (e.postData && e.postData.type) || '';
-    if (ct.indexOf('application/x-www-form-urlencoded') !== -1) {
-      // Fields sent as individual params OR wrapped in a 'data' JSON field
-      if (e.parameter && e.parameter.data) {
-        data = JSON.parse(e.parameter.data);
-      } else {
-        data = e.parameter; // action, phone, otp sent as flat params
-      }
-    } else {
-      data = JSON.parse(e.postData.contents);
-    }
-
-    let result = {};
-    if (data.action === 'sendOTP') {
-      result = handleSendOTP(data);
-    } else if (data.action === 'uploadFile') {
-      result = handleUploadFile(data);
-    } else if (data.action === 'sendSummary') {
-      result = handleSendSummary(data);
-    }
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: true, ...result }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, error: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-// ─── WHATSAPP OTP CONFIGURATION ───────────────────────────────────────────────
-// Step 1: Get these from Meta Developer Console → Your App → WhatsApp → API Setup
-const WA_TOKEN    = 'EAALXrN4I6Y0BRmw5ZBU82ZCfZATyepf0v1HN05UwQq8tX3Hv6Sax1v6QUkdA0idEBfMLwYLOKFUxoFjbvVYMgj2XgQ8O0ZCZBs1ntuaKyZCOv7ZBkc8wTSOZCJZBj7PQIVuGiSOXkZBZBMTiIC56qt85UHPJbLQJTFPE6NThN7leT3dKH3wMBTV1SsuCr2pvS83h1JhZCwZDZD';
-const WA_PHONE_ID = '1146151658573233';
-const WA_TEMPLATE = 'studycapital_otp';  // Your approved template name (see setup below)
-// ──────────────────────────────────────────────────────────────────────────────
-
-function handleSendOTP(data) {
-  const phone = data.phone;   // 10-digit Indian mobile number
-  const otp   = data.otp;
-
-  // 1. Always email OTP to team as backup/log
-  const subject = 'StudyCapital OTP for ' + phone;
-  const emailBody = 'OTP: ' + otp + '\nFor mobile +91 ' + phone + '\n\nThis was requested on the StudyCapital document portal.';
-  GmailApp.sendEmail(NOTIFY_EMAIL, subject, emailBody);
-
-  // 2. Send OTP via WhatsApp (Meta Cloud API — free, no DLT needed)
-  if (WA_TOKEN && WA_PHONE_ID) {
-    const url = 'https://graph.facebook.com/v19.0/' + WA_PHONE_ID + '/messages';
-
-    const payload = {
-      messaging_product: 'whatsapp',
-      to: '91' + phone,
-      type: 'template',
-      template: {
-        name: WA_TEMPLATE,
-        language: { code: 'en' },
-        components: [
-          {
-            type: 'body',
-            parameters: [{ type: 'text', text: otp }]
-          },
-          {
-            type: 'button',
-            sub_type: 'COPY_CODE',
-            index: '0',
-            parameters: [{ type: 'coupon_code', coupon_code: otp }]
-          }
-        ]
-      }
-    };
-
-    const response = UrlFetchApp.fetch(url, {
-      method: 'post',
-      headers: {
-        Authorization: 'Bearer ' + WA_TOKEN,
-        'Content-Type': 'application/json'
-      },
-      payload: JSON.stringify(payload),
-      muteHttpExceptions: true
-    });
-
-    const result = JSON.parse(response.getContentText());
-    Logger.log('WhatsApp OTP response: ' + JSON.stringify(result));
-
-    if (result.messages && result.messages[0].id) {
-      return { sent: true, channel: 'whatsapp', msgId: result.messages[0].id };
-    } else {
-      // WhatsApp failed — log error, email fallback already sent above
-      Logger.log('WhatsApp send FAILED: ' + JSON.stringify(result));
-      return { sent: true, channel: 'email-fallback', error: JSON.stringify(result) };
-    }
-  }
-
-  // 3. WhatsApp not configured — OTP only emailed to team
-  Logger.log('WARNING: WA_TOKEN or WA_PHONE_ID not set. OTP emailed to team only. Phone: ' + phone);
-  return { sent: true, channel: 'email-only' };
-}
-
-/*
-════════════════════════════════════════════════════════════════
-  HOW TO SET UP META WHATSAPP CLOUD API (Free — 1000 msg/month)
-════════════════════════════════════════════════════════════════
-
-STEP 1 — Create Meta App
-  1. Go to: https://developers.facebook.com/apps
-  2. Click "Create App" → Choose "Business" → Next
-  3. App name: "StudyCapital" → Create
-
-STEP 2 — Add WhatsApp Product
-  1. In your app dashboard → "Add a Product"
-  2. Find WhatsApp → click "Set Up"
-  3. You'll land on "WhatsApp > API Setup"
-
-STEP 3 — Get Credentials
-  1. Copy "Temporary access token" → paste into WA_TOKEN above
-     (or generate a permanent token via System User in Meta Business)
-  2. Copy "Phone number ID" → paste into WA_PHONE_ID above
-  3. Meta gives you a FREE test number to send from
-
-STEP 4 — Add a recipient (test mode)
-  1. Scroll to "Send and receive messages"
-  2. Add your WhatsApp number as a test recipient
-  3. You can now send to up to 5 numbers for free in test mode
-
-STEP 5 — Create OTP Template
-  1. Go to: https://business.facebook.com/wa/manage/message-templates/
-  2. Click "Create Template"
-  3. Category: "Authentication" (OTP templates get auto-approved!)
-  4. Name: studycapital_otp
-  5. Language: English (US)
-  6. Body: "Your StudyCapital OTP is {{1}}. Valid for 10 minutes. Do not share with anyone."
-  7. Submit → usually approved within minutes for Authentication category
-
-STEP 6 — Go Live (to message any number, not just test numbers)
-  1. In App Dashboard → App Review → Request "whatsapp_business_messaging" permission
-  2. Connect a real WhatsApp Business number (or use Meta's free test number)
-
-FREE TIER: 1,000 conversations/month free forever.
-Each OTP = 1 conversation (24-hr window).
-*/
-
-function handleUploadFile(data) {
-  const folder = getOrCreateFolder(data.studentInfo);
-  const blob = Utilities.newBlob(
-    Utilities.base64Decode(data.data),
-    data.mimeType,
-    data.docKey + '_' + data.fileName
-  );
-  const file = folder.createFile(blob);
-  return { fileId: file.getId(), url: file.getUrl() };
-}
-
-function handleSendSummary(data) {
-  const info = data.studentInfo;
-  const docs = data.docsUploaded.join(', ');
-  const subject = `📄 New Documents – ${info.name} | ${info.phone}`;
-  const body = `New document submission received!\n\n` +
-    `Name: ${info.name}\nPhone: +91 ${info.phone}\nEmail: ${info.email}\n` +
-    `Course: ${info.course}\nCollege: ${info.college}\n` +
-    `Loan Amount: ${info.amount}\nPreferred Bank: ${info.bank || 'Any'}\n\n` +
-    `Documents uploaded: ${docs}\n\n` +
-    `View files in Google Drive: https://drive.google.com/drive/folders/`;
-  GmailApp.sendEmail(NOTIFY_EMAIL, subject, body);
-  return { notified: true };
-}
-
-function getOrCreateFolder(studentInfo) {
-  const root = getOrCreateRootFolder();
-  const folderName = `${studentInfo.name} – ${studentInfo.phone}`;
-  const existing = root.getFoldersByName(folderName);
-  if (existing.hasNext()) return existing.next();
-  return root.createFolder(folderName);
-}
-
-function getOrCreateRootFolder() {
-  const folders = DriveApp.getFoldersByName(DRIVE_FOLDER_NAME);
-  if (folders.hasNext()) return folders.next();
-  return DriveApp.createFolder(DRIVE_FOLDER_NAME);
-}
-─────────────────────────────────────────────────────────────────────
-
-4. Deploy: Extensions → Apps Script → Deploy → New deployment
-   - Type: Web App
-   - Execute as: Me (studycapitaldelhi@gmail.com)
-   - Who has access: Anyone
-   - Click Deploy, copy the Web App URL
-
-5. Replace 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' in the JS above
-   with the copied URL.
-
-6. For SMS OTP (optional): Sign up at fast2sms.com and add API call
-   inside handleSendOTP() using their REST API.
-
-═══════════════════════════════════════════════════════════════════════
--->
 </body>
 </html>
