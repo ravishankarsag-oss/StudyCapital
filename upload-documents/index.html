@@ -566,7 +566,7 @@ const STATE = {
 const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 
 // ─── GOOGLE APPS SCRIPT ENDPOINT ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVnxsH1ze6m0KZ-lJgoFwzn3NoqkSGL2E3MqkB6703SBtVR8qIcUtm4tNApl-OugL2Qw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwSPoyUtJOkIlnwZHUPhCFD2pUTY4cvwifJ41pxr4UYaLc9FFWgOXsjkiDSa-zsAOnNdw/exec';
 
 // ─── OTP SEND ────────────────────────────────────────────────────────────────
 async function sendOTP() {
@@ -794,31 +794,35 @@ async function uploadAllToDrive() {
 
     setProgress(Math.round((done / total) * 85), `Uploading ${key}…`);
 
-    // Build GET URL with file metadata + base64 data
-    // Apps Script receives this cleanly via doGet e.parameter
-    const params = new URLSearchParams({
-      action: 'uploadFile',
-      docKey: key,
-      fileName: file.name,
-      mimeType: file.type,
-      data: base64,
-      studentName: STATE.studentInfo.name,
-      studentPhone: STATE.studentInfo.phone,
-      studentEmail: STATE.studentInfo.email,
-      studentCourse: STATE.studentInfo.course,
-      studentCollege: STATE.studentInfo.college,
-      loanAmount: STATE.studentInfo.amount
-    });
+    // Split base64 into chunks of 5000 chars to stay within URL limits
+    const CHUNK_SIZE = 5000;
+    const totalChunks = Math.ceil(base64.length / CHUNK_SIZE);
 
-    // Use no-cors GET — Apps Script doGet receives all params
-    await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
-      method: 'GET',
-      mode: 'no-cors'
-    });
+    for (let c = 0; c < totalChunks; c++) {
+      const chunk = base64.slice(c * CHUNK_SIZE, (c + 1) * CHUNK_SIZE);
+      const params = new URLSearchParams({
+        action: 'uploadChunk',
+        docKey: key,
+        fileName: file.name,
+        mimeType: file.type,
+        chunkIndex: c,
+        totalChunks: totalChunks,
+        chunk: chunk,
+        studentName: STATE.studentInfo.name,
+        studentPhone: STATE.studentInfo.phone,
+        studentEmail: STATE.studentInfo.email,
+        studentCourse: STATE.studentInfo.course,
+        studentCollege: STATE.studentInfo.college,
+        loanAmount: STATE.studentInfo.amount
+      });
+      await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+        method: 'GET', mode: 'no-cors'
+      });
+      await new Promise(r => setTimeout(r, 200));
+    }
 
     done++;
     setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
-    await new Promise(r => setTimeout(r, 300)); // small delay between files
   }
 
   // Send summary via GET
