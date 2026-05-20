@@ -794,29 +794,48 @@ async function uploadAllToDrive() {
 
     setProgress(Math.round((done / total) * 85), `Uploading ${key}…`);
 
-    const payload = {
+    // Build GET URL with file metadata + base64 data
+    // Apps Script receives this cleanly via doGet e.parameter
+    const params = new URLSearchParams({
       action: 'uploadFile',
-      studentInfo: STATE.studentInfo,
       docKey: key,
       fileName: file.name,
       mimeType: file.type,
-      data: base64
-    };
+      data: base64,
+      studentName: STATE.studentInfo.name,
+      studentPhone: STATE.studentInfo.phone,
+      studentEmail: STATE.studentInfo.email,
+      studentCourse: STATE.studentInfo.course,
+      studentCollege: STATE.studentInfo.college,
+      loanAmount: STATE.studentInfo.amount
+    });
 
-    const fd = new FormData();
-    fd.append('data', JSON.stringify(payload));
-    await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: fd });
+    // Use no-cors GET — Apps Script doGet receives all params
+    await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+      method: 'GET',
+      mode: 'no-cors'
+    });
+
     done++;
     setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
+    await new Promise(r => setTimeout(r, 300)); // small delay between files
   }
 
-  const summaryFd = new FormData();
-  summaryFd.append('data', JSON.stringify({
+  // Send summary via GET
+  const summaryParams = new URLSearchParams({
     action: 'sendSummary',
-    studentInfo: STATE.studentInfo,
-    docsUploaded: Object.keys(STATE.files)
-  }));
-  await fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: summaryFd });
+    studentName: STATE.studentInfo.name,
+    studentPhone: STATE.studentInfo.phone,
+    studentEmail: STATE.studentInfo.email,
+    studentCourse: STATE.studentInfo.course,
+    studentCollege: STATE.studentInfo.college,
+    loanAmount: STATE.studentInfo.amount,
+    docsUploaded: Object.keys(STATE.files).join(',')
+  });
+  await fetch(APPS_SCRIPT_URL + '?' + summaryParams.toString(), {
+    method: 'GET',
+    mode: 'no-cors'
+  });
 
   setProgress(100, 'All files uploaded! ✓');
   await new Promise(r => setTimeout(r, 500));
