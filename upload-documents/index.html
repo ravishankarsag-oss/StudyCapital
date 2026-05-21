@@ -157,9 +157,23 @@ input.error { border-color: #EF4444; }
 .doc-card.required-missing { border-color: #EF4444; background: #FEF2F2; }
 
 .doc-card input[type="file"] {
-  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  border: none; padding: 0;
+  display: none; /* hidden — triggered by button click */
 }
+.doc-upload-btn {
+  margin-top: 0.5rem;
+  padding: 5px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1.5px solid var(--blue);
+  border-radius: 50px;
+  background: var(--sky);
+  color: var(--blue);
+  cursor: pointer;
+  font-family: inherit;
+  transition: var(--transition);
+}
+.doc-upload-btn:hover { background: var(--blue); color: white; }
+.doc-card.has-file .doc-upload-btn { border-color: var(--green); background: var(--green-light); color: var(--green); }
 .doc-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
 .doc-name { font-size: 0.85rem; font-weight: 700; color: var(--navy); margin-bottom: 0.15rem; }
 .doc-hint { font-size: 0.72rem; color: var(--gray-400); }
@@ -396,8 +410,9 @@ input.error { border-color: #EF4444; }
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">🪪</div>
             <div class="doc-name">Aadhaar Card</div>
-            <div class="doc-hint">Front & back (single PDF)</div>
-            <div class="doc-status" id="ds_aadhaar">Click to upload</div>
+            <div class="doc-hint">Front &amp; back (single PDF)</div>
+            <div class="doc-status" id="ds_aadhaar">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_aadhaar').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_pan">
@@ -406,7 +421,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">💳</div>
             <div class="doc-name">PAN Card</div>
             <div class="doc-hint">Student or co-applicant</div>
-            <div class="doc-status" id="ds_pan">Click to upload</div>
+            <div class="doc-status" id="ds_pan">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_pan').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_10th">
@@ -415,7 +431,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">📋</div>
             <div class="doc-name">10th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
-            <div class="doc-status" id="ds_tenth">Click to upload</div>
+            <div class="doc-status" id="ds_tenth">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_tenth').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_12th">
@@ -424,7 +441,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">📋</div>
             <div class="doc-name">12th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
-            <div class="doc-status" id="ds_twelfth">Click to upload</div>
+            <div class="doc-status" id="ds_twelfth">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_twelfth').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_grad">
@@ -432,7 +450,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">🎓</div>
             <div class="doc-name">Graduation Marksheets</div>
             <div class="doc-hint">All semesters / years</div>
-            <div class="doc-status" id="ds_grad">Click to upload</div>
+            <div class="doc-status" id="ds_grad">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_grad').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_admit">
@@ -441,7 +460,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">📩</div>
             <div class="doc-name">Admission Letter</div>
             <div class="doc-hint">College / university offer letter</div>
-            <div class="doc-status" id="ds_admit">Click to upload</div>
+            <div class="doc-status" id="ds_admit">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_admit').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_income">
@@ -450,7 +470,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">💰</div>
             <div class="doc-name">Income Proof</div>
             <div class="doc-hint">Salary slips / ITR (co-applicant)</div>
-            <div class="doc-status" id="ds_income">Click to upload</div>
+            <div class="doc-status" id="ds_income">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_income').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_bank">
@@ -458,7 +479,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">🏦</div>
             <div class="doc-name">Bank Statement</div>
             <div class="doc-hint">Last 6 months (co-applicant)</div>
-            <div class="doc-status" id="ds_bank">Click to upload</div>
+            <div class="doc-status" id="ds_bank">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_bank').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_photo">
@@ -466,15 +488,17 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">🖼️</div>
             <div class="doc-name">Passport Size Photo</div>
             <div class="doc-hint">White background, recent</div>
-            <div class="doc-status" id="ds_photo">Click to upload</div>
+            <div class="doc-status" id="ds_photo">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_photo').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_passport">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'passport')" id="f_passport">
             <div class="doc-icon">✈️</div>
             <div class="doc-name">Passport (if abroad)</div>
-            <div class="doc-hint">First & last page</div>
-            <div class="doc-status" id="ds_passport">Click to upload</div>
+            <div class="doc-hint">First &amp; last page</div>
+            <div class="doc-status" id="ds_passport">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_passport').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_gre">
@@ -482,7 +506,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">📝</div>
             <div class="doc-name">GRE / GMAT / IELTS</div>
             <div class="doc-hint">Score card (if applicable)</div>
-            <div class="doc-status" id="ds_gre">Click to upload</div>
+            <div class="doc-status" id="ds_gre">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_gre').click()">Choose File</button>
           </div>
 
           <div class="doc-card" id="dc_other">
@@ -490,7 +515,8 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">📎</div>
             <div class="doc-name">Other / Additional Docs</div>
             <div class="doc-hint">Collateral, property docs, etc.</div>
-            <div class="doc-status" id="ds_other">Click to upload</div>
+            <div class="doc-status" id="ds_other">Tap to choose file</div>
+            <button class="doc-upload-btn" onclick="document.getElementById('f_other').click()">Choose File</button>
           </div>
 
         </div>
@@ -711,28 +737,32 @@ function fileChosen(input, docKey) {
   const file = input.files[0];
   if (!file) return;
 
-  if (file.size > 5 * 1024 * 1024) {
-    showToast(`${file.name} is too large. Max 5 MB per file.`, 'error');
+  const MAX_MB = 10; // allow up to 10 MB; images are compressed before upload
+  if (file.size > MAX_MB * 1024 * 1024) {
+    const status = document.getElementById(`ds_${docKey}`);
+    if (status) status.textContent = `\u2717 Too large (${(file.size/1024/1024).toFixed(1)} MB, max ${MAX_MB} MB)`;
+    showToast(`File too large (${(file.size/1024/1024).toFixed(1)} MB). Please compress or scan at lower DPI.`, 'error');
     input.value = '';
     return;
   }
 
   STATE.files[docKey] = file;
-  const card = document.getElementById(`dc_${docKey === 'tenth' ? '10th' : docKey === 'twelfth' ? '12th' : docKey}`);
-  const status = document.getElementById(`ds_${docKey}`);
 
-  const allCards = document.querySelectorAll('.doc-card');
-  allCards.forEach(c => {
+  document.querySelectorAll('.doc-card').forEach(c => {
     if (c.querySelector(`#f_${docKey}`)) {
       c.classList.add('has-file');
+      c.classList.remove('required-missing');
       const badge = c.querySelector('.doc-req-badge');
-      if (badge) badge.textContent = '✓ Uploaded';
+      if (badge) badge.textContent = '\u2713 Ready';
     }
   });
 
+  const status = document.getElementById(`ds_${docKey}`);
   if (status) {
-    const fname = file.name.length > 20 ? file.name.substring(0,18)+'…' : file.name;
-    status.textContent = '✓ ' + fname;
+    const sizeMB = (file.size / 1024 / 1024).toFixed(1);
+    const fname  = file.name.length > 18 ? file.name.substring(0,16)+'\u2026' : file.name;
+    const isPDF  = file.type === 'application/pdf';
+    status.textContent = `\u2713 ${fname} (${sizeMB} MB)${isPDF ? '' : ' \u2014 will compress'}`;
   }
 }
 
@@ -786,72 +816,117 @@ async function uploadAllToDrive() {
   const total = fileKeys.length;
   let done = 0;
 
-  setProgress(0, `Preparing ${total} file${total>1?'s':''}…`);
+  setProgress(0, `Preparing ${total} file${total>1?'s':''}...`);
 
   for (const key of fileKeys) {
     const file = STATE.files[key];
-    const base64 = await fileToBase64(file);
+    setProgress(Math.round((done / total) * 80), `Processing ${key}...`);
 
-    setProgress(Math.round((done / total) * 85), `Uploading ${key}…`);
-
-    // Split base64 into chunks of 5000 chars to stay within URL limits
-    const CHUNK_SIZE = 5000;
-    const totalChunks = Math.ceil(base64.length / CHUNK_SIZE);
-
-    for (let c = 0; c < totalChunks; c++) {
-      const chunk = base64.slice(c * CHUNK_SIZE, (c + 1) * CHUNK_SIZE);
-      const params = new URLSearchParams({
-        action: 'uploadChunk',
-        docKey: key,
-        fileName: file.name,
-        mimeType: file.type,
-        chunkIndex: c,
-        totalChunks: totalChunks,
-        chunk: chunk,
-        studentName: STATE.studentInfo.name,
-        studentPhone: STATE.studentInfo.phone,
-        studentEmail: STATE.studentInfo.email,
-        studentCourse: STATE.studentInfo.course,
-        studentCollege: STATE.studentInfo.college,
-        loanAmount: STATE.studentInfo.amount
-      });
-      await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
-        method: 'GET', mode: 'no-cors'
-      });
-      await new Promise(r => setTimeout(r, 200));
+    // Compress JPEG/PNG images before upload; PDFs sent as-is
+    let base64, mimeType;
+    try {
+      const result = await prepareFile(file);
+      base64   = result.base64;
+      mimeType = result.mimeType;
+    } catch(err) {
+      throw new Error('Could not read ' + file.name + '. Try a smaller or different file.');
     }
 
+    setProgress(Math.round((done / total) * 80) + 5, `Uploading ${key}...`);
+
+    await postWithRetry({
+      action:      'uploadFile',
+      docKey:      key,
+      fileName:    file.name,
+      mimeType:    mimeType,
+      data:        base64,
+      studentInfo: STATE.studentInfo
+    });
+
     done++;
-    setProgress(Math.round((done / total) * 90), `Uploaded ${key} ✓`);
+    setProgress(Math.round((done / total) * 88), key + ' uploaded!');
+    await new Promise(r => setTimeout(r, 300));
   }
 
-  // Send summary via GET
-  const summaryParams = new URLSearchParams({
-    action: 'sendSummary',
-    studentName: STATE.studentInfo.name,
-    studentPhone: STATE.studentInfo.phone,
-    studentEmail: STATE.studentInfo.email,
-    studentCourse: STATE.studentInfo.course,
-    studentCollege: STATE.studentInfo.college,
-    loanAmount: STATE.studentInfo.amount,
-    docsUploaded: Object.keys(STATE.files).join(',')
-  });
-  await fetch(APPS_SCRIPT_URL + '?' + summaryParams.toString(), {
-    method: 'GET',
-    mode: 'no-cors'
+  // Summary email
+  setProgress(94, 'Notifying team...');
+  await postWithRetry({
+    action:       'sendSummary',
+    studentInfo:  STATE.studentInfo,
+    docsUploaded: Object.keys(STATE.files)
   });
 
-  setProgress(100, 'All files uploaded! ✓');
-  await new Promise(r => setTimeout(r, 500));
+  setProgress(100, 'All files uploaded successfully!');
+  await new Promise(r => setTimeout(r, 600));
 }
 
+// ─── COMPRESS IMAGE / READ PDF ────────────────────────────────────────────────
+// Compresses JPEG/PNG/WEBP images to max 1600px @ 78% JPEG quality.
+// PDFs and other file types are returned as raw base64 without modification.
+async function prepareFile(file) {
+  const isImage = /^image\/(jpeg|png|webp)$/.test(file.type);
+  if (!isImage) {
+    const base64 = await fileToBase64(file);
+    return { base64, mimeType: file.type };
+  }
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        try {
+          const MAX = 1600;
+          let w = img.width, h = img.height;
+          if (w > MAX || h > MAX) {
+            if (w >= h) { h = Math.round(h * MAX / w); w = MAX; }
+            else        { w = Math.round(w * MAX / h); h = MAX; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          // Compress to JPEG — typically shrinks a 5 MB photo to under 400 KB
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.78);
+          resolve({ base64: dataUrl.split(',')[1], mimeType: 'image/jpeg' });
+        } catch(e) { reject(e); }
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Raw base64 (for PDFs)
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+}
+
+// POST JSON to Apps Script via no-cors with up to 2 retries
+async function postWithRetry(payload, maxRetries = 2) {
+  const body = JSON.stringify(payload);
+  let lastErr;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method:  'POST',
+        mode:    'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body
+      });
+      return;
+    } catch(err) {
+      lastErr = err;
+      if (attempt < maxRetries) await new Promise(r => setTimeout(r, 1500 * (attempt + 1)));
+    }
+  }
+  throw lastErr;
 }
 
 function setProgress(pct, text) {
