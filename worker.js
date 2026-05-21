@@ -18,10 +18,9 @@
  *   );
  *
  * Environment Variables (Cloudflare Dashboard → Worker → Settings → Variables):
- *   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+ *   WHATSAPP_TOKEN, WHATSAPP_PHONE_ID  (recipient numbers are hardcoded: 9811419910, 9654097708)
  *   EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, EMAILJS_PRIVATE_KEY
  *   CRM_SECRET             — Secret token for CRM (min 16 chars)
- *   WHATSAPP_TOKEN, WHATSAPP_PHONE_ID, WHATSAPP_RECIPIENT
  *   TURNSTILE_SECRET       — Cloudflare Turnstile secret key (0x4AAAAA...)
  *   ALLOWED_ORIGIN, INDEXNOW_KEY
  */
@@ -178,33 +177,44 @@ function buildWhatsAppMessage(lead) {
 }
 
 async function sendWhatsApp(env, message) {
-  if (!env.WHATSAPP_TOKEN || !env.WHATSAPP_PHONE_ID || !env.WHATSAPP_RECIPIENT)
+  if (!env.WHATSAPP_TOKEN || !env.WHATSAPP_PHONE_ID)
     return { ok: false, error: 'WhatsApp env vars not set' };
-  const to = env.WHATSAPP_RECIPIENT.replace(/[^0-9]/g, '');
-  try {
-    const res = await fetch(
-      `https://graph.facebook.com/v19.0/${env.WHATSAPP_PHONE_ID}/messages`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${env.WHATSAPP_TOKEN}`,
-        },
-        body: JSON.stringify({
-          messaging_product: 'whatsapp',
-          recipient_type: 'individual',
-          to,
-          type: 'text',
-          text: { preview_url: false, body: message },
-        }),
-      }
-    );
-    const data = await res.json();
-    if (data.error) return { ok: false, error: `(#${data.error.code}) ${data.error.message}` };
-    return { ok: true, message_id: data.messages?.[0]?.id };
-  } catch (err) {
-    return { ok: false, error: err.message };
-  }
+
+  // ── Team numbers to notify on every lead ──────────────────────────────────
+  const NOTIFY_NUMBERS = ['919811419910', '919654097708'];
+
+  const results = await Promise.all(NOTIFY_NUMBERS.map(async (to) => {
+    try {
+      const res = await fetch(
+        `https://graph.facebook.com/v19.0/${env.WHATSAPP_PHONE_ID}/messages`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${env.WHATSAPP_TOKEN}`,
+          },
+          body: JSON.stringify({
+            messaging_product: 'whatsapp',
+            recipient_type: 'individual',
+            to,
+            type: 'text',
+            text: { preview_url: false, body: message },
+          }),
+        }
+      );
+      const data = await res.json();
+      if (data.error) return { to, ok: false, error: `(#${data.error.code}) ${data.error.message}` };
+      return { to, ok: true, message_id: data.messages?.[0]?.id };
+    } catch (err) {
+      return { to, ok: false, error: err.message };
+    }
+  }));
+
+  const failed = results.filter(r => !r.ok);
+  if (failed.length === NOTIFY_NUMBERS.length)
+    return { ok: false, error: failed.map(r => `${r.to}: ${r.error}`).join(' | ') };
+
+  return { ok: true, results };
 }
 
 // ── Router ─────────────────────────────────────────────────────────────────
@@ -248,10 +258,9 @@ async function handleFormSubmit(request, env, origin) {
   catch { return json({ ok: false, errors: ['Invalid JSON body'] }, 400, origin); }
 
   const {
-    emailParams     = {},
-    telegramMessage = '',
-    honeypot        = '',
-    turnstileToken  = '',
+    emailParams    = {},
+    honeypot       = '',
+    turnstileToken = '',
   } = body;
 
   // ── 1. Server-side honeypot check ────────────────────────────────────────
@@ -320,29 +329,7 @@ async function handleFormSubmit(request, env, origin) {
   const waResult = await sendWhatsApp(env, buildWhatsAppMessage(lead));
   if (!waResult.ok) errors.push('whatsapp_error: ' + waResult.error);
 
-  // ── 7. Telegram notification ──────────────────────────────────────────────
-  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID && telegramMessage) {
-    try {
-      const tRes = await fetch(
-        `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id:    env.TELEGRAM_CHAT_ID,
-            text:       telegramMessage,
-            parse_mode: 'Markdown',
-          }),
-        }
-      );
-      const tData = await tRes.json();
-      if (!tData.ok) errors.push('telegram_error: ' + tData.description);
-    } catch (err) {
-      errors.push('telegram_fetch_error: ' + err.message);
-    }
-  }
-
-  // ── 8. EmailJS notification ───────────────────────────────────────────────
+  // ── 7. EmailJS notification ───────────────────────────────────────────────
   if (env.EMAILJS_SERVICE_ID && env.EMAILJS_TEMPLATE_ID && env.EMAILJS_PUBLIC_KEY) {
     try {
       const eRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
