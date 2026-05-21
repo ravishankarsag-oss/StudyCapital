@@ -368,7 +368,7 @@
 <!-- SECURITY: Permissions Policy — disables unused browser features -->
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
 <!-- SECURITY: Content-Security-Policy — restrict script/style sources -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.clarity.ms https://maps.googleapis.com https://api.emailjs.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://challenges.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://studycapital-form-handler.studycapital2026.workers.dev https://api.telegram.org https://api.emailjs.com https://challenges.cloudflare.com; frame-src https://maps.google.com https://www.google.com https://maps.googleapis.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.clarity.ms https://maps.googleapis.com https://api.emailjs.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://challenges.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://studycapital-form-handler.studycapital2026.workers.dev https://api.emailjs.com https://challenges.cloudflare.com; frame-src https://maps.google.com https://www.google.com https://maps.googleapis.com https://challenges.cloudflare.com; object-src 'none'; base-uri 'self';">
 
 <!-- SPEED OPTIMIZATION: DNS Prefetch + Preconnect for zero-latency resources -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -376,7 +376,6 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin>
 <link rel="dns-prefetch" href="//maps.google.com">
-<link rel="dns-prefetch" href="//api.telegram.org">
 <link rel="dns-prefetch" href="//api.emailjs.com">
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -2840,15 +2839,15 @@ function showFormError(containerId, name, phone) {
   setTimeout(() => banner.remove(), 20000);
 }
 
-// ── Single call: sends Email + Telegram + saves to D1 ──
-async function submitToWorker(emailParams, telegramMessage, turnstileToken = '') {
+// ── Single call: sends Email + WhatsApp + saves to D1 ──
+async function submitToWorker(emailParams, turnstileToken = '') {
   let res;
   try {
     const hpVal = (document.getElementById('h-website') || document.getElementById('c-website') || {}).value || '';
     res = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ emailParams, telegramMessage, honeypot: hpVal, turnstileToken }),
+      body: JSON.stringify({ emailParams, honeypot: hpVal, turnstileToken }),
       signal: AbortSignal.timeout(10000)   // 10-second timeout
     });
   } catch (networkErr) {
@@ -2859,7 +2858,7 @@ async function submitToWorker(emailParams, telegramMessage, turnstileToken = '')
   }
   const data = await res.json();
   if (!data.ok) {
-    // D1 errors are non-fatal (logged in data.errors), Telegram/Email errors are reported
+    // D1 errors are non-fatal (logged in data.errors), WhatsApp/Email errors are reported
     const fatal = (data.errors || []).filter(e => !e.startsWith('db_error'));
     if (fatal.length) {
       console.error('Worker errors:', data.errors);
@@ -3047,21 +3046,6 @@ async function submitHeroForm() {
     'Submitted At': now,
   };
 
-  const telegramMessage =
-    `🎓 *NEW INQUIRY — StudyCapital*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 *Name:* ${name}\n` +
-    `📞 *Mobile:* ${phone}\n` +
-    `📧 *Email:* ${email || 'Not provided'}\n` +
-    `📍 *City:* ${city || 'Not specified'}\n` +
-    `🏦 *Loan Type:* ${type}\n` +
-    `💰 *Amount Needed:* ${amount}\n` +
-    `🎓 *Course/Destination:* ${course || 'Not specified'}\n` +
-    `💬 *Message:* ${msg || 'No message'}\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `📋 *Source:* Hero Quick Form\n` +
-    `🕐 *Date & Time:* ${now}`;
-
   // Honeypot check — bots fill hidden fields, humans don't
   if (document.getElementById('h-website') && document.getElementById('h-website').value) {
     showToast(name, fullPhone); // silent discard
@@ -3078,7 +3062,7 @@ async function submitHeroForm() {
   }
   const hTurnstileToken = hTsEl ? hTsEl.value : '';
 
-  await submitToWorker(emailParams, telegramMessage, hTurnstileToken);
+  await submitToWorker(emailParams, hTurnstileToken);
 
   showToast(name, fullPhone);
   // Reset form fields
@@ -3138,21 +3122,6 @@ async function submitContactForm() {
     'Submitted At':  now,
   };
 
-  const telegramMessage =
-    `📩 *NEW CONTACT FORM — StudyCapital*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 *Name:* ${name}\n` +
-    `📞 *Mobile:* ${fullPhone}\n` +
-    `📧 *Email:* ${email}\n` +
-    `🎓 *Course/Program:* ${course || 'Not specified'}\n` +
-    `🌍 *Study Destination:* ${dest || 'Not specified'}\n` +
-    `💰 *Loan Amount:* ${amount || 'Not specified'}\n` +
-    `💬 *Message:* ${msg || 'No message'}\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `📋 *Source:* Contact Form\n` +
-    `📅 *Date:* ${day}\n` +
-    `🕐 *Time:* ${now}`;
-
   // Honeypot check
   if (document.getElementById('c-website') && document.getElementById('c-website').value) {
     showToast(name, fullPhone); // silent discard
@@ -3169,7 +3138,7 @@ async function submitContactForm() {
   }
   const cTurnstileToken = cTsEl ? cTsEl.value : '';
 
-  await submitToWorker(emailParams, telegramMessage, cTurnstileToken);
+  await submitToWorker(emailParams, cTurnstileToken);
 
   showToast(name, fullPhone);
   // Reset form fields
@@ -3346,7 +3315,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
             <tr><td><strong>Partner Banks &amp; NBFCs</strong> (SBI, HDFC Credila, Axis, ICICI, BOB etc.)</td><td>Processing your education loan application</td><td>Your explicit consent</td></tr>
             <tr><td><strong>Meta / Facebook</strong></td><td>Advertising, Lead Ads, analytics via Pixel</td><td>Consent via cookie/ad interaction</td></tr>
             <tr><td><strong>Google LLC</strong></td><td>Analytics, Ads remarketing</td><td>Legitimate interest / cookie consent</td></tr>
-            <tr><td><strong>Telegram / WhatsApp</strong></td><td>Internal notification relay (inquiry alerts to our team)</td><td>Operational necessity</td></tr>
+            <tr><td><strong>WhatsApp</strong></td><td>Internal notification relay (inquiry alerts to our team)</td><td>Operational necessity</td></tr>
             <tr><td><strong>EmailJS / SMTP Provider</strong></td><td>Sending confirmation emails</td><td>Contract performance</td></tr>
             <tr><td><strong>Legal / Regulatory Authorities</strong></td><td>Compliance with court orders or RBI/government directives</td><td>Legal obligation</td></tr>
           </tbody>
@@ -3405,7 +3374,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
             <tr><td>Email correspondence</td><td>3 years</td></tr>
             <tr><td>Google Analytics / website analytics</td><td>26 months (Google default)</td></tr>
             <tr><td>Facebook Pixel / ad data</td><td>As per Meta's data retention policies</td></tr>
-            <tr><td>WhatsApp / Telegram inquiry logs</td><td>1 year (internal systems)</td></tr>
+            <tr><td>WhatsApp inquiry logs</td><td>1 year (internal systems)</td></tr>
           </tbody>
         </table>
         <p>After the applicable retention period, your data will be securely deleted or anonymised.</p>
