@@ -237,6 +237,34 @@ input.error { border-color: #EF4444; }
 /* SECTION HIDDEN / SHOWN */
 .section-hidden { display: none; }
 
+
+/* FILE PREVIEW */
+.doc-preview { margin-top: 0.5rem; max-width: 100%; max-height: 80px; border-radius: 6px; object-fit: cover; border: 1px solid var(--gray-200); display: none; }
+.doc-preview.show { display: block; }
+.doc-preview-pdf { font-size: 0.7rem; color: var(--blue); margin-top: 0.4rem; display: none; }
+.doc-preview-pdf.show { display: flex; align-items: center; gap: 4px; }
+
+/* REMOVE FILE BTN */
+.doc-remove-btn {
+  margin-top: 0.3rem; padding: 3px 10px; font-size: 0.7rem; font-weight: 600;
+  border: 1.5px solid #EF4444; border-radius: 50px; background: #FEF2F2;
+  color: #EF4444; cursor: pointer; font-family: inherit; transition: var(--transition);
+  display: none;
+}
+.doc-card.has-file .doc-remove-btn { display: inline-block; }
+.doc-remove-btn:hover { background: #EF4444; color: white; }
+
+/* RATE LIMIT WARNING */
+.rate-warn { background: #FEF3C7; border: 1px solid #FCD34D; border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem; font-size: 0.82rem; color: #92400E; font-weight: 600;
+  margin-top: 0.75rem; display: none; text-align: center; }
+.rate-warn.show { display: block; }
+
+/* CONFIRMATION EMAIL NOTE */
+.confirm-note { background: var(--green-light); border: 1px solid #6EE7B7; border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem; font-size: 0.82rem; color: #065F46; margin-top: 1rem;
+  display: flex; align-items: center; gap: 8px; }
+
 /* WHATSAPP FLOAT */
 .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; }
 .wa-float a { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #25D366; border-radius: 50%; box-shadow: 0 4px 16px rgba(37,211,102,0.35); transition: var(--transition); }
@@ -372,20 +400,77 @@ input.error { border-color: #EF4444; }
               <option>Above ₹1 Crore</option>
             </select>
           </div>
-          <div class="field-group">
-            <label class="field-label">Preferred Bank / NBFC</label>
-            <select id="prefBank">
-              <option value="">No preference</option>
-              <option>SBI</option>
-              <option>HDFC Credila</option>
-              <option>Avanse</option>
-              <option>Axis Bank</option>
-              <option>Bank of Baroda</option>
-              <option>Canara Bank</option>
-              <option>Any – best rate</option>
-            </select>
+        </div>
+
+        <!-- Co-applicant -->
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-200);">
+          <p style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-bottom:0.75rem;">👨‍👩‍👦 Co-Applicant Details (Parent / Guardian)</p>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Co-Applicant Name</label>
+              <input type="text" id="coName" placeholder="Parent / Guardian name">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Relationship</label>
+              <select id="coRelation">
+                <option value="">Select</option>
+                <option>Father</option>
+                <option>Mother</option>
+                <option>Spouse</option>
+                <option>Sibling</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Co-Applicant Occupation</label>
+              <select id="coOccupation">
+                <option value="">Select</option>
+                <option>Salaried</option>
+                <option>Self-employed / Business</option>
+                <option>Retired</option>
+                <option>Farmer</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Annual Income (Approx.)</label>
+              <select id="coIncome">
+                <option value="">Select range</option>
+                <option>Below ₹2 Lakhs</option>
+                <option>₹2 – 5 Lakhs</option>
+                <option>₹5 – 10 Lakhs</option>
+                <option>₹10 – 20 Lakhs</option>
+                <option>Above ₹20 Lakhs</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Course Start Date</label>
+              <input type="text" id="courseStartDate" placeholder="e.g. August 2025">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Preferred Bank / NBFC</label>
+              <select id="prefBank">
+                <option value="">No preference</option>
+                <option>SBI</option>
+                <option>HDFC Credila</option>
+                <option>Avanse</option>
+                <option>Axis Bank</option>
+                <option>Bank of Baroda</option>
+                <option>Canara Bank</option>
+                <option>ICICI Bank</option>
+                <option>Auxilo</option>
+                <option>InCred</option>
+                <option>Any – best rate</option>
+              </select>
+            </div>
           </div>
         </div>
+
+        <div class="rate-warn" id="rateWarn">⚠️ Too many attempts. Please wait a few minutes before trying again.</div>
 
         <button class="btn-primary" onclick="goToUpload()">
           Continue to Document Upload →
@@ -396,7 +481,7 @@ input.error { border-color: #EF4444; }
     <div id="sectionUpload" class="section-hidden">
       <div class="card">
         <h2 class="card-title">📄 Upload Your Documents</h2>
-        <p class="card-sub">Upload clearly scanned copies. Accepted formats: PDF, JPG, PNG (max 5 MB per file). Required documents are marked.</p>
+        <p class="card-sub">Upload clearly scanned copies. Accepted formats: PDF, JPG, PNG (max 10 MB per file). Required documents are marked.</p>
 
         <div class="info-box">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -411,111 +496,133 @@ input.error { border-color: #EF4444; }
             <div class="doc-icon">🪪</div>
             <div class="doc-name">Aadhaar Card</div>
             <div class="doc-hint">Front &amp; back (single PDF)</div>
-            <div class="doc-status" id="ds_aadhaar">Tap to choose file</div>
+            <div class="doc-status" id="ds_aadhaar">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_aadhaar').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_pan">
+          
+            <img class="doc-preview" id="prev_aadhaar" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_aadhaar">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_aadhaar" onclick="removeFile('aadhaar')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_pan">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'pan')" id="f_pan">
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">💳</div>
             <div class="doc-name">PAN Card</div>
             <div class="doc-hint">Student or co-applicant</div>
-            <div class="doc-status" id="ds_pan">Tap to choose file</div>
+            <div class="doc-status" id="ds_pan">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_pan').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_10th">
+          
+            <img class="doc-preview" id="prev_pan" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_pan">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_pan" onclick="removeFile('pan')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_10th">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'tenth')" id="f_tenth">
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">📋</div>
             <div class="doc-name">10th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
-            <div class="doc-status" id="ds_tenth">Tap to choose file</div>
+            <div class="doc-status" id="ds_tenth">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_tenth').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_12th">
+          
+            <img class="doc-preview" id="prev_tenth" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_tenth">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_tenth" onclick="removeFile('tenth')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_12th">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'twelfth')" id="f_twelfth">
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">📋</div>
             <div class="doc-name">12th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
-            <div class="doc-status" id="ds_twelfth">Tap to choose file</div>
+            <div class="doc-status" id="ds_twelfth">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_twelfth').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_grad">
+          
+            <img class="doc-preview" id="prev_twelfth" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_twelfth">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_twelfth" onclick="removeFile('twelfth')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_grad">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'grad')" id="f_grad">
             <div class="doc-icon">🎓</div>
             <div class="doc-name">Graduation Marksheets</div>
             <div class="doc-hint">All semesters / years</div>
-            <div class="doc-status" id="ds_grad">Tap to choose file</div>
+            <div class="doc-status" id="ds_grad">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_grad').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_admit">
+          
+            <img class="doc-preview" id="prev_grad" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_grad">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_grad" onclick="removeFile('grad')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_admit">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'admit')" id="f_admit">
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">📩</div>
             <div class="doc-name">Admission Letter</div>
             <div class="doc-hint">College / university offer letter</div>
-            <div class="doc-status" id="ds_admit">Tap to choose file</div>
+            <div class="doc-status" id="ds_admit">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_admit').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_income">
+          
+            <img class="doc-preview" id="prev_admit" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_admit">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_admit" onclick="removeFile('admit')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_income">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'income')" id="f_income">
             <div class="doc-req-badge">Required</div>
             <div class="doc-icon">💰</div>
             <div class="doc-name">Income Proof</div>
             <div class="doc-hint">Salary slips / ITR (co-applicant)</div>
-            <div class="doc-status" id="ds_income">Tap to choose file</div>
+            <div class="doc-status" id="ds_income">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_income').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_bank">
+          
+            <img class="doc-preview" id="prev_income" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_income">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_income" onclick="removeFile('income')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_bank">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'bank')" id="f_bank">
             <div class="doc-icon">🏦</div>
             <div class="doc-name">Bank Statement</div>
             <div class="doc-hint">Last 6 months (co-applicant)</div>
-            <div class="doc-status" id="ds_bank">Tap to choose file</div>
+            <div class="doc-status" id="ds_bank">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_bank').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_photo">
+          
+            <img class="doc-preview" id="prev_bank" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_bank">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_bank" onclick="removeFile('bank')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_photo">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'photo')" id="f_photo">
             <div class="doc-icon">🖼️</div>
             <div class="doc-name">Passport Size Photo</div>
             <div class="doc-hint">White background, recent</div>
-            <div class="doc-status" id="ds_photo">Tap to choose file</div>
+            <div class="doc-status" id="ds_photo">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_photo').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_passport">
+          
+            <img class="doc-preview" id="prev_photo" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_photo">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_photo" onclick="removeFile('photo')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_passport">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'passport')" id="f_passport">
             <div class="doc-icon">✈️</div>
             <div class="doc-name">Passport (if abroad)</div>
             <div class="doc-hint">First &amp; last page</div>
-            <div class="doc-status" id="ds_passport">Tap to choose file</div>
+            <div class="doc-status" id="ds_passport">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_passport').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_gre">
+          
+            <img class="doc-preview" id="prev_passport" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_passport">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_passport" onclick="removeFile('passport')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_gre">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'gre')" id="f_gre">
             <div class="doc-icon">📝</div>
             <div class="doc-name">GRE / GMAT / IELTS</div>
             <div class="doc-hint">Score card (if applicable)</div>
-            <div class="doc-status" id="ds_gre">Tap to choose file</div>
+            <div class="doc-status" id="ds_gre">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_gre').click()">Choose File</button>
-          </div>
-
-          <div class="doc-card" id="dc_other">
+          
+            <img class="doc-preview" id="prev_gre" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_gre">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_gre" onclick="removeFile('gre')">✕ Remove</button>
+          </div><div class="doc-card" id="dc_other">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'other')" id="f_other">
             <div class="doc-icon">📎</div>
             <div class="doc-name">Other / Additional Docs</div>
             <div class="doc-hint">Collateral, property docs, etc.</div>
-            <div class="doc-status" id="ds_other">Tap to choose file</div>
+            <div class="doc-status" id="ds_other">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_other').click()">Choose File</button>
           </div>
 
@@ -545,7 +652,11 @@ input.error { border-color: #EF4444; }
       <h2>Documents Submitted!</h2>
       <p>Your documents have been securely uploaded to our system. Our team will review them and contact you within 24–48 hours.</p>
       <div class="success-ref" id="successRef"></div>
-      <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1.5rem;">Have questions? WhatsApp us at <strong>+91 98114 19910</strong></p>
+      <div class="confirm-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.1 2.18 2 2 0 012.11 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.46-.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+        A confirmation email has been sent to your registered email. Our team will call you within 24 hrs.
+      </div>
+      <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:1.5rem;margin-top:1rem;">Have questions? WhatsApp us at <strong>+91 98114 19910</strong></p>
       <a href="/" class="btn-home">← Back to StudyCapital</a>
     </div>
 
@@ -565,8 +676,11 @@ input.error { border-color: #EF4444; }
       <div class="sec-badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         DPDP Compliant
-      </div>
-    </div>
+      
+            <img class="doc-preview" id="prev_other" alt="preview">
+            <div class="doc-preview-pdf" id="prevpdf_other">📄 PDF selected</div>
+            <button class="doc-remove-btn" id="rem_other" onclick="removeFile('other')">✕ Remove</button>
+          </div></div>
 
   </div></div><div class="toast" id="toast"></div>
 
@@ -583,11 +697,23 @@ const STATE = {
   otpSent: false,
   otpVerified: false,
   generatedOTP: '',
+  otpExpiry: 0,
+  otpAttempts: 0,
   timerInterval: null,
   timerSeconds: 0,
   files: {},
-  studentInfo: {}
+  studentInfo: {},
+  submitAttempts: 0,
+  lastSubmitTime: 0
 };
+
+// ─── RATE LIMIT HELPERS ───────────────────────────────────────────────────────
+function isRateLimited() {
+  const now = Date.now();
+  if (STATE.submitAttempts >= 3 && (now - STATE.lastSubmitTime) < 5 * 60 * 1000) return true;
+  if ((now - STATE.lastSubmitTime) >= 5 * 60 * 1000) STATE.submitAttempts = 0;
+  return false;
+}
 
 const REQUIRED_DOCS = ['aadhaar','pan','tenth','twelfth','admit','income'];
 
@@ -607,6 +733,8 @@ async function sendOTP() {
 
   // Generate 6-digit OTP
   STATE.generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  STATE.otpExpiry = Date.now() + 10 * 60 * 1000; // 10 min expiry
+  STATE.otpAttempts = 0;
 
   // Send OTP via Apps Script (which will email/SMS it)
   const btn = document.getElementById('btnSendOTP');
@@ -667,6 +795,11 @@ function startOTPTimer() {
 
 async function resendOTP() {
   STATE.generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+  STATE.otpExpiry = Date.now() + 10 * 60 * 1000;
+  STATE.otpAttempts = 0;
+  document.getElementById('btnVerifyOTP').disabled = false;
+  STATE.otpExpiry = Date.now() + 10 * 60 * 1000; // 10 min expiry
+  STATE.otpAttempts = 0;
   document.getElementById('btnResendOTP').disabled = true;
   try {
     await sendOTPViaAppsScript(STATE.phone, STATE.generatedOTP);
@@ -686,7 +819,22 @@ function verifyOTP() {
     return;
   }
 
+  // Check OTP expiry (10 minutes)
+  if (Date.now() > STATE.otpExpiry) {
+    showToast('OTP has expired. Please request a new one.', 'error');
+    document.getElementById('otpInput').value = '';
+    return;
+  }
+
+  // Max 3 wrong attempts
+  if (STATE.otpAttempts >= 3) {
+    showToast('Too many wrong attempts. Please resend OTP.', 'error');
+    document.getElementById('btnVerifyOTP').disabled = true;
+    return;
+  }
+
   if (entered === STATE.generatedOTP) {
+    STATE.otpAttempts = 0;
     STATE.otpVerified = true;
     clearInterval(STATE.timerInterval);
     showToast('Mobile verified successfully! ✓', 'success');
@@ -698,10 +846,13 @@ function verifyOTP() {
       updateStepper(2);
     }, 600);
   } else {
-    showToast('Incorrect OTP. Please try again.', 'error');
+    STATE.otpAttempts++;
+    const remaining = 3 - STATE.otpAttempts;
+    showToast(remaining > 0 ? `Incorrect OTP. ${remaining} attempt${remaining>1?'s':''} left.` : 'Too many wrong attempts. Please resend OTP.', 'error');
     document.getElementById('otpInput').classList.add('error');
     document.getElementById('otpInput').value = '';
     setTimeout(() => document.getElementById('otpInput').classList.remove('error'), 1500);
+    if (STATE.otpAttempts >= 3) document.getElementById('btnVerifyOTP').disabled = true;
   }
 }
 
@@ -722,14 +873,46 @@ function goToUpload() {
     return;
   }
 
-  STATE.studentInfo = { name, email, course, college, amount,
-    bank: document.getElementById('prefBank').value,
-    phone: STATE.phone };
+  STATE.studentInfo = {
+    name, email, course, college, amount,
+    bank:       document.getElementById('prefBank').value,
+    phone:      STATE.phone,
+    coName:     document.getElementById('coName').value.trim(),
+    coRelation: document.getElementById('coRelation').value,
+    coOccupation: document.getElementById('coOccupation').value,
+    coIncome:   document.getElementById('coIncome').value,
+    courseStartDate: document.getElementById('courseStartDate').value.trim()
+  };
 
   document.getElementById('sectionDetails').classList.add('section-hidden');
   document.getElementById('sectionUpload').classList.remove('section-hidden');
   updateStepper(3);
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── REMOVE FILE ─────────────────────────────────────────────────────────────
+function removeFile(docKey) {
+  delete STATE.files[docKey];
+  const inp = document.getElementById('f_' + docKey);
+  if (inp) inp.value = '';
+
+  // Reset card
+  document.querySelectorAll('.doc-card').forEach(c => {
+    if (c.querySelector('#f_' + docKey)) {
+      c.classList.remove('has-file', 'required-missing');
+      const badge = c.querySelector('.doc-req-badge');
+      if (badge) badge.textContent = 'Required';
+    }
+  });
+
+  const status = document.getElementById('ds_' + docKey);
+  if (status) status.textContent = 'Click to upload (max 10 MB)';
+
+  const prev = document.getElementById('prev_' + docKey);
+  if (prev) { prev.src = ''; prev.classList.remove('show'); }
+
+  const prevpdf = document.getElementById('prevpdf_' + docKey);
+  if (prevpdf) prevpdf.classList.remove('show');
 }
 
 // ─── FILE CHOSEN ─────────────────────────────────────────────────────────────
@@ -747,6 +930,21 @@ function fileChosen(input, docKey) {
   }
 
   STATE.files[docKey] = file;
+
+  // Show preview
+  const prevImg = document.getElementById('prev_' + docKey);
+  const prevPdf = document.getElementById('prevpdf_' + docKey);
+  if (file.type === 'application/pdf') {
+    if (prevImg) { prevImg.src = ''; prevImg.classList.remove('show'); }
+    if (prevPdf) prevPdf.classList.add('show');
+  } else {
+    if (prevPdf) prevPdf.classList.remove('show');
+    if (prevImg) {
+      const reader = new FileReader();
+      reader.onload = e => { prevImg.src = e.target.result; prevImg.classList.add('show'); };
+      reader.readAsDataURL(file);
+    }
+  }
 
   document.querySelectorAll('.doc-card').forEach(c => {
     if (c.querySelector(`#f_${docKey}`)) {
@@ -783,6 +981,15 @@ async function submitDocuments() {
     });
     return;
   }
+
+  // Rate limiting
+  if (isRateLimited()) {
+    document.getElementById('rateWarn').classList.add('show');
+    showToast('Too many submissions. Please wait a few minutes.', 'error');
+    return;
+  }
+  STATE.submitAttempts++;
+  STATE.lastSubmitTime = Date.now();
 
   const btn = document.getElementById('btnSubmit');
   btn.disabled = true;
