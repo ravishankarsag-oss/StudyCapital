@@ -210,11 +210,24 @@ async function sendWhatsApp(env, message) {
     }
   }));
 
-  const failed = results.filter(r => !r.ok);
-  if (failed.length === NOTIFY_NUMBERS.length)
+  const failed  = results.filter(r => !r.ok);
+  const success = results.filter(r => r.ok);
+
+  // Log every per-number failure so it appears in Cloudflare Worker logs
+  failed.forEach(r => console.error(`WhatsApp FAILED → ${r.to}: ${r.error}`));
+
+  // Only return ok:false if ALL numbers failed
+  if (!success.length)
     return { ok: false, error: failed.map(r => `${r.to}: ${r.error}`).join(' | ') };
 
-  return { ok: true, results };
+  return {
+    ok: true,
+    results,
+    // Surface partial failures as warnings (visible in form response errors array)
+    warnings: failed.length
+      ? failed.map(r => `whatsapp_partial_fail ${r.to}: ${r.error}`)
+      : undefined,
+  };
 }
 
 // ── Router ─────────────────────────────────────────────────────────────────
@@ -236,6 +249,7 @@ export default {
 
     if (method === 'POST'   && url.pathname === '/')                return handleFormSubmit(request, env, origin);
     if (method === 'POST'   && url.pathname === '/indexnow')        return handleIndexNow(request, env, origin);  // FIX v3.1
+    if (method === 'GET'    && url.pathname === '/reviews')         return handleGetReviews(request, env, origin); // FIX v3.2
     if (method === 'GET'    && url.pathname === '/leads')           return handleGetLeads(request, env, origin);
     if (method === 'PATCH'  && url.pathname.startsWith('/leads/'))  return handleUpdateLead(request, env, url.pathname.split('/')[2], origin);
     if (method === 'DELETE' && url.pathname.startsWith('/leads/'))  return handleDeleteLead(request, env, url.pathname.split('/')[2], origin);
@@ -328,6 +342,8 @@ async function handleFormSubmit(request, env, origin) {
   // ── 6. WhatsApp notification ──────────────────────────────────────────────
   const waResult = await sendWhatsApp(env, buildWhatsAppMessage(lead));
   if (!waResult.ok) errors.push('whatsapp_error: ' + waResult.error);
+  // Surface per-number partial failures (e.g. one number outside 24h window)
+  if (waResult.warnings) waResult.warnings.forEach(w => errors.push(w));
 
   // ── 7. EmailJS notification ───────────────────────────────────────────────
   if (env.EMAILJS_SERVICE_ID && env.EMAILJS_TEMPLATE_ID && env.EMAILJS_PUBLIC_KEY) {
@@ -408,7 +424,91 @@ async function handleIndexNow(request, env, origin) {
   }
 }
 
-// ── Get leads ──────────────────────────────────────────────────────────────
+// ── Google Reviews — server-side fetch + D1 cache (6 h TTL) ── FIX v3.2 ───
+// Replaces the client-side Google Maps JS approach which exposed the API key
+// in the HTML and had no caching (one quota hit = broken for all visitors).
+//
+// D1 Schema (run once):
+//   CREATE TABLE IF NOT EXISTS kv_cache (
+//     key       TEXT PRIMARY KEY,
+//     value     TEXT NOT NULL,
+//     updatedAt TEXT NOT NULL
+//   );
+//
+// Cloudflare Dashboard → Worker → Settings → Variables:
+//   GOOGLE_PLACES_KEY  — move the API key here from the HTML (keep it secret)
+async function handleGetReviews(request, env, origin) {
+  const CACHE_KEY = 'google_reviews_cache';
+  const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours in ms
+  const PLACE_ID  = 'ChIJHxAQUGEFDTkRWKKc58QowVs';
+
+  // ── 1. Serve from D1 cache if still fresh ────────────────────────────────
+  try {
+    const row = await env.DB.prepare(
+      'SELECT value, updatedAt FROM kv_cache WHERE key = ?'
+    ).bind(CACHE_KEY).first();
+
+    if (row) {
+      const age = Date.now() - new Date(row.updatedAt).getTime();
+      if (age < CACHE_TTL) {
+        // Cache hit — return immediately, no Google API call needed
+        return new Response(row.value, {
+          status: 200,
+          headers: { ...getCorsHeaders(origin), 'Content-Type': 'application/json', 'X-Cache': 'HIT' },
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('[Reviews] D1 cache read error:', e.message);
+    // Fall through to live fetch
+  }
+
+  // ── 2. Cache miss or stale — fetch fresh from Google Places API ──────────
+  if (!env.GOOGLE_PLACES_KEY)
+    return json({ ok: false, error: 'GOOGLE_PLACES_KEY not configured in Worker secrets' }, 500, origin);
+
+  try {
+    const apiUrl =
+      `https://maps.googleapis.com/maps/api/place/details/json` +
+      `?place_id=${PLACE_ID}` +
+      `&fields=rating,user_ratings_total,reviews` +
+      `&reviews_sort=newest` +
+      `&key=${env.GOOGLE_PLACES_KEY}`;
+
+    const res  = await fetch(apiUrl, { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+
+    if (data.status !== 'OK') {
+      console.error('[Reviews] Places API error:', data.status, data.error_message || '');
+      return json({ ok: false, error: data.status, detail: data.error_message || '' }, 502, origin);
+    }
+
+    const payload = JSON.stringify({ ok: true, result: data.result });
+
+    // ── 3. Write fresh result to D1 cache ──────────────────────────────────
+    try {
+      await env.DB.prepare(`
+        INSERT INTO kv_cache (key, value, updatedAt) VALUES (?, ?, ?)
+        ON CONFLICT(key) DO UPDATE SET
+          value     = excluded.value,
+          updatedAt = excluded.updatedAt
+      `).bind(CACHE_KEY, payload, new Date().toISOString()).run();
+    } catch (cacheErr) {
+      console.warn('[Reviews] D1 cache write error:', cacheErr.message);
+      // Non-fatal — still return the live data
+    }
+
+    return new Response(payload, {
+      status: 200,
+      headers: { ...getCorsHeaders(origin), 'Content-Type': 'application/json', 'X-Cache': 'MISS' },
+    });
+  } catch (err) {
+    console.error('[Reviews] Fetch error:', err.message);
+    return json({ ok: false, error: err.message }, 500, origin);
+  }
+}
+
+
 async function handleGetLeads(request, env, origin) {
   if (request.headers.get('X-CRM-Secret') !== env.CRM_SECRET)
     return json({ ok: false, error: 'Unauthorized' }, 401, origin);
