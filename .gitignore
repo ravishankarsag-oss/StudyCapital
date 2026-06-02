@@ -1,0 +1,33 @@
+# ── Wrangler / Cloudflare ──────────────────────────────────────────────────
+.wrangler/
+.dev.vars
+*.vars
+
+# ── Node ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# ── Archive (old backups — don't deploy) ───────────────────────────────────
+Archive/
+
+# ── Sensitive / Internal files ─────────────────────────────────────────────
+leads_v3.html
+Code.gs
+DEPLOYMENT_GUIDE.html
+*.sql
+*.bak
+*.log
+
+# ── OS files ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Lighthouse CI output ───────────────────────────────────────────────────
+.lighthouseci/
+
+# ── Editor ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp

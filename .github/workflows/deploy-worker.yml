@@ -1,0 +1,51 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  StudyCapital — Deploy Cloudflare Worker
+#  Triggers when worker.js or wrangler.toml changes on the main branch
+# ══════════════════════════════════════════════════════════════════════════════
+
+name: 🚀 Deploy Cloudflare Worker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'worker.js'
+      - 'wrangler.toml'
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy-worker:
+    name: Deploy worker.js → Cloudflare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # ── Step 1: Checkout repo ──────────────────────────────────────────────
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Step 2: Setup Node.js (required by Wrangler) ──────────────────────
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ── Step 3: Deploy via Wrangler ───────────────────────────────────────
+      - name: ☁️ Deploy Worker to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # wrangler.toml and worker.js are in repo root (not a subfolder)
+          workingDirectory: '.'
+          command: deploy
+
+      # ── Step 4: Confirm deployment ────────────────────────────────────────
+      - name: ✅ Deployment complete
+        run: |
+          echo "✅ Worker deployed successfully!"
+          echo "🔗 Worker URL: https://studycapital-form-handler.studycapital2026.workers.dev"
+          echo "📅 Deployed at: $(date -u)"

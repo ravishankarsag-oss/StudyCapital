@@ -1,0 +1,49 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  StudyCapital — Lighthouse CI Audit
+#  Runs automated Lighthouse checks on every Pull Request
+#  Fails the PR if scores drop below thresholds
+# ══════════════════════════════════════════════════════════════════════════════
+
+name: 🔍 Lighthouse CI Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+  # Also run on push to main to track score over time
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: Run Lighthouse Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.14.x
+
+      - name: 🔍 Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📊 Upload Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+          retention-days: 30
