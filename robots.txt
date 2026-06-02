@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /?s=
+Disallow: /leads_v3.html
+Disallow: /upload-documents/
+
+# Allow SEO crawlers with a crawl delay
+User-agent: AhrefsBot
+Crawl-delay: 10
+Allow: /
+
+User-agent: SemrushBot
+Crawl-delay: 10
+Allow: /
+
+# Sitemap
+Sitemap: https://www.studycapital.in/sitemap.xml
