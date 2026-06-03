@@ -1,16 +1,56 @@
-name = "studycapital"
+# ── StudyCapital — Cloudflare Worker Configuration ─────────────────────────
+# Worker: studycapital-form-handler
+# Deploy: git push to GitHub (auto-deploys via connected Worker)
+# Local:  wrangler dev
+
+name = "studycapital-form-handler"
 main = "worker.js"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 
-# ── D1 Database Bindings ───────────────────────────────────────────────────
+# ── Workers Assets ─────────────────────────────────────────────────────────
+# This creates env.ASSETS automatically — fixes the 1101 Worker exception.
+# All static files in the repo root are served via env.ASSETS.fetch(request)
+[assets]
+directory = "."
+binding = "ASSETS"
+
+# ── D1 Database Binding ────────────────────────────────────────────────────
 [[d1_databases]]
 binding = "DB"
 database_name = "studycapital-leads"
 database_id = "68e02d3e-6bfa-4f4c-bf2d-643a74fde434"
 
-# ── D1 Schema Bootstrap (run once via: wrangler d1 execute studycapital-leads --file=schema.sql)
-# ── schema.sql should contain:
+# ── Cron Trigger (Follow-up reminders every 30 min) ───────────────────────
+[triggers]
+crons = ["*/30 * * * *"]
+
+# ── Environment Variables ──────────────────────────────────────────────────
+# ⚠️  DO NOT hardcode secrets here.
+# Add all via: Workers & Pages → studycapital-form-handler → Settings → Variables and Secrets
+#
+#  Variable (plain text):
+#   WHATSAPP_PHONE_ID           = 1146151658573233
+#   WHATSAPP_RECIPIENTS         = 919811419910,919654097708
+#   TELEGRAM_CHAT_ID            = 7771888228
+#   EMAILJS_SERVICE_ID          = service_vsw1dob
+#   EMAILJS_TEMPLATE_ID         = template_wq540ol
+#   EMAILJS_AUTOREPLY_TEMPLATE_ID = template_fpaeota
+#   EMAILJS_PUBLIC_KEY          = (from EmailJS account page)
+#   INDEXNOW_KEY                = de0eddccb6aebc2e35904e85f45877b6
+#
+#  Secret (encrypted):
+#   WHATSAPP_TOKEN              = (Meta permanent system user token)
+#   EMAILJS_PRIVATE_KEY         = (from EmailJS account page)
+#   TELEGRAM_BOT_TOKEN          = (from @BotFather)
+#   CRM_SECRET                  = (min 16 chars random string)
+#   TURNSTILE_SECRET            = (from Cloudflare Turnstile dashboard)
+#   GOOGLE_PLACES_KEY           = (from Google Cloud Console)
+
+# ── D1 Schema (run once) ───────────────────────────────────────────────────
+# wrangler d1 execute studycapital-leads --file=schema.sql
+#
+# schema.sql contents:
 #
 #   CREATE TABLE IF NOT EXISTS leads (
 #     id TEXT PRIMARY KEY,
@@ -31,38 +71,10 @@ database_id = "68e02d3e-6bfa-4f4c-bf2d-643a74fde434"
 #     createdAt TEXT NOT NULL
 #   );
 #
-#   -- FIX: rate_limits table for persistent distributed rate limiting (replaces in-memory Map)
 #   CREATE TABLE IF NOT EXISTS rate_limits (
 #     ip TEXT PRIMARY KEY,
 #     timestamps TEXT NOT NULL DEFAULT '[]',
 #     updatedAt TEXT NOT NULL
 #   );
 #
-#   -- Optional: auto-clean old rate limit entries older than 1 hour
 #   CREATE INDEX IF NOT EXISTS idx_rate_limits_updated ON rate_limits(updatedAt);
-
-# ── Environment Variables (set via Dashboard or `wrangler secret put`) ─────
-# All secrets are encrypted in the Cloudflare dashboard.
-# To add/update via CLI:
-#
-#   wrangler secret put TELEGRAM_BOT_TOKEN
-#   wrangler secret put TELEGRAM_CHAT_ID
-#   wrangler secret put EMAILJS_SERVICE_ID
-#   wrangler secret put EMAILJS_TEMPLATE_ID
-#   wrangler secret put EMAILJS_PUBLIC_KEY
-#   wrangler secret put EMAILJS_PRIVATE_KEY
-#   wrangler secret put CRM_SECRET
-#   wrangler secret put WHATSAPP_TOKEN
-#   wrangler secret put WHATSAPP_PHONE_ID
-#   wrangler secret put WHATSAPP_RECIPIENT
-#   wrangler secret put TURNSTILE_SECRET        ← Cloudflare Turnstile secret key
-#   wrangler secret put ALLOWED_ORIGIN
-#   wrangler secret put INDEXNOW_KEY            ← Used by POST /indexnow endpoint
-#
-# (already added to dashboard — do NOT hardcode here in production)
-
-# ── Routes ────────────────────────────────────────────────────────────────
-# Uncomment and set your custom domain if desired:
-# routes = [
-#   { pattern = "studycapital.in/api/*", zone_name = "studycapital.in" }
-# ]
