@@ -1,19 +1,16 @@
 # ── StudyCapital — Cloudflare Worker Configuration ─────────────────────────
-# Worker: studycapital-form-handler
-# Deploy: git push to GitHub (auto-deploys via connected Worker)
+# Architecture:
+#   - studycapital.in        → cPanel (serves static files)
+#   - Cloudflare Worker      → handles form API, notifications, D1 leads
+#   - GitHub                 → code storage / Worker auto-deploy
+#
+# Deploy: git push to GitHub → auto-deploys to studycapital-form-handler Worker
 # Local:  wrangler dev
 
 name = "studycapital-form-handler"
 main = "worker.js"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
-
-# ── Workers Assets ─────────────────────────────────────────────────────────
-# This creates env.ASSETS automatically — fixes the 1101 Worker exception.
-# All static files in the repo root are served via env.ASSETS.fetch(request)
-[assets]
-directory = "."
-binding = "ASSETS"
 
 # ── D1 Database Binding ────────────────────────────────────────────────────
 [[d1_databases]]
@@ -25,56 +22,30 @@ database_id = "68e02d3e-6bfa-4f4c-bf2d-643a74fde434"
 [triggers]
 crons = ["*/30 * * * *"]
 
-# ── Environment Variables ──────────────────────────────────────────────────
-# ⚠️  DO NOT hardcode secrets here.
-# Add all via: Workers & Pages → studycapital-form-handler → Settings → Variables and Secrets
+# ── Secrets (add via Dashboard → studycapital-form-handler → Settings) ────
 #
 #  Variable (plain text):
-#   WHATSAPP_PHONE_ID           = 1146151658573233
-#   WHATSAPP_RECIPIENTS         = 919811419910,919654097708
-#   TELEGRAM_CHAT_ID            = 7771888228
-#   EMAILJS_SERVICE_ID          = service_vsw1dob
-#   EMAILJS_TEMPLATE_ID         = template_wq540ol
+#   WHATSAPP_PHONE_ID             = 1146151658573233
+#   WHATSAPP_RECIPIENTS           = 919811419910,919654097708
+#   TELEGRAM_CHAT_ID              = 7771888228
+#   EMAILJS_SERVICE_ID            = service_vsw1dob
+#   EMAILJS_TEMPLATE_ID           = template_wq540ol
 #   EMAILJS_AUTOREPLY_TEMPLATE_ID = template_fpaeota
-#   EMAILJS_PUBLIC_KEY          = (from EmailJS account page)
-#   INDEXNOW_KEY                = de0eddccb6aebc2e35904e85f45877b6
+#   EMAILJS_PUBLIC_KEY            = (from EmailJS account page)
+#   INDEXNOW_KEY                  = de0eddccb6aebc2e35904e85f45877b6
 #
 #  Secret (encrypted):
-#   WHATSAPP_TOKEN              = (Meta permanent system user token)
-#   EMAILJS_PRIVATE_KEY         = (from EmailJS account page)
-#   TELEGRAM_BOT_TOKEN          = (from @BotFather)
-#   CRM_SECRET                  = (min 16 chars random string)
-#   TURNSTILE_SECRET            = (from Cloudflare Turnstile dashboard)
-#   GOOGLE_PLACES_KEY           = (from Google Cloud Console)
+#   WHATSAPP_TOKEN                = (Meta permanent system user token)
+#   EMAILJS_PRIVATE_KEY           = (from EmailJS account page)
+#   TELEGRAM_BOT_TOKEN            = (from @BotFather)
+#   CRM_SECRET                    = (min 16 chars random string)
+#   TURNSTILE_SECRET              = (from Cloudflare Turnstile dashboard)
+#   GOOGLE_PLACES_KEY             = (from Google Cloud Console)
 
-# ── D1 Schema (run once) ───────────────────────────────────────────────────
-# wrangler d1 execute studycapital-leads --file=schema.sql
-#
-# schema.sql contents:
-#
-#   CREATE TABLE IF NOT EXISTS leads (
-#     id TEXT PRIMARY KEY,
-#     name TEXT NOT NULL,
-#     phone TEXT NOT NULL,
-#     email TEXT,
-#     city TEXT,
-#     loanType TEXT,
-#     loanAmount TEXT,
-#     course TEXT,
-#     destination TEXT,
-#     source TEXT DEFAULT 'Website',
-#     status TEXT DEFAULT 'New',
-#     assignedTo TEXT DEFAULT '',
-#     followup TEXT DEFAULT '',
-#     message TEXT,
-#     notes TEXT DEFAULT '[]',
-#     createdAt TEXT NOT NULL
-#   );
-#
-#   CREATE TABLE IF NOT EXISTS rate_limits (
-#     ip TEXT PRIMARY KEY,
-#     timestamps TEXT NOT NULL DEFAULT '[]',
-#     updatedAt TEXT NOT NULL
-#   );
-#
-#   CREATE INDEX IF NOT EXISTS idx_rate_limits_updated ON rate_limits(updatedAt);
+# ── Observability (Cloudflare suggested — enables real-time logs) ──────────
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
