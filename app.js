@@ -36,6 +36,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 const WA_FALLBACK = 'https://wa.me/919811419910?text=';
 
+// ── Contextual WhatsApp messaging: page-aware click-to-chat text ──
+function buildContextualWaMessage() {
+  const type = document.body.getAttribute('data-wa-type');
+  const ctx  = document.body.getAttribute('data-wa-context');
+  if (!type || !ctx) return null;
+  switch (type) {
+    case 'city':    return `Hi StudyCapital! I'm based in ${ctx} and would like help with an education loan.`;
+    case 'country': return `Hi StudyCapital! I want to study in ${ctx} and need help with an education loan.`;
+    case 'course':  return `Hi StudyCapital! I need an education loan for ${ctx}.`;
+    case 'bank':    return `Hi StudyCapital! I have a question about ${ctx} education loans.`;
+    case 'topic':   return `Hi StudyCapital! I have a question about ${ctx}.`;
+    default:        return null;
+  }
+}
+function initContextualWhatsApp() {
+  const msg = buildContextualWaMessage();
+  if (!msg) return; // homepage / legal pages / unclassified keep their existing hardcoded message
+  const encoded = encodeURIComponent(msg);
+  document.querySelectorAll('a.whatsapp-btn, a.wa').forEach(el => {
+    el.setAttribute('href', `https://wa.me/919811419910?text=${encoded}`);
+  });
+}
+document.addEventListener('DOMContentLoaded', initContextualWhatsApp);
+
 // ── Input Sanitizer (prevents XSS in DOM injection) ──
 function sanitize(str) {
   const el = document.createElement('div');
@@ -305,6 +329,52 @@ function calcEMI() {
 }
 calcEMI();
 
+// ── Hero Form: 3-step navigation ──
+let heroStep = 1;
+function goToHeroStep(n) {
+  heroStep = n;
+  document.querySelectorAll('#hero-form-wrap .form-step').forEach(el => {
+    el.style.display = (parseInt(el.dataset.step, 10) === n) ? '' : 'none';
+  });
+  const fill = document.getElementById('form-progress-fill');
+  if (fill) fill.style.width = (n / 3 * 100) + '%';
+  const sub = document.getElementById('form-step-sub');
+  if (sub) {
+    const labels = { 1: 'Tell us about your plans', 2: 'How much do you need?', 3: 'Where should we send your quote?' };
+    sub.textContent = `Step ${n} of 3 — ${labels[n]}`;
+  }
+  if (n === 3) renderHeroTurnstile();
+  onHeroFormStart();
+  const wrap = document.getElementById('hero-form-wrap');
+  if (wrap) wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ── Turnstile: explicit rendering (avoids rendering into a display:none container) ──
+// Polls for the `turnstile` global rather than relying on the script's onload= URL
+// callback, so this works regardless of async/defer timing between this file and
+// the Cloudflare script tag.
+let hTurnstileWidgetId = null;
+let cTurnstileWidgetId = null;
+let turnstileApiReady = false;
+function whenTurnstileReady(cb, attempts = 0) {
+  if (typeof turnstile !== 'undefined' && turnstile.render) { cb(); return; }
+  if (attempts > 100) return; // ~10s ceiling, give up quietly
+  setTimeout(() => whenTurnstileReady(cb, attempts + 1), 100);
+}
+whenTurnstileReady(() => {
+  turnstileApiReady = true;
+  const cEl = document.getElementById('c-turnstile');
+  if (cEl && cTurnstileWidgetId === null) {
+    cTurnstileWidgetId = turnstile.render('#c-turnstile', { sitekey: '0x4AAAAAADRo6pr77mGNNfnG', theme: 'light' });
+  }
+  if (heroStep === 3) renderHeroTurnstile();
+});
+function renderHeroTurnstile() {
+  if (!turnstileApiReady || hTurnstileWidgetId !== null) return;
+  const hEl = document.getElementById('h-turnstile');
+  if (hEl) hTurnstileWidgetId = turnstile.render('#h-turnstile', { sitekey: '0x4AAAAAADRo6pr77mGNNfnG', theme: 'light' });
+}
+
 // ── Hero Form Submit ──
 async function submitHeroForm() {
   const name        = document.getElementById('h-name').value.trim();
@@ -392,6 +462,7 @@ async function submitHeroForm() {
   // Reset form fields
   ['h-name','h-phone','h-email','h-course','h-city','h-msg'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   document.getElementById('h-country-code').value = '+91';
+  goToHeroStep(1);
   } catch(e) {
     console.error('Form submission error:', e);
     gaEvent('form_error', { form_id: 'hero_inquiry', error: e.message });

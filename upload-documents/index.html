@@ -13,6 +13,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap">
 
 <style>
+.ic{display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0;}
+/* Icon accent colors, grouped by meaning */
+.ic-check,.ic-check-circle-2,.ic-trophy,.ic-handshake{color:var(--green);}
+.ic-lock,.ic-lock-keyhole,.ic-lock-open,.ic-shield{color:var(--blue);}
+.ic-banknote,.ic-credit-card,.ic-trending-up,.ic-calculator,.ic-bar-chart-3{color:var(--gold);}
+.ic-triangle-alert,.ic-x,.ic-x-circle,.ic-ban,.ic-trash-2,.ic-trending-down{color:var(--orange);}
+.ic-phone,.ic-mail,.ic-message-circle,.ic-map-pin,.ic-megaphone,.ic-download,.ic-upload,.ic-search,.ic-link{color:var(--blue-light);}
+/* Preserve deliberate icon color already set by colored buttons/badges/toasts - must win over the rules above */
+.btn-green .ic,.btn-primary .ic,.btn-white .ic,.btn-outline-white .ic,.btn-outline-white-cta .ic,
+.nav-cta .ic,.sc-toast-btn-primary .ic,.sc-toast-btn-wa .ic,.sc-toast-close .ic,.pp-close-btn .ic,
+.sc-toast-icon .ic,.elig-check .ic,.whatsapp-btn .ic,.service-card:hover .svc-icon .ic,
+.feat-icon .ic,.mp-chip .ic{color:inherit;}
+.ic-flag{display:inline-flex;width:1.35em;height:1em;border-radius:3px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);vertical-align:-0.18em;flex-shrink:0;}
+.ic-flag-svg{width:100%;height:100%;display:block;}
+
+
+.ic .ic-svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 :root {
   --navy: #0A1628;
   --blue: #1A56DB;
@@ -279,7 +296,7 @@ input.error { border-color: #EF4444; }
 }
 </style>
 </head>
-<body>
+<body><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none" aria-hidden="true"><defs><symbol id="ic-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2" /> <circle cx="12" cy="12" r="2" /> <path d="M6 12h.01M18 12h.01" /></symbol><symbol id="ic-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="ic-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></symbol><symbol id="ic-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /></symbol><symbol id="ic-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></symbol><symbol id="ic-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol><symbol id="ic-id-card" viewBox="0 0 24 24"><path d="M16 10h2" /> <path d="M16 14h2" /> <path d="M6.17 15a3 3 0 0 1 5.66 0" /> <circle cx="9" cy="11" r="2" /> <rect x="2" y="5" width="20" height="14" rx="2" /></symbol><symbol id="ic-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /> <circle cx="9" cy="9" r="2" /> <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol><symbol id="ic-landmark" viewBox="0 0 24 24"><path d="M10 18v-7" /> <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /> <path d="M14 18v-7" /> <path d="M18 18v-7" /> <path d="M3 22h18" /> <path d="M6 18v-7" /></symbol><symbol id="ic-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol><symbol id="ic-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></symbol><symbol id="ic-paperclip" viewBox="0 0 24 24"><path d="m16 6-8.414 8.586a2 2 0 0 0 2.829 2.829l8.414-8.586a4 4 0 1 0-5.657-5.657l-8.379 8.551a6 6 0 1 0 8.485 8.485l8.379-8.551" /></symbol><symbol id="ic-party-popper" viewBox="0 0 24 24"><path d="M5.8 11.3 2 22l10.7-3.79" /> <path d="M4 3h.01" /> <path d="M22 8h.01" /> <path d="M15 2h.01" /> <path d="M22 20h.01" /> <path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" /> <path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17" /> <path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7" /> <path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z" /></symbol><symbol id="ic-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></symbol><symbol id="ic-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></symbol><symbol id="ic-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /></symbol><symbol id="ic-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="ic-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" /></symbol><symbol id="ic-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol><symbol id="ic-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></symbol></defs></svg>
 
 <nav class="navbar">
   <a href="/" class="logo">
@@ -296,7 +313,7 @@ input.error { border-color: #EF4444; }
 
 <div class="page-wrap">
   <div class="page-hero">
-    <div class="badge">🔒 Secure Document Portal</div>
+    <div class="badge"><span class="ic ic-lock" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-lock" href="#ic-lock"></use></svg></span> Secure Document Portal</div>
     <h1>Upload Your Loan Documents</h1>
     <p>Verify your mobile number and securely submit your documents. Files go directly to our team for fast processing.</p>
   </div>
@@ -320,14 +337,14 @@ input.error { border-color: #EF4444; }
       </div>
       <div class="step-line" id="line3"></div>
       <div class="step" id="step4_ind" style="opacity:0.4">
-        <div class="step-circle">✓</div>
+        <div class="step-circle"><span class="ic ic-check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check" href="#ic-check"></use></svg></span></div>
         <div class="step-label">Done!</div>
       </div>
     </div>
 
     <div id="sectionOTP">
       <div class="card">
-        <h2 class="card-title">📱 Verify Your Mobile Number</h2>
+        <h2 class="card-title"><span class="ic ic-smartphone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-smartphone" href="#ic-smartphone"></use></svg></span> Verify Your Mobile Number</h2>
         <p class="card-sub">We'll send a 6-digit OTP to confirm your identity before you upload any documents.</p>
 
         <div class="info-box">
@@ -362,7 +379,7 @@ input.error { border-color: #EF4444; }
 
     <div id="sectionDetails" class="section-hidden">
       <div class="card">
-        <h2 class="card-title">🎓 Student Information</h2>
+        <h2 class="card-title"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> Student Information</h2>
         <p class="card-sub">Tell us a bit about yourself so we can match your documents to your loan application.</p>
 
         <div class="field-row">
@@ -404,7 +421,7 @@ input.error { border-color: #EF4444; }
 
         <!-- Co-applicant -->
         <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-200);">
-          <p style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-bottom:0.75rem;">👨‍👩‍👦 Co-Applicant Details (Parent / Guardian)</p>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--navy);margin-bottom:0.75rem;"><span class="ic ic-users" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-users" href="#ic-users"></use></svg></span> Co-Applicant Details (Parent / Guardian)</p>
           <div class="field-row">
             <div class="field-group">
               <label class="field-label">Co-Applicant Name</label>
@@ -470,7 +487,7 @@ input.error { border-color: #EF4444; }
           </div>
         </div>
 
-        <div class="rate-warn" id="rateWarn">⚠️ Too many attempts. Please wait a few minutes before trying again.</div>
+        <div class="rate-warn" id="rateWarn"><span class="ic ic-triangle-alert" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-triangle-alert" href="#ic-triangle-alert"></use></svg></span> Too many attempts. Please wait a few minutes before trying again.</div>
 
         <button class="btn-primary" onclick="goToUpload()">
           Continue to Document Upload →
@@ -480,7 +497,7 @@ input.error { border-color: #EF4444; }
 
     <div id="sectionUpload" class="section-hidden">
       <div class="card">
-        <h2 class="card-title">📄 Upload Your Documents</h2>
+        <h2 class="card-title"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> Upload Your Documents</h2>
         <p class="card-sub">Upload clearly scanned copies. Accepted formats: PDF, JPG, PNG (max 10 MB per file). Required documents are marked.</p>
 
         <div class="info-box">
@@ -493,133 +510,133 @@ input.error { border-color: #EF4444; }
           <div class="doc-card" id="dc_aadhaar">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'aadhaar')" id="f_aadhaar">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">🪪</div>
+            <div class="doc-icon"><span class="ic ic-id-card" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-id-card" href="#ic-id-card"></use></svg></span></div>
             <div class="doc-name">Aadhaar Card</div>
             <div class="doc-hint">Front &amp; back (single PDF)</div>
             <div class="doc-status" id="ds_aadhaar">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_aadhaar').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_aadhaar" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_aadhaar">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_aadhaar" onclick="removeFile('aadhaar')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_aadhaar"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_aadhaar" onclick="removeFile('aadhaar')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_pan">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'pan')" id="f_pan">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">💳</div>
+            <div class="doc-icon"><span class="ic ic-credit-card" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-credit-card" href="#ic-credit-card"></use></svg></span></div>
             <div class="doc-name">PAN Card</div>
             <div class="doc-hint">Student or co-applicant</div>
             <div class="doc-status" id="ds_pan">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_pan').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_pan" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_pan">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_pan" onclick="removeFile('pan')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_pan"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_pan" onclick="removeFile('pan')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_10th">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'tenth')" id="f_tenth">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">📋</div>
+            <div class="doc-icon"><span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span></div>
             <div class="doc-name">10th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
             <div class="doc-status" id="ds_tenth">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_tenth').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_tenth" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_tenth">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_tenth" onclick="removeFile('tenth')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_tenth"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_tenth" onclick="removeFile('tenth')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_12th">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'twelfth')" id="f_twelfth">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">📋</div>
+            <div class="doc-icon"><span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span></div>
             <div class="doc-name">12th Marksheet</div>
             <div class="doc-hint">Board certificate + marksheet</div>
             <div class="doc-status" id="ds_twelfth">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_twelfth').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_twelfth" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_twelfth">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_twelfth" onclick="removeFile('twelfth')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_twelfth"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_twelfth" onclick="removeFile('twelfth')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_grad">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'grad')" id="f_grad">
-            <div class="doc-icon">🎓</div>
+            <div class="doc-icon"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span></div>
             <div class="doc-name">Graduation Marksheets</div>
             <div class="doc-hint">All semesters / years</div>
             <div class="doc-status" id="ds_grad">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_grad').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_grad" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_grad">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_grad" onclick="removeFile('grad')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_grad"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_grad" onclick="removeFile('grad')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_admit">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'admit')" id="f_admit">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">📩</div>
+            <div class="doc-icon"><span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span></div>
             <div class="doc-name">Admission Letter</div>
             <div class="doc-hint">College / university offer letter</div>
             <div class="doc-status" id="ds_admit">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_admit').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_admit" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_admit">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_admit" onclick="removeFile('admit')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_admit"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_admit" onclick="removeFile('admit')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_income">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'income')" id="f_income">
             <div class="doc-req-badge">Required</div>
-            <div class="doc-icon">💰</div>
+            <div class="doc-icon"><span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span></div>
             <div class="doc-name">Income Proof</div>
             <div class="doc-hint">Salary slips / ITR (co-applicant)</div>
             <div class="doc-status" id="ds_income">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_income').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_income" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_income">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_income" onclick="removeFile('income')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_income"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_income" onclick="removeFile('income')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_bank">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'bank')" id="f_bank">
-            <div class="doc-icon">🏦</div>
+            <div class="doc-icon"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div>
             <div class="doc-name">Bank Statement</div>
             <div class="doc-hint">Last 6 months (co-applicant)</div>
             <div class="doc-status" id="ds_bank">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_bank').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_bank" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_bank">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_bank" onclick="removeFile('bank')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_bank"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_bank" onclick="removeFile('bank')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_photo">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'photo')" id="f_photo">
-            <div class="doc-icon">🖼️</div>
+            <div class="doc-icon"><span class="ic ic-image" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-image" href="#ic-image"></use></svg></span></div>
             <div class="doc-name">Passport Size Photo</div>
             <div class="doc-hint">White background, recent</div>
             <div class="doc-status" id="ds_photo">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_photo').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_photo" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_photo">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_photo" onclick="removeFile('photo')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_photo"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_photo" onclick="removeFile('photo')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_passport">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'passport')" id="f_passport">
-            <div class="doc-icon">✈️</div>
+            <div class="doc-icon"><span class="ic ic-plane" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-plane" href="#ic-plane"></use></svg></span></div>
             <div class="doc-name">Passport (if abroad)</div>
             <div class="doc-hint">First &amp; last page</div>
             <div class="doc-status" id="ds_passport">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_passport').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_passport" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_passport">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_passport" onclick="removeFile('passport')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_passport"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_passport" onclick="removeFile('passport')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_gre">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'gre')" id="f_gre">
-            <div class="doc-icon">📝</div>
+            <div class="doc-icon"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span></div>
             <div class="doc-name">GRE / GMAT / IELTS / PTE</div>
             <div class="doc-hint">Score card (if applicable)</div>
             <div class="doc-status" id="ds_gre">Click to upload (max 10 MB)</div>
             <button class="doc-upload-btn" onclick="document.getElementById('f_gre').click()">Choose File</button>
           
             <img class="doc-preview" id="prev_gre" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_gre">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_gre" onclick="removeFile('gre')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_gre"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_gre" onclick="removeFile('gre')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div><div class="doc-card" id="dc_other">
             <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="fileChosen(this,'other')" id="f_other">
-            <div class="doc-icon">📎</div>
+            <div class="doc-icon"><span class="ic ic-paperclip" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-paperclip" href="#ic-paperclip"></use></svg></span></div>
             <div class="doc-name">Other / Additional Docs</div>
             <div class="doc-hint">Collateral, property docs, etc.</div>
             <div class="doc-status" id="ds_other">Click to upload (max 10 MB)</div>
@@ -648,7 +665,7 @@ input.error { border-color: #EF4444; }
     </div>
 
     <div class="success-card" id="successCard">
-      <div class="success-icon">🎉</div>
+      <div class="success-icon"><span class="ic ic-party-popper" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-party-popper" href="#ic-party-popper"></use></svg></span></div>
       <h2>Documents Submitted!</h2>
       <p>Your documents have been securely uploaded to our system. Our team will review them and contact you within 24–48 hours.</p>
       <div class="success-ref" id="successRef"></div>
@@ -678,8 +695,8 @@ input.error { border-color: #EF4444; }
         DPDP Compliant
       
             <img class="doc-preview" id="prev_other" alt="preview">
-            <div class="doc-preview-pdf" id="prevpdf_other">📄 PDF selected</div>
-            <button class="doc-remove-btn" id="rem_other" onclick="removeFile('other')">✕ Remove</button>
+            <div class="doc-preview-pdf" id="prevpdf_other"><span class="ic ic-file-text" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-file-text" href="#ic-file-text"></use></svg></span> PDF selected</div>
+            <button class="doc-remove-btn" id="rem_other" onclick="removeFile('other')"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span> Remove</button>
           </div></div>
 
   </div></div><div class="toast" id="toast"></div>
@@ -749,7 +766,7 @@ async function sendOTP() {
     document.getElementById('otpField').classList.remove('section-hidden');
     document.getElementById('btnVerifyOTP').classList.remove('section-hidden');
     document.getElementById('phoneInput').disabled = true;
-    btn.textContent = 'OTP Sent ✓';
+    btn.textContent = 'OTP Sent <span class="ic ic-check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check" href="#ic-check"></use></svg></span>';
     STATE.otpSent = true;
 
     startOTPTimer();
@@ -837,7 +854,7 @@ function verifyOTP() {
     STATE.otpAttempts = 0;
     STATE.otpVerified = true;
     clearInterval(STATE.timerInterval);
-    showToast('Mobile verified successfully! ✓', 'success');
+    showToast('Mobile verified successfully! <span class="ic ic-check" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check" href="#ic-check"></use></svg></span>', 'success');
 
     // Transition to step 2
     setTimeout(() => {

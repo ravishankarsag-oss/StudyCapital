@@ -37,6 +37,23 @@
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap"></noscript>
 <style>
+.ic{display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0;}
+/* Icon accent colors, grouped by meaning */
+.ic-check,.ic-check-circle-2,.ic-trophy,.ic-handshake{color:var(--green);}
+.ic-lock,.ic-lock-keyhole,.ic-lock-open,.ic-shield{color:var(--blue);}
+.ic-banknote,.ic-credit-card,.ic-trending-up,.ic-calculator,.ic-bar-chart-3{color:var(--gold);}
+.ic-triangle-alert,.ic-x,.ic-x-circle,.ic-ban,.ic-trash-2,.ic-trending-down{color:var(--orange);}
+.ic-phone,.ic-mail,.ic-message-circle,.ic-map-pin,.ic-megaphone,.ic-download,.ic-upload,.ic-search,.ic-link{color:var(--blue-light);}
+/* Preserve deliberate icon color already set by colored buttons/badges/toasts - must win over the rules above */
+.btn-green .ic,.btn-primary .ic,.btn-white .ic,.btn-outline-white .ic,.btn-outline-white-cta .ic,
+.nav-cta .ic,.sc-toast-btn-primary .ic,.sc-toast-btn-wa .ic,.sc-toast-close .ic,.pp-close-btn .ic,
+.sc-toast-icon .ic,.elig-check .ic,.whatsapp-btn .ic,.service-card:hover .svc-icon .ic,
+.feat-icon .ic,.mp-chip .ic{color:inherit;}
+.ic-flag{display:inline-flex;width:1.35em;height:1em;border-radius:3px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);vertical-align:-0.18em;flex-shrink:0;}
+.ic-flag-svg{width:100%;height:100%;display:block;}
+
+
+.ic .ic-svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 :root {
   --navy: #0A1628;
   --blue: #1A56DB;
@@ -460,7 +477,7 @@ section { padding: 44px 5%; }
 .service-card:hover { border-color: var(--blue-light); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
 .service-card:hover::before { transform: scaleX(1); }
 .svc-icon { width: 56px; height: 56px; border-radius: 14px; background: var(--sky); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; transition: var(--transition); }
-.service-card:hover .svc-icon { background: var(--blue); }
+.service-card:hover .svc-icon { background: var(--blue); color: white; }
 .service-card h3 { font-size: 1.05rem; color: var(--navy); margin-bottom: 0.75rem; }
 .service-card p { font-size: 0.85rem; color: var(--gray-600); line-height: 1.6; }
 .svc-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-size: 0.82rem; font-weight: 600; margin-top: 1rem; transition: var(--transition); }
@@ -670,7 +687,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 60px 5
   width: 80px; height: 80px; border-radius: 50%;
   background: linear-gradient(135deg, #10b981, #059669);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.25rem; font-size: 2.2rem;
+  margin: 0 auto 1.25rem; font-size: 2.2rem; color: white;
   box-shadow: 0 8px 24px rgba(16,185,129,0.35);
   animation: iconPop 0.5s cubic-bezier(.34,1.56,.64,1) 0.2s both;
 }
@@ -911,7 +928,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
   })(window, document, "clarity", "script", "wrbl6b0krl");
 </script>
 </head>
-<body>
+<body data-wa-type="city" data-wa-context="Hyderabad"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none" aria-hidden="true"><defs><symbol id="fl-au" viewBox="0 0 640 480"><path fill="#00008B" d="M0 0h640v480H0z"/> <path fill="#fff" d="m37.5 0 122 90.5L281 0h39v31l-120 89.5 120 89V240h-40l-120-89.5L40.5 240H0v-30l119.5-89L0 32V0z"/> <path fill="red" d="M212 140.5 320 220v20l-135.5-99.5zm-92 10 3 17.5-96 72H0zM320 0v1.5l-124.5 94 1-22L295 0zM0 0l119.5 88h-30L0 21z"/> <path fill="#fff" d="M120.5 0v240h80V0zM0 80v80h320V80z"/> <path fill="red" d="M0 96.5v48h320v-48zM136.5 0v240h48V0z"/> <path fill="#fff" d="m527 396.7-20.5 2.6 2.2 20.5-14.8-14.4-14.7 14.5 2-20.5-20.5-2.4 17.3-11.2-10.9-17.5 19.6 6.5 6.9-19.5 7.1 19.4 19.5-6.7-10.7 17.6zm-3.7-117.2 2.7-13-9.8-9 13.2-1.5 5.5-12.1 5.5 12.1 13.2 1.5-9.8 9 2.7 13-11.6-6.6zm-104.1-60-20.3 2.2 1.8 20.3-14.4-14.5-14.8 14.1 2.4-20.3-20.2-2.7 17.3-10.8-10.5-17.5 19.3 6.8L387 178l6.7 19.3 19.4-6.3-10.9 17.3 17.1 11.2ZM623 186.7l-20.9 2.7 2.3 20.9-15.1-14.7-15 14.8 2.1-21-20.9-2.4 17.7-11.5-11.1-17.9 20 6.7 7-19.8 7.2 19.8 19.9-6.9-11 18zm-96.1-83.5-20.7 2.3 1.9 20.8-14.7-14.8-15.1 14.4 2.4-20.7-20.7-2.8 17.7-11L467 73.5l19.7 6.9 7.3-19.5 6.8 19.7 19.8-6.5-11.1 17.6zM234 385.7l-45.8 5.4 4.6 45.9-32.8-32.4-33 32.2 4.9-45.9-45.8-5.8 38.9-24.8-24-39.4 43.6 15 15.8-43.4 15.5 43.5 43.7-14.7-24.3 39.2 38.8 25.1Z"/></symbol><symbol id="fl-ca" viewBox="0 0 640 480"><path fill="#fff" d="M150.1 0h339.7v480H150z"/> <path fill="#d52b1e" d="M-19.7 0h169.8v480H-19.7zm509.5 0h169.8v480H489.9zM201 232l-13.3 4.4 61.4 54c4.7 13.7-1.6 17.8-5.6 25l66.6-8.4-1.6 67 13.9-.3-3.1-66.6 66.7 8c-4.1-8.7-7.8-13.3-4-27.2l61.3-51-10.7-4c-8.8-6.8 3.8-32.6 5.6-48.9 0 0-35.7 12.3-38 5.8l-9.2-17.5-32.6 35.8c-3.5.9-5-.5-5.9-3.5l15-74.8-23.8 13.4q-3.2 1.3-5.2-2.2l-23-46-23.6 47.8q-2.8 2.5-5 .7L264 130.8l13.7 74.1c-1.1 3-3.7 3.8-6.7 2.2l-31.2-35.3c-4 6.5-6.8 17.1-12.2 19.5s-23.5-4.5-35.6-7c4.2 14.8 17 39.6 9 47.7"/></symbol><symbol id="fl-de" viewBox="0 0 640 480"><path fill="#fc0" d="M0 320h640v160H0z"/> <path fill="#000001" d="M0 0h640v160H0z"/> <path fill="red" d="M0 160h640v160H0z"/></symbol><symbol id="fl-fr" viewBox="0 0 640 480"><path fill="#fff" d="M0 0h640v480H0z"/> <path fill="#000091" d="M0 0h213.3v480H0z"/> <path fill="#e1000f" d="M426.7 0H640v480H426.7z"/></symbol><symbol id="fl-gb" viewBox="0 0 640 480"><path fill="#012169" d="M0 0h640v480H0z"/> <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/> <path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/> <path fill="#FFF" d="M241 0v480h160V0zM0 160v160h640V160z"/> <path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/></symbol><symbol id="fl-ie" viewBox="0 0 640 480"><g fill-rule="evenodd" stroke-width="1pt"> <path fill="#fff" d="M0 0h640v480H0z"/> <path fill="#009A49" d="M0 0h213.3v480H0z"/> <path fill="#FF7900" d="M426.7 0H640v480H426.7z"/> </g></symbol><symbol id="fl-nz" viewBox="0 0 640 480"><defs> <g id="nz-b"> <g id="nz-a"> <path d="M0-.3v.5l1-.5z"/> <path d="M.2.3 0-.1l1-.2z"/> </g> <use xlink:href="#nz-a" transform="scale(-1 1)"/> <use xlink:href="#nz-a" transform="rotate(72 0 0)"/> <use xlink:href="#nz-a" transform="rotate(-72 0 0)"/> <use xlink:href="#nz-a" transform="scale(-1 1)rotate(72)"/> </g> </defs> <path fill="#00247d" fill-rule="evenodd" d="M0 0h640v480H0z"/> <g transform="translate(-111 36.1)scale(.66825)"> <use xlink:href="#nz-b" width="100%" height="100%" fill="#fff" transform="translate(900 120)scale(45.4)"/> <use xlink:href="#nz-b" width="100%" height="100%" fill="#cc142b" transform="matrix(30 0 0 30 900 120)"/> </g> <g transform="rotate(82 525.2 114.6)scale(.66825)"> <use xlink:href="#nz-b" width="100%" height="100%" fill="#fff" transform="rotate(-82 519 -457.7)scale(40.4)"/> <use xlink:href="#nz-b" width="100%" height="100%" fill="#cc142b" transform="rotate(-82 519 -457.7)scale(25)"/> </g> <g transform="rotate(82 525.2 114.6)scale(.66825)"> <use xlink:href="#nz-b" width="100%" height="100%" fill="#fff" transform="rotate(-82 668.6 -327.7)scale(45.4)"/> <use xlink:href="#nz-b" width="100%" height="100%" fill="#cc142b" transform="rotate(-82 668.6 -327.7)scale(30)"/> </g> <g transform="translate(-111 36.1)scale(.66825)"> <use xlink:href="#nz-b" width="100%" height="100%" fill="#fff" transform="translate(900 480)scale(50.4)"/> <use xlink:href="#nz-b" width="100%" height="100%" fill="#cc142b" transform="matrix(35 0 0 35 900 480)"/> </g> <path fill="#012169" d="M0 0h320v240H0z"/> <path fill="#fff" d="m37.5 0 122 90.5L281 0h39v31l-120 89.5 120 89V240h-40l-120-89.5L40.5 240H0v-30l119.5-89L0 32V0z"/> <path fill="#c8102e" d="M212 140.5 320 220v20l-135.5-99.5zm-92 10 3 17.5-96 72H0zM320 0v1.5l-124.5 94 1-22L295 0zM0 0l119.5 88h-30L0 21z"/> <path fill="#fff" d="M120.5 0v240h80V0zM0 80v80h320V80z"/> <path fill="#c8102e" d="M0 96.5v48h320v-48zM136.5 0v240h48V0z"/></symbol><symbol id="fl-sg" viewBox="0 0 640 480"><defs> <clipPath id="sg-a"> <path fill-opacity=".7" d="M0 0h640v480H0z"/> </clipPath> </defs> <g fill-rule="evenodd" clip-path="url(#sg-a)"> <path fill="#fff" d="M-20 0h720v480H-20z"/> <path fill="#df0000" d="M-20 0h720v240H-20z"/> <path fill="#fff" d="M146 40.2a84.4 84.4 0 0 0 .8 165.2 86 86 0 0 1-106.6-59 86 86 0 0 1 59-106c16-4.6 30.8-4.7 46.9-.2z"/> <path fill="#fff" d="m133 110 4.9 15-13-9.2-12.8 9.4 4.7-15.2-12.8-9.3 15.9-.2 5-15 5 15h15.8zm17.5 52 5 15.1-13-9.2-12.9 9.3 4.8-15.1-12.8-9.4 15.9-.1 4.9-15.1 5 15h16zm58.5-.4 4.9 15.2-13-9.3-12.8 9.3 4.7-15.1-12.8-9.3 15.9-.2 5-15 5 15h15.8zm17.4-51.6 4.9 15.1-13-9.2-12.8 9.3 4.8-15.1-12.9-9.4 16-.1 4.8-15.1 5 15h16zm-46.3-34.3 5 15.2-13-9.3-12.9 9.4 4.8-15.2-12.8-9.4 15.8-.1 5-15.1 5 15h16z"/> </g></symbol><symbol id="fl-us" viewBox="0 0 640 480"><path fill="#bd3d44" d="M0 0h640v480H0"/> <path stroke="#fff" stroke-width="37" d="M0 55.3h640M0 129h640M0 203h640M0 277h640M0 351h640M0 425h640"/> <path fill="#192f5d" d="M0 0h364.8v258.5H0"/> <marker id="us-a" markerHeight="30" markerWidth="30"> <path fill="#fff" d="m14 0 9 27L0 10h28L5 27z"/> </marker> <path fill="none" marker-mid="url(#us-a)" d="m0 0 16 11h61 61 61 61 60L47 37h61 61 60 61L16 63h61 61 61 61 60L47 89h61 61 60 61L16 115h61 61 61 61 60L47 141h61 61 60 61L16 166h61 61 61 61 60L47 192h61 61 60 61L16 218h61 61 61 61 60z"/></symbol></defs></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none" aria-hidden="true"><defs><symbol id="ic-banknote" viewBox="0 0 24 24"><rect width="20" height="12" x="2" y="6" rx="2" /> <circle cx="12" cy="12" r="2" /> <path d="M6 12h.01M18 12h.01" /></symbol><symbol id="ic-bar-chart-3" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></symbol><symbol id="ic-book-open" viewBox="0 0 24 24"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></symbol><symbol id="ic-building-2" viewBox="0 0 24 24"><path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></symbol><symbol id="ic-calculator" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /></symbol><symbol id="ic-calendar" viewBox="0 0 24 24"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></symbol><symbol id="ic-castle" viewBox="0 0 24 24"><path d="M10 5V3" /> <path d="M14 5V3" /> <path d="M15 21v-3a3 3 0 0 0-6 0v3" /> <path d="M18 3v8" /> <path d="M18 5H6" /> <path d="M22 11H2" /> <path d="M22 9v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9" /> <path d="M6 3v8" /></symbol><symbol id="ic-check-circle-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" /></symbol><symbol id="ic-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /></symbol><symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></symbol><symbol id="ic-construction" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="8" rx="1" /> <path d="M17 14v7" /> <path d="M7 14v7" /> <path d="M17 3v3" /> <path d="M7 3v3" /> <path d="M10 14 2.3 6.3" /> <path d="m14 6 7.7 7.7" /> <path d="m8 6 8 8" /></symbol><symbol id="ic-cookie" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" /> <path d="M8.5 8.5v.01" /> <path d="M16 15.5v.01" /> <path d="M12 12v.01" /> <path d="M11 17v.01" /> <path d="M7 14v.01" /></symbol><symbol id="ic-download" viewBox="0 0 24 24"><path d="M12 15V3" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <path d="m7 10 5 5 5-5" /></symbol><symbol id="ic-drama" viewBox="0 0 24 24"><path d="M10 11h.01" /> <path d="M14 6h.01" /> <path d="M18 6h.01" /> <path d="M6.5 13.1h.01" /> <path d="M22 5c0 9-4 12-6 12s-6-3-6-12c0-2 2-3 6-3s6 1 6 3" /> <path d="M17.4 9.9c-.8.8-2 .8-2.8 0" /> <path d="M10.1 7.1C9 7.2 7.7 7.7 6 8.6c-3.5 2-4.7 3.9-3.7 5.6 4.5 7.8 9.5 8.4 11.2 7.4.9-.5 1.9-2.1 1.9-4.7" /> <path d="M9.1 16.5c.3-1.1 1.4-1.7 2.4-1.4" /></symbol><symbol id="ic-factory" viewBox="0 0 24 24"><path d="M12 16h.01" /> <path d="M16 16h.01" /> <path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z" /> <path d="M8 16h.01" /></symbol><symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /> <path d="M2 12h20" /></symbol><symbol id="ic-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol><symbol id="ic-help-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" /></symbol><symbol id="ic-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol><symbol id="ic-hospital" viewBox="0 0 24 24"><path d="M12 7v4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M14 9h-4" /> <path d="M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2" /> <path d="M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16" /></symbol><symbol id="ic-landmark" viewBox="0 0 24 24"><path d="M10 18v-7" /> <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /> <path d="M14 18v-7" /> <path d="M18 18v-7" /> <path d="M3 22h18" /> <path d="M6 18v-7" /></symbol><symbol id="ic-laptop" viewBox="0 0 24 24"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z" /> <path d="M20.054 15.987H3.946" /></symbol><symbol id="ic-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></symbol><symbol id="ic-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol><symbol id="ic-lock-open" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 9.9-1" /></symbol><symbol id="ic-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></symbol><symbol id="ic-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></symbol><symbol id="ic-message-circle" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></symbol><symbol id="ic-palette" viewBox="0 0 24 24"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z" /> <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /> <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /> <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /> <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /></symbol><symbol id="ic-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /></symbol><symbol id="ic-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol><symbol id="ic-scale" viewBox="0 0 24 24"><path d="M12 3v18" /> <path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /> <path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /> <path d="M7 21h10" /></symbol><symbol id="ic-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" /></symbol><symbol id="ic-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></symbol><symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="6" /> <circle cx="12" cy="12" r="2" /></symbol><symbol id="ic-trending-up" viewBox="0 0 24 24"><path d="M16 7h6v6" /> <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol><symbol id="ic-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /> <path d="M12 9v4" /> <path d="M12 17h.01" /></symbol><symbol id="ic-upload" viewBox="0 0 24 24"><path d="M12 3v12" /> <path d="m17 8-5-5-5 5" /> <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></symbol><symbol id="ic-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></symbol><symbol id="ic-waves" viewBox="0 0 24 24"><path d="M2 12q2.5 2 5 0t5 0 5 0 5 0" /> <path d="M2 19q2.5 2 5 0t5 0 5 0 5 0" /> <path d="M2 5q2.5 2 5 0t5 0 5 0 5 0" /></symbol><symbol id="ic-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol><symbol id="ic-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" /></symbol><symbol id="ic-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></symbol><symbol id="ic-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="ic-hourglass" viewBox="0 0 24 24"><path d="M5 22h14" /> <path d="M5 2h14" /> <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22" /> <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" /></symbol><symbol id="ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" /></symbol><symbol id="ic-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /></symbol></defs></svg>
 <nav class="navbar" role="navigation" aria-label="Main Navigation" id="navbar">
   <a href="#home" class="logo">
     <div class="logo-icon">
@@ -941,27 +958,27 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       <div class="mega-panel" style="min-width:640px;">
         <div class="mp-cols" style="grid-template-columns:1fr 1fr;">
           <div>
-            <div class="mp-col-title">🌍 Study Abroad</div>
-            <a href="/education-loan-usa/" class="mp-item"><div class="mp-ic">🇺🇸</div><div><strong>USA</strong><span>MS, MBA, PhD — up to ₹1 Cr</span></div></a>
-            <a href="/education-loan-canada/" class="mp-item"><div class="mp-ic">🇨🇦</div><div><strong>Canada</strong><span>GIC + loan in one process</span></div></a>
-            <a href="/education-loan-uk/" class="mp-item"><div class="mp-ic">🇬🇧</div><div><strong>UK</strong><span>CAS funds & IHS covered</span></div></a>
-            <a href="/education-loan-australia/" class="mp-item"><div class="mp-ic">🇦🇺</div><div><strong>Australia</strong><span>OSHC included, AOS arranged</span></div></a>
-            <a href="/education-loan-germany/" class="mp-item"><div class="mp-ic">🇩🇪</div><div><strong>Germany</strong><span>Blocked account via Fintiba</span></div></a>
-            <a href="/education-loan-ireland/" class="mp-item"><div class="mp-ic">🇮🇪</div><div><strong>Ireland</strong><span>UCD, Trinity, fast visa</span></div></a>
-            <a href="/education-loan-france/" class="mp-item"><div class="mp-ic">🇫🇷</div><div><strong>France</strong><span>HEC, INSEAD, ESSEC</span></div></a>
-            <a href="/education-loan-singapore/" class="mp-item"><div class="mp-ic">🇸🇬</div><div><strong>Singapore</strong><span>NUS, NTU, SMU — high ROI</span></div></a>
-            <a href="/education-loan-new-zealand/" class="mp-item"><div class="mp-ic">🇳🇿</div><div><strong>New Zealand</strong><span>3-yr post-study work visa</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-globe" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-globe" href="#ic-globe"></use></svg></span> Study Abroad</div>
+            <a href="/education-loan-usa/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-us" href="#fl-us"></use></svg></span></div><div><strong>USA</strong><span>MS, MBA, PhD — up to ₹1 Cr</span></div></a>
+            <a href="/education-loan-canada/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span></div><div><strong>Canada</strong><span>GIC + loan in one process</span></div></a>
+            <a href="/education-loan-uk/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-gb" href="#fl-gb"></use></svg></span></div><div><strong>UK</strong><span>CAS funds & IHS covered</span></div></a>
+            <a href="/education-loan-australia/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-au" href="#fl-au"></use></svg></span></div><div><strong>Australia</strong><span>OSHC included, AOS arranged</span></div></a>
+            <a href="/education-loan-germany/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-de" href="#fl-de"></use></svg></span></div><div><strong>Germany</strong><span>Blocked account via Fintiba</span></div></a>
+            <a href="/education-loan-ireland/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ie" href="#fl-ie"></use></svg></span></div><div><strong>Ireland</strong><span>UCD, Trinity, fast visa</span></div></a>
+            <a href="/education-loan-france/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-fr" href="#fl-fr"></use></svg></span></div><div><strong>France</strong><span>HEC, INSEAD, ESSEC</span></div></a>
+            <a href="/education-loan-singapore/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-sg" href="#fl-sg"></use></svg></span></div><div><strong>Singapore</strong><span>NUS, NTU, SMU — high ROI</span></div></a>
+            <a href="/education-loan-new-zealand/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-nz" href="#fl-nz"></use></svg></span></div><div><strong>New Zealand</strong><span>3-yr post-study work visa</span></div></a>
           </div>
           <div>
-                        <div class="mp-col-title">🎓 India Loans</div>
-            <a href="/education-loan-for-iit/" class="mp-item"><div class="mp-ic">🏛️</div><div><strong>IIT Education Loan</strong><span>All 23 IITs, from 8.5% p.a.</span></div></a>
-            <a href="/education-loan-for-mbbs/" class="mp-item"><div class="mp-ic">🏥</div><div><strong>MBBS Education Loan</strong><span>India &amp; abroad, 5.5yr moratorium</span></div></a>
-            <a href="/education-loan-for-mba/" class="mp-item"><div class="mp-ic">🎯</div><div><strong>MBA Education Loan</strong><span>IIM, ISB, abroad MBA</span></div></a>
-            <a href="/education-loan-for-engineering/" class="mp-item"><div class="mp-ic">⚙️</div><div><strong>Engineering Loan</strong><span>B.Tech, M.Tech, MS abroad</span></div></a>
-            <a href="/education-loan-for-girls/" class="mp-item"><div class="mp-ic">👩‍🎓</div><div><strong>Loans for Girls</strong><span>0.5% concession + special schemes</span></div></a>
-            <a href="/education-loan-without-collateral/" class="mp-item"><div class="mp-ic">🔓</div><div><strong>No Collateral Loans</strong><span>Up to ₹40L without property</span></div></a>
-            <a href="/section-80e-tax-benefit/" class="mp-item"><div class="mp-ic">💰</div><div><strong>80E Tax Benefit</strong><span>Unlimited deduction, up to 8 yrs</span></div></a>
-            <a href="/pm-vidyalaxmi-scheme/" class="mp-item"><div class="mp-ic">🏛️</div><div><strong>PM Vidya Lakshmi</strong><span>Govt portal, 40+ banks</span></div></a>
+                        <div class="mp-col-title"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> India Loans</div>
+            <a href="/education-loan-for-iit/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>IIT Education Loan</strong><span>All 23 IITs, from 8.5% p.a.</span></div></a>
+            <a href="/education-loan-for-mbbs/" class="mp-item"><div class="mp-ic"><span class="ic ic-hospital" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-hospital" href="#ic-hospital"></use></svg></span></div><div><strong>MBBS Education Loan</strong><span>India &amp; abroad, 5.5yr moratorium</span></div></a>
+            <a href="/education-loan-for-mba/" class="mp-item"><div class="mp-ic"><span class="ic ic-target" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-target" href="#ic-target"></use></svg></span></div><div><strong>MBA Education Loan</strong><span>IIM, ISB, abroad MBA</span></div></a>
+            <a href="/education-loan-for-engineering/" class="mp-item"><div class="mp-ic"><span class="ic ic-settings" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-settings" href="#ic-settings"></use></svg></span></div><div><strong>Engineering Loan</strong><span>B.Tech, M.Tech, MS abroad</span></div></a>
+            <a href="/education-loan-for-girls/" class="mp-item"><div class="mp-ic"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span></div><div><strong>Loans for Girls</strong><span>0.5% concession + special schemes</span></div></a>
+            <a href="/education-loan-without-collateral/" class="mp-item"><div class="mp-ic"><span class="ic ic-lock-open" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-lock-open" href="#ic-lock-open"></use></svg></span></div><div><strong>No Collateral Loans</strong><span>Up to ₹40L without property</span></div></a>
+            <a href="/section-80e-tax-benefit/" class="mp-item"><div class="mp-ic"><span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span></div><div><strong>80E Tax Benefit</strong><span>Unlimited deduction, up to 8 yrs</span></div></a>
+            <a href="/pm-vidyalaxmi-scheme/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>PM Vidya Lakshmi</strong><span>Govt portal, 40+ banks</span></div></a>
           </div>
         </div>
       </div>
@@ -975,12 +992,12 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       </button>
       <div class="mega-panel" style="min-width:260px;">
         <div class="mp-col-title">StudyCapital</div>
-        <a href="#about" class="mp-item"><div class="mp-ic">ℹ️</div><div><strong>About Us</strong><span>Who we are</span></div></a>
-        <a href="#services" class="mp-item"><div class="mp-ic">🎓</div><div><strong>Services</strong><span>What we offer, for free</span></div></a>
-        <a href="#eligibility" class="mp-item"><div class="mp-ic">✅</div><div><strong>Eligibility</strong><span>Who can apply</span></div></a>
-        <a href="#testimonials" class="mp-item"><div class="mp-ic">⭐</div><div><strong>Testimonials</strong><span>Student success stories</span></div></a>
-        <a href="#faq" class="mp-item"><div class="mp-ic">❓</div><div><strong>FAQ</strong><span>Common questions</span></div></a>
-        <a href="#contact" class="mp-item"><div class="mp-ic">📞</div><div><strong>Contact</strong><span>Talk to an advisor</span></div></a>
+        <a href="#about" class="mp-item"><div class="mp-ic"><span class="ic ic-info" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-info" href="#ic-info"></use></svg></span></div><div><strong>About Us</strong><span>Who we are</span></div></a>
+        <a href="#services" class="mp-item"><div class="mp-ic"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span></div><div><strong>Services</strong><span>What we offer, for free</span></div></a>
+        <a href="#eligibility" class="mp-item"><div class="mp-ic"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span></div><div><strong>Eligibility</strong><span>Who can apply</span></div></a>
+        <a href="#testimonials" class="mp-item"><div class="mp-ic"><span class="ic ic-star" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-star" href="#ic-star"></use></svg></span></div><div><strong>Testimonials</strong><span>Student success stories</span></div></a>
+        <a href="#faq" class="mp-item"><div class="mp-ic"><span class="ic ic-help-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-help-circle" href="#ic-help-circle"></use></svg></span></div><div><strong>FAQ</strong><span>Common questions</span></div></a>
+        <a href="#contact" class="mp-item"><div class="mp-ic"><span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span></div><div><strong>Contact</strong><span>Talk to an advisor</span></div></a>
       </div>
     </li>
 
@@ -993,21 +1010,21 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       <div class="mega-panel" style="min-width:680px;">
         <div class="mp-cols" style="grid-template-columns:1fr 1fr;">
           <div>
-            <div class="mp-col-title">🏦 Compare & Calculate</div>
-            <a href="/emi-calculator/" class="mp-item"><div class="mp-ic">📊</div><div><strong>EMI Calculator</strong><span>Monthly EMI in seconds</span></div></a>
-            <a href="/education-loan-interest-rates/" class="mp-item"><div class="mp-ic">📈</div><div><strong>Interest Rates 2026</strong><span>All banks compared</span></div></a>
-            <a href="/education-loan-eligibility/" class="mp-item"><div class="mp-ic">✅</div><div><strong>Check Eligibility</strong><span>Who qualifies & how</span></div></a>
-            <a href="/hdfc-credila-vs-sbi/" class="mp-item"><div class="mp-ic">⚖️</div><div><strong>Credila vs SBI</strong><span>Side-by-side comparison</span></div></a>
-            <a href="/avanse-vs-hdfc-credila/" class="mp-item"><div class="mp-ic">⚖️</div><div><strong>Avanse vs Credila</strong><span>Which NBFC is better?</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> Compare & Calculate</div>
+            <a href="/emi-calculator/" class="mp-item"><div class="mp-ic"><span class="ic ic-bar-chart-3" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-bar-chart-3" href="#ic-bar-chart-3"></use></svg></span></div><div><strong>EMI Calculator</strong><span>Monthly EMI in seconds</span></div></a>
+            <a href="/education-loan-interest-rates/" class="mp-item"><div class="mp-ic"><span class="ic ic-trending-up" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-trending-up" href="#ic-trending-up"></use></svg></span></div><div><strong>Interest Rates 2026</strong><span>All banks compared</span></div></a>
+            <a href="/education-loan-eligibility/" class="mp-item"><div class="mp-ic"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span></div><div><strong>Check Eligibility</strong><span>Who qualifies & how</span></div></a>
+            <a href="/hdfc-credila-vs-sbi/" class="mp-item"><div class="mp-ic"><span class="ic ic-scale" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-scale" href="#ic-scale"></use></svg></span></div><div><strong>Credila vs SBI</strong><span>Side-by-side comparison</span></div></a>
+            <a href="/avanse-vs-hdfc-credila/" class="mp-item"><div class="mp-ic"><span class="ic ic-scale" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-scale" href="#ic-scale"></use></svg></span></div><div><strong>Avanse vs Credila</strong><span>Which NBFC is better?</span></div></a>
           </div>
           <div>
-            <div class="mp-col-title">🏛️ Bank Guides</div>
-            <a href="/sbi-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>SBI</strong><span>Scholar Loan & Ed-Vantage</span></div></a>
-            <a href="/hdfc-credila-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>HDFC Credila</strong><span>India's #1 education NBFC</span></div></a>
-            <a href="/avanse-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>Avanse</strong><span>Fast approval, flexible</span></div></a>
-            <a href="/axis-bank-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>Axis Bank</strong><span>Quick processing</span></div></a>
-            <a href="/bank-of-baroda-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>Bank of Baroda</strong><span>Baroda Scholar scheme</span></div></a>
-            <a href="/canara-bank-education-loan/" class="mp-item"><div class="mp-ic">🏦</div><div><strong>Canara Bank</strong><span>IBA model scheme</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> Bank Guides</div>
+            <a href="/sbi-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>SBI</strong><span>Scholar Loan & Ed-Vantage</span></div></a>
+            <a href="/hdfc-credila-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>HDFC Credila</strong><span>India's #1 education NBFC</span></div></a>
+            <a href="/avanse-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Avanse</strong><span>Fast approval, flexible</span></div></a>
+            <a href="/axis-bank-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Axis Bank</strong><span>Quick processing</span></div></a>
+            <a href="/bank-of-baroda-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Bank of Baroda</strong><span>Baroda Scholar scheme</span></div></a>
+            <a href="/canara-bank-education-loan/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Canara Bank</strong><span>IBA model scheme</span></div></a>
           </div>
         </div>
       </div>
@@ -1022,28 +1039,28 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       <div class="mega-panel" style="min-width:640px;">
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;">
           <div>
-            <div class="mp-col-title">🏙️ METRO CITIES</div>
-            <a href="/education-loan-delhi/" class="mp-item"><div class="mp-ic">🏛️</div><div><strong>Delhi</strong><span>HQ — fastest service</span></div></a>
-            <a href="/education-loan-mumbai/" class="mp-item"><div class="mp-ic">🌊</div><div><strong>Mumbai</strong><span>IIT Bombay, JBIMS</span></div></a>
-            <a href="/education-loan-bangalore/" class="mp-item"><div class="mp-ic">💻</div><div><strong>Bangalore</strong><span>IISc, IIM Bangalore</span></div></a>
-            <a href="/education-loan-hyderabad/" class="mp-item"><div class="mp-ic">🏯</div><div><strong>Hyderabad</strong><span>ISB, BITS, UoH</span></div></a>
-            <a href="/education-loan-chennai/" class="mp-item"><div class="mp-ic">🎭</div><div><strong>Chennai</strong><span>IIT Madras, Anna Uni</span></div></a>
-            <a href="/education-loan-kolkata/" class="mp-item"><div class="mp-ic">🎨</div><div><strong>Kolkata</strong><span>IIM Calcutta, JU</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> METRO CITIES</div>
+            <a href="/education-loan-delhi/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Delhi</strong><span>HQ — fastest service</span></div></a>
+            <a href="/education-loan-mumbai/" class="mp-item"><div class="mp-ic"><span class="ic ic-waves" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-waves" href="#ic-waves"></use></svg></span></div><div><strong>Mumbai</strong><span>IIT Bombay, JBIMS</span></div></a>
+            <a href="/education-loan-bangalore/" class="mp-item"><div class="mp-ic"><span class="ic ic-laptop" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-laptop" href="#ic-laptop"></use></svg></span></div><div><strong>Bangalore</strong><span>IISc, IIM Bangalore</span></div></a>
+            <a href="/education-loan-hyderabad/" class="mp-item"><div class="mp-ic"><span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span></div><div><strong>Hyderabad</strong><span>ISB, BITS, UoH</span></div></a>
+            <a href="/education-loan-chennai/" class="mp-item"><div class="mp-ic"><span class="ic ic-drama" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-drama" href="#ic-drama"></use></svg></span></div><div><strong>Chennai</strong><span>IIT Madras, Anna Uni</span></div></a>
+            <a href="/education-loan-kolkata/" class="mp-item"><div class="mp-ic"><span class="ic ic-palette" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-palette" href="#ic-palette"></use></svg></span></div><div><strong>Kolkata</strong><span>IIM Calcutta, JU</span></div></a>
           </div>
           <div>
-            <div class="mp-col-title">🏘️ NCR & NORTH</div>
-            <a href="/education-loan-noida/" class="mp-item"><div class="mp-ic">🏗️</div><div><strong>Noida</strong><span>Amity, Sharda, Jaypee</span></div></a>
-            <a href="/education-loan-gurgaon/" class="mp-item"><div class="mp-ic">🏢</div><div><strong>Gurgaon</strong><span>MDI, GD Goenka</span></div></a>
-            <a href="/education-loan-chandigarh/" class="mp-item"><div class="mp-ic">🌿</div><div><strong>Chandigarh</strong><span>PU, PEC, IISER</span></div></a>
-            <a href="/education-loan-lucknow/" class="mp-item"><div class="mp-ic">🕌</div><div><strong>Lucknow</strong><span>IIM Lucknow, KGMU</span></div></a>
-            <a href="/education-loan-prayagraj/" class="mp-item"><div class="mp-ic">🏺</div><div><strong>Prayagraj</strong><span>Allahabad Uni, MNNIT</span></div></a>
-            <a href="/education-loan-zirakpur/" class="mp-item"><div class="mp-ic">🏘️</div><div><strong>Zirakpur</strong><span>Chandigarh corridor</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-home" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-home" href="#ic-home"></use></svg></span> NCR & NORTH</div>
+            <a href="/education-loan-noida/" class="mp-item"><div class="mp-ic"><span class="ic ic-construction" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-construction" href="#ic-construction"></use></svg></span></div><div><strong>Noida</strong><span>Amity, Sharda, Jaypee</span></div></a>
+            <a href="/education-loan-gurgaon/" class="mp-item"><div class="mp-ic"><span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span></div><div><strong>Gurgaon</strong><span>MDI, GD Goenka</span></div></a>
+            <a href="/education-loan-chandigarh/" class="mp-item"><div class="mp-ic"><span class="ic ic-leaf" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-leaf" href="#ic-leaf"></use></svg></span></div><div><strong>Chandigarh</strong><span>PU, PEC, IISER</span></div></a>
+            <a href="/education-loan-lucknow/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Lucknow</strong><span>IIM Lucknow, KGMU</span></div></a>
+            <a href="/education-loan-prayagraj/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>Prayagraj</strong><span>Allahabad Uni, MNNIT</span></div></a>
+            <a href="/education-loan-zirakpur/" class="mp-item"><div class="mp-ic"><span class="ic ic-home" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-home" href="#ic-home"></use></svg></span></div><div><strong>Zirakpur</strong><span>Chandigarh corridor</span></div></a>
           </div>
           <div>
-            <div class="mp-col-title">🌆 OTHER CITIES</div>
-            <a href="/education-loan-pune/" class="mp-item"><div class="mp-ic">🎓</div><div><strong>Pune</strong><span>Symbiosis, COEP, MIT</span></div></a>
-            <a href="/education-loan-ahmedabad/" class="mp-item"><div class="mp-ic">🏭</div><div><strong>Ahmedabad</strong><span>IIM-A, NID, NIFT</span></div></a>
-            <a href="/education-loan-jaipur/" class="mp-item"><div class="mp-ic">🏰</div><div><strong>Jaipur</strong><span>BITS, LNMIIT, Manipal</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> OTHER CITIES</div>
+            <a href="/education-loan-pune/" class="mp-item"><div class="mp-ic"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span></div><div><strong>Pune</strong><span>Symbiosis, COEP, MIT</span></div></a>
+            <a href="/education-loan-ahmedabad/" class="mp-item"><div class="mp-ic"><span class="ic ic-factory" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-factory" href="#ic-factory"></use></svg></span></div><div><strong>Ahmedabad</strong><span>IIM-A, NID, NIFT</span></div></a>
+            <a href="/education-loan-jaipur/" class="mp-item"><div class="mp-ic"><span class="ic ic-castle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-castle" href="#ic-castle"></use></svg></span></div><div><strong>Jaipur</strong><span>BITS, LNMIIT, Manipal</span></div></a>
           </div>
         </div>
       </div>
@@ -1055,11 +1072,11 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
         <svg class="nav-chev" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <div class="mega-panel" style="min-width:300px; left:auto; right:0;">
-        <div class="mp-col-title">📝 Guides & Articles</div>
-        <a href="/blog/education-loan-documents-checklist/" class="mp-item"><div class="mp-ic">📋</div><div><strong>Documents Checklist</strong><span>Complete list for India & abroad</span></div></a>
-        <a href="/blog/education-loan-moratorium-period/" class="mp-item"><div class="mp-ic">⏳</div><div><strong>Moratorium Period</strong><span>When EMIs start & interest accrual</span></div></a>
-        <a href="/blog/gic-canada-guide/" class="mp-item"><div class="mp-ic">🇨🇦</div><div><strong>GIC Canada Guide</strong><span>Open a GIC from India</span></div></a>
-        <a href="/blog/education-loan-rejection-reasons/" class="mp-item"><div class="mp-ic">❌</div><div><strong>Why Loans Get Rejected</strong><span>Top 10 reasons + fixes</span></div></a>
+        <div class="mp-col-title"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span> Guides & Articles</div>
+        <a href="/blog/education-loan-documents-checklist/" class="mp-item"><div class="mp-ic"><span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span></div><div><strong>Documents Checklist</strong><span>Complete list for India & abroad</span></div></a>
+        <a href="/blog/education-loan-moratorium-period/" class="mp-item"><div class="mp-ic"><span class="ic ic-hourglass" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-hourglass" href="#ic-hourglass"></use></svg></span></div><div><strong>Moratorium Period</strong><span>When EMIs start & interest accrual</span></div></a>
+        <a href="/blog/gic-canada-guide/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span></div><div><strong>GIC Canada Guide</strong><span>Open a GIC from India</span></div></a>
+        <a href="/blog/education-loan-rejection-reasons/" class="mp-item"><div class="mp-ic"><span class="ic ic-x-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x-circle" href="#ic-x-circle"></use></svg></span></div><div><strong>Why Loans Get Rejected</strong><span>Top 10 reasons + fixes</span></div></a>
         <div class="mp-footer">
           <a href="/blog/" class="mp-chip">View All Articles →</a>
         </div>
@@ -1069,26 +1086,27 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
     <!-- Resources -->
     <li class="mega-wrap">
       <button class="mega-btn" aria-haspopup="true" aria-expanded="false">
-        📋 Resources
+        <span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span> Resources
         <svg class="nav-chev" width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <div class="mega-panel" style="min-width:520px;left:auto;right:0;">
         <div class="mp-cols" style="grid-template-columns:1fr 1fr;">
           <div>
-            <div class="mp-col-title">🧮 Tools & Calculators</div>
-            <a href="/emi-calculator/" class="mp-item"><div class="mp-ic">📊</div><div><strong>EMI Calculator</strong><span>Monthly EMI instantly</span></div></a>
-            <a href="/education-loan-interest-rates/" class="mp-item"><div class="mp-ic">📈</div><div><strong>Interest Rates 2026</strong><span>All banks compared</span></div></a>
-            <a href="/education-loan-eligibility/" class="mp-item"><div class="mp-ic">✅</div><div><strong>Check Eligibility</strong><span>Who qualifies & how</span></div></a>
-            <a href="/section-80e-tax-benefit/" class="mp-item"><div class="mp-ic">💰</div><div><strong>Section 80E</strong><span>Tax deduction guide</span></div></a>
-            <a href="/pm-vidyalaxmi-scheme/" class="mp-item"><div class="mp-ic">🏛️</div><div><strong>PM Vidya Lakshmi</strong><span>Govt scheme guide</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-calculator" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-calculator" href="#ic-calculator"></use></svg></span> Tools & Calculators</div>
+            <a href="/emi-calculator/" class="mp-item"><div class="mp-ic"><span class="ic ic-bar-chart-3" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-bar-chart-3" href="#ic-bar-chart-3"></use></svg></span></div><div><strong>EMI Calculator</strong><span>Monthly EMI instantly</span></div></a>
+            <a href="/education-loan-interest-rates/" class="mp-item"><div class="mp-ic"><span class="ic ic-trending-up" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-trending-up" href="#ic-trending-up"></use></svg></span></div><div><strong>Interest Rates 2026</strong><span>All banks compared</span></div></a>
+            <a href="/education-loan-eligibility/" class="mp-item"><div class="mp-ic"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span></div><div><strong>Check Eligibility</strong><span>Who qualifies & how</span></div></a>
+            <a href="/section-80e-tax-benefit/" class="mp-item"><div class="mp-ic"><span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span></div><div><strong>Section 80E</strong><span>Tax deduction guide</span></div></a>
+            <a href="/pm-vidyalaxmi-scheme/" class="mp-item"><div class="mp-ic"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span></div><div><strong>PM Vidya Lakshmi</strong><span>Govt scheme guide</span></div></a>
+            <a href="/b2b-partnership/" class="mp-item"><span class="mp-ic"><span class="ic ic-handshake" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-handshake" href="#ic-handshake"></use></svg></span></span><strong>B2B Partnership</strong><span>Refer &amp; earn commission</span></a>
           </div>
           <div>
-            <div class="mp-col-title">📝 Guides & Blog</div>
-            <a href="/blog/" class="mp-item"><div class="mp-ic">📚</div><div><strong>All Blog Posts</strong><span>Loan guides & tips</span></div></a>
-            <a href="/blog/education-loan-documents-checklist/" class="mp-item"><div class="mp-ic">📋</div><div><strong>Documents Checklist</strong><span>Complete list</span></div></a>
-            <a href="/blog/education-loan-moratorium-period/" class="mp-item"><div class="mp-ic">⏳</div><div><strong>Moratorium Period</strong><span>When EMIs start</span></div></a>
-            <a href="/blog/gic-canada-guide/" class="mp-item"><div class="mp-ic">🇨🇦</div><div><strong>GIC Canada Guide</strong><span>Step by step</span></div></a>
-            <a href="/blog/education-loan-rejection-reasons/" class="mp-item"><div class="mp-ic">❌</div><div><strong>Rejection Reasons</strong><span>& how to avoid</span></div></a>
+            <div class="mp-col-title"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span> Guides & Blog</div>
+            <a href="/blog/" class="mp-item"><div class="mp-ic"><span class="ic ic-book-open" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-book-open" href="#ic-book-open"></use></svg></span></div><div><strong>All Blog Posts</strong><span>Loan guides & tips</span></div></a>
+            <a href="/blog/education-loan-documents-checklist/" class="mp-item"><div class="mp-ic"><span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span></div><div><strong>Documents Checklist</strong><span>Complete list</span></div></a>
+            <a href="/blog/education-loan-moratorium-period/" class="mp-item"><div class="mp-ic"><span class="ic ic-hourglass" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-hourglass" href="#ic-hourglass"></use></svg></span></div><div><strong>Moratorium Period</strong><span>When EMIs start</span></div></a>
+            <a href="/blog/gic-canada-guide/" class="mp-item"><div class="mp-ic"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span></div><div><strong>GIC Canada Guide</strong><span>Step by step</span></div></a>
+            <a href="/blog/education-loan-rejection-reasons/" class="mp-item"><div class="mp-ic"><span class="ic ic-x-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x-circle" href="#ic-x-circle"></use></svg></span></div><div><strong>Rejection Reasons</strong><span>& how to avoid</span></div></a>
           </div>
         </div>
       </div>
@@ -1113,7 +1131,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-header">
     <a href="/" class="mobile-nav-logo">Study<span>Capital</span></a>
-    <button class="mobile-nav-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+    <button class="mobile-nav-close" onclick="closeMenu()" aria-label="Close menu"><span class="ic ic-x" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x" href="#ic-x"></use></svg></span></button>
   </div>
   <div class="mobile-nav-body">
     <div class="mobile-nav-section">
@@ -1127,41 +1145,42 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
     <div class="mobile-nav-section">
-      <span class="mob-section-label">🌍 Study Abroad</span>
-      <a href="/education-loan-usa/" onclick="closeMenu()">🇺🇸 USA Education Loan</a>
-      <a href="/education-loan-canada/" onclick="closeMenu()">🇨🇦 Canada Education Loan</a>
-      <a href="/education-loan-uk/" onclick="closeMenu()">🇬🇧 UK Education Loan</a>
-      <a href="/education-loan-australia/" onclick="closeMenu()">🇦🇺 Australia Education Loan</a>
-      <a href="/education-loan-germany/" onclick="closeMenu()">🇩🇪 Germany Education Loan</a>
+      <span class="mob-section-label"><span class="ic ic-globe" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-globe" href="#ic-globe"></use></svg></span> Study Abroad</span>
+      <a href="/education-loan-usa/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-us" href="#fl-us"></use></svg></span> USA Education Loan</a>
+      <a href="/education-loan-canada/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span> Canada Education Loan</a>
+      <a href="/education-loan-uk/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-gb" href="#fl-gb"></use></svg></span> UK Education Loan</a>
+      <a href="/education-loan-australia/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-au" href="#fl-au"></use></svg></span> Australia Education Loan</a>
+      <a href="/education-loan-germany/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-de" href="#fl-de"></use></svg></span> Germany Education Loan</a>
     </div>
     <div class="mobile-nav-section">
-      <span class="mob-section-label">🎓 India Loans</span>
-      <a href="/education-loan-for-iit/" onclick="closeMenu()">🏛️ IIT Education Loan</a>
-      <a href="/education-loan-for-mbbs/" onclick="closeMenu()">🏥 MBBS Education Loan</a>
-      <a href="/education-loan-without-collateral/" onclick="closeMenu()">🔓 No Collateral Loans</a>
-      <a href="/section-80e-tax-benefit/" onclick="closeMenu()">💰 Section 80E Benefit</a>
+      <span class="mob-section-label"><span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> India Loans</span>
+      <a href="/education-loan-for-iit/" onclick="closeMenu()"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> IIT Education Loan</a>
+      <a href="/education-loan-for-mbbs/" onclick="closeMenu()"><span class="ic ic-hospital" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-hospital" href="#ic-hospital"></use></svg></span> MBBS Education Loan</a>
+      <a href="/education-loan-without-collateral/" onclick="closeMenu()"><span class="ic ic-lock-open" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-lock-open" href="#ic-lock-open"></use></svg></span> No Collateral Loans</a>
+      <a href="/section-80e-tax-benefit/" onclick="closeMenu()"><span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span> Section 80E Benefit</a>
     </div>
     <div class="mobile-nav-section">
-      <span class="mob-section-label">📍 Offices</span>
-      <a href="/education-loan-delhi/" onclick="closeMenu()">🏙️ Delhi Office</a>
-      <a href="/education-loan-prayagraj/" onclick="closeMenu()">🕌 Prayagraj Branch</a>
-      <a href="/education-loan-zirakpur/" onclick="closeMenu()">🏘️ Zirakpur Branch</a>
+      <span class="mob-section-label"><span class="ic ic-map-pin" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-map-pin" href="#ic-map-pin"></use></svg></span> Offices</span>
+      <a href="/education-loan-delhi/" onclick="closeMenu()"><span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> Delhi Office</a>
+      <a href="/education-loan-prayagraj/" onclick="closeMenu()"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> Prayagraj Branch</a>
+      <a href="/education-loan-zirakpur/" onclick="closeMenu()"><span class="ic ic-home" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-home" href="#ic-home"></use></svg></span> Zirakpur Branch</a>
     </div>
     <div class="mobile-nav-section">
-      <span class="mob-section-label">📝 Blog & Tools</span>
-      <a href="/blog/" onclick="closeMenu()">📝 All Blog Posts</a>
-      <a href="/blog/education-loan-documents-checklist/" onclick="closeMenu()">📋 Documents Checklist</a>
-      <a href="/blog/education-loan-moratorium-period/" onclick="closeMenu()">⏳ Moratorium Guide</a>
-      <a href="/blog/gic-canada-guide/" onclick="closeMenu()">🇨🇦 GIC Canada Guide</a>
-      <a href="/blog/education-loan-rejection-reasons/" onclick="closeMenu()">❌ Rejection Reasons</a>
-      <a href="/hdfc-credila-vs-sbi/" onclick="closeMenu()">⚖️ HDFC vs SBI</a>
-      <a href="/emi-calculator/" onclick="closeMenu()">📊 EMI Calculator</a>
+      <span class="mob-section-label"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span> Blog & Tools</span>
+      <a href="/blog/" onclick="closeMenu()"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span> All Blog Posts</a>
+      <a href="/blog/education-loan-documents-checklist/" onclick="closeMenu()"><span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span> Documents Checklist</a>
+      <a href="/blog/education-loan-moratorium-period/" onclick="closeMenu()"><span class="ic ic-hourglass" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-hourglass" href="#ic-hourglass"></use></svg></span> Moratorium Guide</a>
+      <a href="/blog/gic-canada-guide/" onclick="closeMenu()"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span> GIC Canada Guide</a>
+      <a href="/blog/education-loan-rejection-reasons/" onclick="closeMenu()"><span class="ic ic-x-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-x-circle" href="#ic-x-circle"></use></svg></span> Rejection Reasons</a>
+      <a href="/hdfc-credila-vs-sbi/" onclick="closeMenu()"><span class="ic ic-scale" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-scale" href="#ic-scale"></use></svg></span> HDFC vs SBI</a>
+  <a href="/b2b-partnership/" onclick="closeMenu()"><span class="ic ic-handshake" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-handshake" href="#ic-handshake"></use></svg></span> B2B Partnership</a>
+      <a href="/emi-calculator/" onclick="closeMenu()"><span class="ic ic-bar-chart-3" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-bar-chart-3" href="#ic-bar-chart-3"></use></svg></span> EMI Calculator</a>
     </div>
     <div class="mobile-nav-section">
-      <span class="mob-section-label">📚 Resources</span>
-      <a href="/blog/" onclick="closeMenu()">📥 Free Guides & Whitepapers</a>
-      <a href="https://github.com/ravishankarsag-oss/StudyCapital/raw/main/resources/StudyCapital_Education_Loan_Hidden_Costs_Whitepaper.pdf" target="_blank" rel="noopener">📊 Hidden Costs Whitepaper</a>
-      <a href="https://github.com/ravishankarsag-oss/StudyCapital/raw/main/resources/StudyCapital_USA_Collateral_Free_Loan_Guide_2026.pdf" target="_blank" rel="noopener">🇺🇸 USA Collateral-Free Guide</a>
+      <span class="mob-section-label"><span class="ic ic-book-open" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-book-open" href="#ic-book-open"></use></svg></span> Resources</span>
+      <a href="/blog/" onclick="closeMenu()"><span class="ic ic-download" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-download" href="#ic-download"></use></svg></span> Free Guides & Whitepapers</a>
+      <a href="/resources/StudyCapital_Education_Loan_Hidden_Costs_Whitepaper.pdf" target="_blank" rel="noopener"><span class="ic ic-bar-chart-3" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-bar-chart-3" href="#ic-bar-chart-3"></use></svg></span> Hidden Costs Whitepaper</a>
+      <a href="/resources/StudyCapital_USA_Collateral_Free_Loan_Guide_2026.pdf" target="_blank" rel="noopener"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-us" href="#fl-us"></use></svg></span> USA Collateral-Free Guide</a>
     </div>
   </div>
   <div class="mobile-nav-footer">
@@ -1175,13 +1194,13 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 <nav class="breadcrumb-bar" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true"> › </span><span aria-current="page">Education Loan in Hyderabad</span></nav>
 <div class="page-hero">
   <div class="page-hero-inner">
-    <h1>📍 Education Loan in Hyderabad — Rates, Eligibility & Application 2026</h1>
-    <p>Hyderabad is fast-growing education hub. Students here attend some of India's best institutions — and many pursue higher education abroad. StudyCapital helps Hyderabad students get...</p>
+    <h1><span class="ic ic-map-pin" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-map-pin" href="#ic-map-pin"></use></svg></span> Education Loan in Hyderabad — Rates, Eligibility & Application 2026</h1>
+    <p>Hyderabad's education landscape spans the University of Hyderabad and BITS Hyderabad to a fast-growing IT and pharma sector shaping what students choose to study.</p>
     <div class="page-hero-badges">
-      <span class="hero-badge">✅ Free Consultation</span>
-      <span class="hero-badge">⚡ 3–5 Day Approval</span>
-      <span class="hero-badge">🏦 8+ Lenders</span>
-      <span class="hero-badge">📞 +91 98114 19910</span>
+      <span class="hero-badge"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Free Consultation</span>
+      <span class="hero-badge"><span class="ic ic-zap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-zap" href="#ic-zap"></use></svg></span> 3–5 Day Approval</span>
+      <span class="hero-badge"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> 8+ Lenders</span>
+      <span class="hero-badge"><span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> +91 98114 19910</span>
     </div>
   </div>
 </div>
@@ -1189,11 +1208,11 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 <span id="main-content" aria-hidden="true"></span>
 <div class="page-body">
 <main class="page-content" role="main">
-    <p class="page-intro">Hyderabad is fast-growing education hub. Students here attend some of India's best institutions — and many pursue higher education abroad. StudyCapital helps Hyderabad students get the best education loan offers across 8+ lenders.</p>
+    <p class="page-intro">Hyderabad's education landscape spans everything from the University of Hyderabad and BITS Hyderabad to a fast-growing IT and pharma sector that shapes what students choose to study. StudyCapital helps Hyderabad students get education loans for India's top institutions and universities abroad alike.</p>
     
     <div style="margin-bottom:2.5rem;">
       <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#0A1628;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:2px solid #E5E7EB;">Why Students in Hyderabad Choose StudyCapital</h2>
-      <ul style="line-height:2.2;"><li>✅ Compare 8+ lenders — SBI, HDFC Credila, Avanse, Auxilo, Axis, BOB, Canara — in one consultation</li><li>✅ Loan approval in 3–5 working days</li><li>✅ No hidden charges, no upfront fees</li><li>✅ Collateral-free loans up to ₹40 lakh</li><li>✅ We handle all paperwork and bank follow-ups</li></ul>
+      <ul style="line-height:2.2;"><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Compare 8+ lenders — SBI, HDFC Credila, Avanse, Auxilo, Axis, BOB, Canara — in one consultation</li><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Loan approval in 3–5 working days</li><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> No hidden charges, no upfront fees</li><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Collateral-free loans up to ₹40 lakh</li><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> We handle all paperwork and bank follow-ups</li><li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Serving students from Banjara Hills, Madhapur, Gachibowli, Secunderabad</li></ul>
     </div>
     <div style="margin-bottom:2.5rem;">
       <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#0A1628;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:2px solid #E5E7EB;">Top Colleges in Hyderabad — Education Loan Eligible</h2>
@@ -1213,37 +1232,37 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
     <div class="sidebar-cta">
       <h3>Get Free Consultation</h3>
       <p>Talk to our education loan expert. We compare 8+ lenders and get you the best rate — for free.</p>
-      <a href="tel:+919811419910">📞 Call: 98114 19910</a>
-      <a href="https://wa.me/919811419910?text=Hi%20StudyCapital!%20I%20need%20education%20loan%20help." target="_blank" rel="noopener" class="wa">💬 WhatsApp Us</a>
-      <a href="https://www.studycapital.in/#contact">✏️ Fill Inquiry Form</a>
+      <a href="tel:+919811419910"><span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> Call: 98114 19910</a>
+      <a href="https://wa.me/919811419910?text=Hi%20StudyCapital!%20I%20need%20education%20loan%20help." target="_blank" rel="noopener" class="wa"><span class="ic ic-message-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-message-circle" href="#ic-message-circle"></use></svg></span> WhatsApp Us</a>
+      <a href="https://www.studycapital.in/#contact"><span class="ic ic-pencil" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-pencil" href="#ic-pencil"></use></svg></span> Fill Inquiry Form</a>
     </div>
 
     <div class="sidebar-card">
       <h3>Why StudyCapital?</h3>
       <ul style="list-style:none;padding:0;line-height:2.1;font-size:0.88rem;color:#374151;">
-        <li>✅ 5,000+ students funded</li>
-        <li>✅ 8+ bank partners</li>
-        <li>✅ 3–5 day approval</li>
-        <li>✅ No hidden charges</li>
-        <li>✅ Free consultation</li>
-        <li>✅ Delhi, Prayagraj, Zirakpur</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> 5,000+ students funded</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> 8+ bank partners</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> 3–5 day approval</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> No hidden charges</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Free consultation</li>
+        <li><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Delhi, Prayagraj, Zirakpur</li>
       </ul>
     </div>
 
     <div class="sidebar-card">
       <h3>Quick Links</h3>
       <ul style="list-style:none;padding:0;line-height:2.1;font-size:0.88rem;">
-        <li><a href="/education-loan-interest-rates/" style="color:#1A56DB;">📊 Compare Interest Rates</a></li>
-        <li><a href="/emi-calculator/" style="color:#1A56DB;">🧮 EMI Calculator</a></li>
-        <li><a href="/education-loan-eligibility/" style="color:#1A56DB;">✅ Check Eligibility</a></li>
-        <li><a href="/education-loan-without-collateral/" style="color:#1A56DB;">🔓 No Collateral Loans</a></li>
-        <li><a href="/section-80e-tax-benefit/" style="color:#1A56DB;">💰 Section 80E Tax Benefit</a></li>
-        <li><a href="/pm-vidyalaxmi-scheme/" style="color:#1A56DB;">🏛️ PM Vidya Lakshmi</a></li>
+        <li><a href="/education-loan-interest-rates/" style="color:#1A56DB;"><span class="ic ic-bar-chart-3" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-bar-chart-3" href="#ic-bar-chart-3"></use></svg></span> Compare Interest Rates</a></li>
+        <li><a href="/emi-calculator/" style="color:#1A56DB;"><span class="ic ic-calculator" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-calculator" href="#ic-calculator"></use></svg></span> EMI Calculator</a></li>
+        <li><a href="/education-loan-eligibility/" style="color:#1A56DB;"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Check Eligibility</a></li>
+        <li><a href="/education-loan-without-collateral/" style="color:#1A56DB;"><span class="ic ic-lock-open" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-lock-open" href="#ic-lock-open"></use></svg></span> No Collateral Loans</a></li>
+        <li><a href="/section-80e-tax-benefit/" style="color:#1A56DB;"><span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span> Section 80E Tax Benefit</a></li>
+        <li><a href="/pm-vidyalaxmi-scheme/" style="color:#1A56DB;"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> PM Vidya Lakshmi</a></li>
       </ul>
     </div>
 
     <div class="sidebar-card" style="background:#FFFBEB;border-color:#FDE68A;">
-      <h3 style="color:#92400E;">📍 Our Offices</h3>
+      <h3 style="color:#92400E;"><span class="ic ic-map-pin" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-map-pin" href="#ic-map-pin"></use></svg></span> Our Offices</h3>
       <p style="font-size:0.85rem;line-height:1.7;color:#374151;margin:0;"><strong>Delhi (HQ):</strong> B-158/159, Sainik Nagar, New Delhi – 110059<br><strong>Prayagraj:</strong> D Block, ADA Colony, Naini<br><strong>Zirakpur:</strong> 244/9, South City, VIP Road<br><br><strong>Hours:</strong> Mon–Sat, 9 AM–7 PM</p>
     </div>
   </aside>
@@ -1281,7 +1300,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
           <a href="https://www.linkedin.com/in/study-capital-62847a40a" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-li" aria-label="StudyCapital on LinkedIn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           </a>
-          <a href="https://twitter.com/studycapital" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-tw" aria-label="StudyCapital on X (Twitter)">
+          <a href="https://x.com/studycapitaledu" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-tw" aria-label="StudyCapital on X (Twitter)">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.74-8.855L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
           <a href="https://www.youtube.com/@studycapitaldelhi" target="_blank" rel="noopener noreferrer" class="social-btn social-btn-yt" aria-label="StudyCapital on YouTube">
@@ -1305,6 +1324,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
           <li><a href="/education-loan-interest-rates/">Interest Rates</a></li>
           <li><a href="/section-80e-tax-benefit/">Section 80E</a></li>
           <li><a href="/pm-vidyalaxmi-scheme/">PM Vidya Lakshmi</a></li>
+          <li><a href="/b2b-partnership/" style="color:#F59E0B;font-weight:700;">B2B Partnership</a></li>
         </ul>
       </div>
 
@@ -1312,15 +1332,15 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
       <div class="footer-col">
         <h4>Study Abroad Loans</h4>
         <ul class="footer-links">
-          <li><a href="/education-loan-usa/">🇺🇸 USA</a></li>
-          <li><a href="/education-loan-canada/">🇨🇦 Canada</a></li>
-          <li><a href="/education-loan-uk/">🇬🇧 UK</a></li>
-          <li><a href="/education-loan-australia/">🇦🇺 Australia</a></li>
-          <li><a href="/education-loan-germany/">🇩🇪 Germany</a></li>
-          <li><a href="/education-loan-ireland/">🇮🇪 Ireland</a></li>
-          <li><a href="/education-loan-france/">🇫🇷 France</a></li>
-          <li><a href="/education-loan-singapore/">🇸🇬 Singapore</a></li>
-          <li><a href="/education-loan-new-zealand/">🇳🇿 New Zealand</a></li>
+          <li><a href="/education-loan-usa/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-us" href="#fl-us"></use></svg></span> USA</a></li>
+          <li><a href="/education-loan-canada/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ca" href="#fl-ca"></use></svg></span> Canada</a></li>
+          <li><a href="/education-loan-uk/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-gb" href="#fl-gb"></use></svg></span> UK</a></li>
+          <li><a href="/education-loan-australia/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-au" href="#fl-au"></use></svg></span> Australia</a></li>
+          <li><a href="/education-loan-germany/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-de" href="#fl-de"></use></svg></span> Germany</a></li>
+          <li><a href="/education-loan-ireland/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-ie" href="#fl-ie"></use></svg></span> Ireland</a></li>
+          <li><a href="/education-loan-france/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-fr" href="#fl-fr"></use></svg></span> France</a></li>
+          <li><a href="/education-loan-singapore/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-sg" href="#fl-sg"></use></svg></span> Singapore</a></li>
+          <li><a href="/education-loan-new-zealand/"><span class="ic-flag" aria-hidden="true"><svg class="ic-flag-svg" viewBox="0 0 640 480"><use xlink:href="#fl-nz" href="#fl-nz"></use></svg></span> New Zealand</a></li>
           <li><a href="/education-loan-for-mbbs/">MBBS Loan</a></li>
           <li><a href="/education-loan-for-mba/">MBA Loan</a></li>
           <li><a href="/education-loan-for-iit/">IIT Loan</a></li>
@@ -1352,7 +1372,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
         <div style="display:flex;flex-direction:column;gap:1rem;">
           <div>
             <div style="font-size:0.78rem;font-weight:700;color:#60A5FA;margin-bottom:4px;">
-              🏢 Corporate &mdash; New Delhi
+              <span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> Corporate &mdash; New Delhi
             </div>
             <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.6;">
               B-158/159, Sainik Nagar, Delhi 110059
@@ -1360,7 +1380,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
           </div>
           <div>
             <div style="font-size:0.78rem;font-weight:700;color:#60A5FA;margin-bottom:4px;">
-              🏢 Branch &mdash; Prayagraj
+              <span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> Branch &mdash; Prayagraj
             </div>
             <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.6;">
               ADA Colony, Naini, UP 211008
@@ -1368,7 +1388,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
           </div>
           <div>
             <div style="font-size:0.78rem;font-weight:700;color:#60A5FA;margin-bottom:4px;">
-              🏢 Branch &mdash; Zirakpur
+              <span class="ic ic-building-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-building-2" href="#ic-building-2"></use></svg></span> Branch &mdash; Zirakpur
             </div>
             <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.6;">
               South City VIP Road, Punjab 140603
@@ -1376,13 +1396,13 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
           </div>
           <div style="margin-top:0.25rem;display:flex;flex-direction:column;gap:4px;">
             <a href="tel:+919811419910" style="font-size:0.78rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:5px;">
-              📞 +91 98114 19910
+              <span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> +91 98114 19910
             </a>
             <a href="tel:+918796249926" style="font-size:0.78rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:5px;">
-              📞 +91 87962 49926
+              <span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> +91 87962 49926
             </a>
             <a href="mailto:info@studycapital.in" style="font-size:0.78rem;color:rgba(255,255,255,0.7);text-decoration:none;display:flex;align-items:center;gap:5px;">
-              ✉️ info@studycapital.in
+              <span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span> info@studycapital.in
             </a>
             <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:2px;">
               Mon&ndash;Sat: 9AM&ndash;7PM
@@ -1396,19 +1416,19 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
     <!-- Trust Badges Bar -->
     <div style="border-top:1px solid rgba(255,255,255,0.1);border-bottom:1px solid rgba(255,255,255,0.1);padding:14px 0;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;">
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:rgba(255,255,255,0.65);font-weight:600;">
-        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;">🔒 SSL Secured</span>
+        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;"><span class="ic ic-lock" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-lock" href="#ic-lock"></use></svg></span> SSL Secured</span>
       </span>
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:rgba(255,255,255,0.65);font-weight:600;">
-        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;">🏭 UDYAM-DL-10-0118963</span>
+        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;"><span class="ic ic-factory" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-factory" href="#ic-factory"></use></svg></span> UDYAM-DL-03-0081297</span>
       </span>
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:rgba(255,255,255,0.65);font-weight:600;">
-        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;">✅ Free Consultation</span>
+        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;"><span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Free Consultation</span>
       </span>
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:rgba(255,255,255,0.65);font-weight:600;">
-        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;">🏦 50+ Bank Partners</span>
+        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;"><span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> 50+ Bank Partners</span>
       </span>
       <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.75rem;color:rgba(255,255,255,0.65);font-weight:600;">
-        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;">🛡️ DPDPA Compliant</span>
+        <span style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:3px 8px;font-size:0.7rem;"><span class="ic ic-shield" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-shield" href="#ic-shield"></use></svg></span> DPDPA Compliant</span>
       </span>
     </div>
 
@@ -1426,7 +1446,7 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
 </footer>
 <script>
 // ══════════════════════════════════════════
-//  ✅ Secure Form Handler
+//  <span class="ic ic-check-circle-2" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-check-circle-2" href="#ic-check-circle-2"></use></svg></span> Secure Form Handler
 //  All credentials live in the Cloudflare
 //  Worker as encrypted secrets — nothing
 //  secret is present in this file.
@@ -1481,9 +1501,9 @@ function showToast(name, phone) {
   const waText  = encodeURIComponent(`Hello StudyCapital! I just submitted a loan inquiry.\nName: ${name}\nPhone: ${phone}`);
   waLink.href = `https://wa.me/919811419910?text=${waText}`;
   details.innerHTML =
-    `📞 Expect a call within <strong>2 business hours</strong><br>` +
-    `📧 Confirmation sent to your email<br>` +
-    `🕐 Working hours: Mon–Sat, 9 AM – 7 PM IST`;
+    `<span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> Expect a call within <strong>2 business hours</strong><br>` +
+    `<span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span> Confirmation sent to your email<br>` +
+    `<span class="ic ic-clock" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clock" href="#ic-clock"></use></svg></span> Working hours: Mon–Sat, 9 AM – 7 PM IST`;
   overlay.classList.add('show');
   document.body.style.overflow = 'hidden';
   // Auto-close after 12 seconds
@@ -1515,7 +1535,7 @@ function showFormError(containerId, name, phone) {
     `Hello StudyCapital! I'd like a free consultation.\nName: ${name}\nPhone: ${phone}`
   );
   banner.innerHTML = `
-    <span style="font-size:22px;flex-shrink:0;">⚠️</span>
+    <span style="font-size:22px;flex-shrink:0;"><span class="ic ic-triangle-alert" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-triangle-alert" href="#ic-triangle-alert"></use></svg></span></span>
     <div>
       <strong>Submission failed — our server is temporarily unreachable.</strong><br>
       Please reach us directly:
@@ -1523,12 +1543,12 @@ function showFormError(containerId, name, phone) {
         <a href="${WA_FALLBACK}${waText}" target="_blank" rel="noopener"
           style="background:#25D366;color:#fff;padding:7px 14px;border-radius:6px;
                  text-decoration:none;font-weight:600;font-size:13px;">
-          💬 WhatsApp Us
+          <span class="ic ic-message-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-message-circle" href="#ic-message-circle"></use></svg></span> WhatsApp Us
         </a>
         <a href="tel:+919811419910"
           style="background:#1A56DB;color:#fff;padding:7px 14px;border-radius:6px;
                  text-decoration:none;font-weight:600;font-size:13px;">
-          📞 Call Now
+          <span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> Call Now
         </a>
       </div>
       <div style="margin-top:6px;font-size:12px;color:#666;">
@@ -1747,19 +1767,19 @@ async function submitHeroForm() {
   };
 
   const telegramMessage =
-    `🎓 *NEW INQUIRY — StudyCapital*\n` +
+    `<span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> *NEW INQUIRY — StudyCapital*\n` +
     `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 *Name:* ${name}\n` +
-    `📞 *Mobile:* ${phone}\n` +
-    `📧 *Email:* ${email || 'Not provided'}\n` +
-    `📍 *City:* ${city || 'Not specified'}\n` +
-    `🏦 *Loan Type:* ${type}\n` +
-    `💰 *Amount Needed:* ${amount}\n` +
-    `🎓 *Course/Destination:* ${course || 'Not specified'}\n` +
-    `💬 *Message:* ${msg || 'No message'}\n` +
+    `<span class="ic ic-user" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-user" href="#ic-user"></use></svg></span> *Name:* ${name}\n` +
+    `<span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> *Mobile:* ${phone}\n` +
+    `<span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span> *Email:* ${email || 'Not provided'}\n` +
+    `<span class="ic ic-map-pin" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-map-pin" href="#ic-map-pin"></use></svg></span> *City:* ${city || 'Not specified'}\n` +
+    `<span class="ic ic-landmark" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-landmark" href="#ic-landmark"></use></svg></span> *Loan Type:* ${type}\n` +
+    `<span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span> *Amount Needed:* ${amount}\n` +
+    `<span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> *Course/Destination:* ${course || 'Not specified'}\n` +
+    `<span class="ic ic-message-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-message-circle" href="#ic-message-circle"></use></svg></span> *Message:* ${msg || 'No message'}\n` +
     `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `📋 *Source:* Hero Quick Form\n` +
-    `🕐 *Date & Time:* ${now}`;
+    `<span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span> *Source:* Hero Quick Form\n` +
+    `<span class="ic ic-clock" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clock" href="#ic-clock"></use></svg></span> *Date & Time:* ${now}`;
 
   // Honeypot check — bots fill hidden fields, humans don't
   if (document.getElementById('h-website') && document.getElementById('h-website').value) {
@@ -1827,19 +1847,19 @@ async function submitContactForm() {
   };
 
   const telegramMessage =
-    `📩 *NEW CONTACT FORM — StudyCapital*\n` +
+    `<span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span> *NEW CONTACT FORM — StudyCapital*\n` +
     `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 *Name:* ${name}\n` +
-    `📞 *Mobile:* ${fullPhone}\n` +
-    `📧 *Email:* ${email}\n` +
-    `🎓 *Course/Program:* ${course || 'Not specified'}\n` +
-    `🌍 *Study Destination:* ${dest || 'Not specified'}\n` +
-    `💰 *Loan Amount:* ${amount || 'Not specified'}\n` +
-    `💬 *Message:* ${msg || 'No message'}\n` +
+    `<span class="ic ic-user" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-user" href="#ic-user"></use></svg></span> *Name:* ${name}\n` +
+    `<span class="ic ic-phone" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-phone" href="#ic-phone"></use></svg></span> *Mobile:* ${fullPhone}\n` +
+    `<span class="ic ic-mail" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-mail" href="#ic-mail"></use></svg></span> *Email:* ${email}\n` +
+    `<span class="ic ic-graduation-cap" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-graduation-cap" href="#ic-graduation-cap"></use></svg></span> *Course/Program:* ${course || 'Not specified'}\n` +
+    `<span class="ic ic-globe" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-globe" href="#ic-globe"></use></svg></span> *Study Destination:* ${dest || 'Not specified'}\n` +
+    `<span class="ic ic-banknote" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-banknote" href="#ic-banknote"></use></svg></span> *Loan Amount:* ${amount || 'Not specified'}\n` +
+    `<span class="ic ic-message-circle" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-message-circle" href="#ic-message-circle"></use></svg></span> *Message:* ${msg || 'No message'}\n` +
     `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `📋 *Source:* Contact Form\n` +
-    `📅 *Date:* ${day}\n` +
-    `🕐 *Time:* ${now}`;
+    `<span class="ic ic-clipboard-list" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clipboard-list" href="#ic-clipboard-list"></use></svg></span> *Source:* Contact Form\n` +
+    `<span class="ic ic-calendar" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-calendar" href="#ic-calendar"></use></svg></span> *Date:* ${day}\n` +
+    `<span class="ic ic-clock" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-clock" href="#ic-clock"></use></svg></span> *Time:* ${now}`;
 
   // Honeypot check
   if (document.getElementById('c-website') && document.getElementById('c-website').value) {
@@ -1858,7 +1878,7 @@ async function submitContactForm() {
     console.warn('Form worker unreachable - localStorage PII storage disabled');
     showFormError('contact-form-wrap', name, phone);
   } finally {
-    btn.textContent = '📤 Send Message & Request Callback';
+    btn.textContent = '<span class="ic ic-upload" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-upload" href="#ic-upload"></use></svg></span> Send Message & Request Callback';
     btn.disabled = false;
   }
 }
@@ -1961,12 +1981,32 @@ function cookieChoice(accepted){
 
 <!-- ── Cookie Consent Banner ── -->
 <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
-  <p>🍪 We use cookies to improve your experience and analyse site traffic. By clicking <strong>Accept</strong>, you agree to our <a href="/disclaimer/" rel="noopener">Privacy Policy</a>.</p>
+  <p><span class="ic ic-cookie" aria-hidden="true"><svg class="ic-svg" viewBox="0 0 24 24"><use xlink:href="#ic-cookie" href="#ic-cookie"></use></svg></span> We use cookies to improve your experience and analyse site traffic. By clicking <strong>Accept</strong>, you agree to our <a href="/disclaimer/" rel="noopener">Privacy Policy</a>.</p>
   <div class="cookie-btns">
     <button class="cookie-decline" onclick="cookieChoice(false)">Decline</button>
     <button class="cookie-accept" onclick="cookieChoice(true)">Accept All</button>
   </div>
 </div>
 
+<script>
+(function(){
+  var msg = null;
+  var type = document.body.getAttribute('data-wa-type');
+  var ctx  = document.body.getAttribute('data-wa-context');
+  if (type && ctx) {
+    if (type === 'city') msg = "Hi StudyCapital! I'm based in " + ctx + " and would like help with an education loan.";
+    else if (type === 'country') msg = "Hi StudyCapital! I want to study in " + ctx + " and need help with an education loan.";
+    else if (type === 'course') msg = "Hi StudyCapital! I need an education loan for " + ctx + ".";
+    else if (type === 'bank') msg = "Hi StudyCapital! I have a question about " + ctx + " education loans.";
+    else if (type === 'topic') msg = "Hi StudyCapital! I have a question about " + ctx + ".";
+  }
+  if (msg) {
+    var encoded = encodeURIComponent(msg);
+    document.querySelectorAll('a.whatsapp-btn, a.wa').forEach(function(el){
+      el.setAttribute('href', 'https://wa.me/919811419910?text=' + encoded);
+    });
+  }
+})();
+</script>
 </body>
 </html>
