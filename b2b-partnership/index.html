@@ -1983,6 +1983,7 @@ async function submitPartnerForm() {
   const day = new Date().toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Kolkata' });
 
   const emailParams = {
+    'Full Name':     name,
     'Business Name': business,
     'Contact Name':  name,
     'Business Type': type,
