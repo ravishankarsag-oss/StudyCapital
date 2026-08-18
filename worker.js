@@ -1,31 +1,6 @@
 /**
- * StudyCapital Cloudflare Worker — v5.2
+ * StudyCapital Cloudflare Worker — v5.1
  * ─────────────────────────────────────────────────────────────────────────────
- * FIX v5.2 (2026-08-18) — WhatsApp/Telegram notifications not arriving:
- *   ✅ Telegram was previously wired as a FALLBACK that only ran when
- *      WhatsApp's send failed — it could never fire as its own channel.
- *      If WhatsApp and Telegram were both misconfigured (or WhatsApp failed
- *      for any reason), NEITHER notification went out, while EmailJS kept
- *      working because it was never gated on the other two. WhatsApp and
- *      Telegram now send independently, in parallel, every time.
- *   ✅ WhatsApp/Telegram/EmailJS failures were pushed into an `errors` array
- *      in the API response but were NEVER printed to console — so nothing
- *      showed up in Cloudflare's real-time logs. Added console.error/log for
- *      every channel (including partial WhatsApp failures across recipients,
- *      which were previously dropped entirely if at least one number worked).
- *   ℹ️  `ok: true` in the response is intentionally left as-is — it reflects
- *      "the lead was captured," not "every notification channel succeeded."
- *      A WhatsApp/Telegram outage on our end must never show a real customer
- *      a false "submission failed" error. Check `errors` / the Worker logs
- *      to monitor channel health instead.
- *   → Most likely root cause of the original outage: WHATSAPP_TOKEN /
- *     TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID missing or invalid in the
- *     Worker's Settings → Variables, OR WhatsApp hit Meta's 24-hour
- *     session-messaging window (this sends a free-form `type: 'text'`
- *     message, which Meta blocks outside an open customer conversation —
- *     see notes near sendWhatsApp()). Check the Worker logs after a test
- *     submission to confirm which it is.
- *
  * FIX v5.1 (2026-06-01):
  *   ✅ CRITICAL: Fixed GET routing — now serves ALL static assets via env.ASSETS,
  *      not just '/' and '*.html'. Previously all directory-based page paths
@@ -166,6 +141,7 @@ function validateLead(p) {
 }
 
 // ── WhatsApp ───────────────────────────────────────────────────────────────
+// Kept for Telegram fallback text — NOT used for the WhatsApp send itself anymore.
 function buildWhatsAppMessage(lead) {
   return [
     `🎓 *New Lead — StudyCapital*`,
@@ -186,16 +162,35 @@ function buildWhatsAppMessage(lead) {
   ].filter(Boolean).join('\n');
 }
 
-// NOTE: this sends type:'text' (free-form), not an approved template.
-// Meta's WhatsApp Cloud API only allows free-form business-initiated
-// messages to a number that has messaged your WhatsApp Business number
-// within the last 24 hours ("session window"). If WA_FALLBACK_NUMBERS /
-// WHATSAPP_RECIPIENTS haven't messaged the business number recently, every
-// send here will fail (commonly error code 131047 "re-engagement message"
-// or similar). The Code.gs OTP flow avoids this by using an approved
-// template — the same fix (a template) would make this immune to the
-// 24-hour window too, at the cost of needing Meta template approval.
-async function sendWhatsApp(env, message) {
+// FIX (2026-08-18): WhatsApp Cloud API silently drops free-form text messages
+// sent outside the 24-hour customer-service session window — this is why
+// notifications stopped arriving even though the API returned ok:true with
+// no visible error. Approved Message Templates bypass that window entirely,
+// so this is now the only reliable delivery method for lead alerts.
+//
+// Template: new_lead_alert (Utility, English/"en") — 10 positional params,
+// matching the field order of buildWhatsAppMessage() above. Every slot must
+// have a non-empty value (templates can't conditionally omit fields), so we
+// fall back to "Not specified" / "Not provided" for missing optional data.
+const WA_TEMPLATE_NAME = 'new_lead_alert';
+const WA_TEMPLATE_LANG = 'en'; // change to 'en_US' if Meta shows that as the approved locale
+
+function buildWhatsAppTemplateParams(lead) {
+  return [
+    lead.name,
+    lead.phone,
+    lead.email       || 'Not provided',
+    lead.loanType    || 'Not specified',
+    lead.loanAmount  || 'Not specified',
+    lead.course      || 'Not specified',
+    lead.destination || 'Not specified',
+    lead.message     || 'No message provided',
+    new Date(lead.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    lead.id,
+  ];
+}
+
+async function sendWhatsApp(env, lead) {
   if (!env.WHATSAPP_TOKEN || !env.WHATSAPP_PHONE_ID)
     return { ok: false, error: 'WhatsApp env vars not set' };
 
@@ -203,6 +198,8 @@ async function sendWhatsApp(env, message) {
   const numbers = env.WHATSAPP_RECIPIENTS
     ? env.WHATSAPP_RECIPIENTS.split(',').map(n => n.trim()).filter(Boolean)
     : WA_FALLBACK_NUMBERS;
+
+  const params = buildWhatsAppTemplateParams(lead);
 
   const results = await Promise.all(numbers.map(async (to) => {
     try {
@@ -218,8 +215,17 @@ async function sendWhatsApp(env, message) {
             messaging_product: 'whatsapp',
             recipient_type: 'individual',
             to,
-            type: 'text',
-            text: { preview_url: false, body: message },
+            type: 'template',
+            template: {
+              name: WA_TEMPLATE_NAME,
+              language: { code: WA_TEMPLATE_LANG },
+              components: [
+                {
+                  type: 'body',
+                  parameters: params.map(text => ({ type: 'text', text: String(text) })),
+                },
+              ],
+            },
           }),
         }
       );
@@ -232,15 +238,15 @@ async function sendWhatsApp(env, message) {
   }));
 
   const failed = results.filter(r => !r.ok);
-  if (failed.length) {
-    // Log every failure, even partial ones (e.g. 1 of 2 numbers rejected) —
-    // previously these were silently dropped once at least one number succeeded.
-    console.error('WhatsApp send failures:', failed.map(r => `${r.to}: ${r.error}`).join(' | '));
-  }
+  // FIX (2026-08-18): previously only reported failure if ALL recipients failed,
+  // silently swallowing partial failures. Now every failed recipient is surfaced.
+  if (failed.length > 0)
+    console.warn('WhatsApp partial/full failure:', failed.map(r => `${r.to}: ${r.error}`).join(' | '));
+
   if (failed.length === numbers.length)
     return { ok: false, error: failed.map(r => `${r.to}: ${r.error}`).join(' | ') };
 
-  return { ok: true, results };
+  return { ok: true, results, partialFailures: failed.length > 0 ? failed : undefined };
 }
 
 // ── Telegram ───────────────────────────────────────────────────────────────
@@ -514,34 +520,21 @@ async function handleFormSubmit(request, env, origin) {
     errors.push('db_error: ' + err.message);
   }
 
-  // ── 6/7. WhatsApp + Telegram — sent independently, in parallel ───────────
-  // CHANGED: Telegram used to fire ONLY when WhatsApp failed (a fallback,
-  // not a second channel). That meant if WhatsApp was misconfigured, Telegram
-  // was your only signal — and if Telegram was *also* misconfigured, both
-  // silently produced nothing while EmailJS (below) kept working, since it
-  // was never gated on the other two. Now both always fire, and both log
-  // their result to Cloudflare's real-time logs (Worker → Logs) so a failure
-  // is visible immediately instead of only inside this response's `errors`.
-  const waMessage = buildWhatsAppMessage(lead);
-  const tgMessage = telegramMessage || waMessage;
-
-  const [waResult, tgResult] = await Promise.all([
-    sendWhatsApp(env, waMessage),
-    sendTelegram(env, tgMessage),
-  ]);
-
-  if (!waResult.ok) {
-    console.error(`[Lead ${lead.id}] WhatsApp FAILED:`, waResult.error);
-    errors.push('whatsapp_error: ' + waResult.error);
-  } else {
-    console.log(`[Lead ${lead.id}] WhatsApp sent OK`);
+  // ── 6. WhatsApp — team notification (primary) ────────────────────────────
+  const waResult = await sendWhatsApp(env, lead);
+  if (waResult.partialFailures) {
+    // FIX (2026-08-18): surface partial failures instead of silently dropping them
+    errors.push('whatsapp_partial_error: ' + waResult.partialFailures.map(r => `${r.to}: ${r.error}`).join(' | '));
   }
+  if (!waResult.ok) {
+    errors.push('whatsapp_error: ' + waResult.error);
 
-  if (!tgResult.ok) {
-    console.error(`[Lead ${lead.id}] Telegram FAILED:`, tgResult.error);
-    errors.push('telegram_error: ' + tgResult.error);
-  } else {
-    console.log(`[Lead ${lead.id}] Telegram sent OK`);
+    // ── 7. Telegram — fallback if WhatsApp failed ─────────────────────────
+    const waMessage = buildWhatsAppMessage(lead);
+    const tgMessage = telegramMessage || waMessage;
+    const tgResult  = await sendTelegram(env, tgMessage);
+    if (!tgResult.ok) errors.push('telegram_error: ' + tgResult.error);
+    else console.log('Telegram fallback sent successfully for lead:', lead.id);
   }
 
   // ── 8. EmailJS — admin notification ──────────────────────────────────────
@@ -558,19 +551,10 @@ async function handleFormSubmit(request, env, origin) {
           template_params: emailParams,
         }),
       });
-      if (!eRes.ok) {
-        const errText = await eRes.text();
-        console.error(`[Lead ${lead.id}] EmailJS admin notification FAILED:`, errText);
-        errors.push("emailjs_error: " + errText);
-      } else {
-        console.log(`[Lead ${lead.id}] EmailJS admin notification sent OK`);
-      }
+      if (!eRes.ok) errors.push("emailjs_error: " + await eRes.text());
     } catch (err) {
-      console.error(`[Lead ${lead.id}] EmailJS admin fetch FAILED:`, err.message);
       errors.push('emailjs_fetch_error: ' + err.message);
     }
-  } else {
-    console.warn(`[Lead ${lead.id}] EmailJS admin notification SKIPPED — env vars not set`);
   }
 
   // ── 9. EmailJS — auto-reply to student ───────────────────────────────────
