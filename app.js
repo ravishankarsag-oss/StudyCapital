@@ -188,14 +188,15 @@ async function submitToWorker(emailParams, telegramMessage, turnstileToken = '')
     throw err;
   }
   const data = await res.json();
-  if (!data.ok) {
-    // D1 errors are non-fatal (logged in data.errors), Telegram/Email errors are reported
-    const fatal = (data.errors || []).filter(e => !e.startsWith('db_error'));
-    if (fatal.length) {
-      console.error('Worker errors:', data.errors);
-      throw new Error(data.errors.join(', '));
-    }
-    if (data.errors?.length) console.warn('Non-fatal worker errors:', data.errors);
+  // The worker returns ok:true once the lead itself is captured — WhatsApp /
+  // Telegram / EmailJS are notification channels layered on top, and an
+  // outage in one of them must never show a real visitor a false "submission
+  // failed" error (their inquiry still went through). Any channel errors are
+  // still logged here so you can catch them immediately while testing —
+  // check this console output, or the Worker's real-time logs, after any
+  // test submission.
+  if (data.errors?.length) {
+    console.warn('Worker notification errors (lead was still saved):', data.errors);
   }
   return data;
 }
