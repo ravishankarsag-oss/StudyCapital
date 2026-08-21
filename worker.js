@@ -534,7 +534,7 @@ async function handleFormSubmit(request, env, origin) {
     console.error(`[Lead ${lead.id}] WhatsApp FAILED:`, waResult.error);
     errors.push('whatsapp_error: ' + waResult.error);
   } else {
-    console.log(`[Lead ${lead.id}] WhatsApp sent OK`);
+    console.log(`[Lead ${lead.id}] WhatsApp sent OK:`, JSON.stringify(waResult.results));
   }
 
   if (!tgResult.ok) {
@@ -609,7 +609,7 @@ async function handleFormSubmit(request, env, origin) {
     }
   }
 
-  return json({ ok: true, id: lead.id, errors }, 200, origin);
+  return json({ ok: true, id: lead.id, errors, whatsapp: waResult.results || null }, 200, origin);
 }
 
 // ── IndexNow ping ─────────────────────────────────────────────────────────
