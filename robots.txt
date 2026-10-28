@@ -8,11 +8,9 @@ Disallow: /upload-documents/
 
 # Allow SEO crawlers with a crawl delay
 User-agent: AhrefsBot
-Crawl-delay: 10
 Allow: /
 
 User-agent: SemrushBot
-Crawl-delay: 10
 Allow: /
 
 # Sitemap
