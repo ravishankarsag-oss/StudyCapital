@@ -16,7 +16,7 @@ const DRIVE_FOLDER_NAME = "StudyCapital \u2013 Loan Documents";
 const NOTIFY_EMAIL      = "studycapitaldelhi@gmail.com";
 
 // ─── WHATSAPP CONFIG ──────────────────────────────────────────────────
-const WA_PHONE_ID = '1146151658573233';   // ✅ correct Phone ID
+const WA_PHONE_ID = '1093474873847476';   // ✅ correct Phone ID
 const WA_TEMPLATE = 'studycapital_otp2';   // ✅ correct template name
 // ─────────────────────────────────────────────────────────────────────
 
