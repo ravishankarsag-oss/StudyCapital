@@ -1,6 +1,43 @@
 /**
- * StudyCapital Cloudflare Worker — v5.2
+ * StudyCapital Cloudflare Worker — v5.6
  * ─────────────────────────────────────────────────────────────────────────────
+ * v5.6 (2026-10-29): student WhatsApp variables are configurable via WHATSAPP_STUDENT_FIELDS
+ *   (default "name,topic"; e.g. "name,topic,id" for a template that also shows a reference number).
+ * v5.5 (2026-10-29): student side
+ *   ✅ The student's EmailJS auto-reply now writes a log line (sent OK / skipped
+ *      and why / failed) — before, it was silent, so failures were invisible.
+ *   ✅ OPTIONAL WhatsApp confirmation to the student. OFF by default; switched on
+ *      by setting WHATSAPP_STUDENT_TEMPLATE to an approved template name. The
+ *      template takes 2 variables: {{1}} student name, {{2}} what they asked about.
+ *      Only the template is tried — plain text is never used for students.
+ * v5.4 (2026-10-25): WhatsApp now matches the existing approved template "new_lead_alert"
+ *   (image header + 11 variables) — see WHATSAPP_LEAD_FIELDS / WHATSAPP_LEAD_HEADER_IMAGE below.
+ * v5.3 (2026-10-22):
+ *   ✅ WhatsApp now sends an APPROVED TEMPLATE message (falls back to plain
+ *      text if the template fails). Meta blocks plain "text" messages unless
+ *      the recipient messaged your business number in the last 24 hours, which
+ *      is why lead alerts never arrived. Templates are not subject to that rule.
+ *   ✅ Every lead is now also pushed to the new CRM (crm.studycapital.in)
+ *      through /api/webhooks/website-leads, in the background (waitUntil), so a
+ *      CRM problem can never slow down or break the visitor's form.
+ *   ✅ Telegram alert is built on the server (not taken from the browser) and
+ *      is re-sent as plain text if Telegram rejects the Markdown formatting
+ *      (a lead typing * or _ in the message used to make Telegram fail).
+ *   ✅ The API response no longer includes your WhatsApp numbers or raw
+ *      provider error details — long digit strings are masked.
+ *   ✅ GET requests no longer crash when the Worker has no ASSETS binding.
+ *   ✅ Cron follow-up reminders use a template too.
+ *   ✅ Matches your EXISTING approved template "new_lead_alert" (image header +
+ *      11 variables: name, phone, email, loan type, amount, course, destination,
+ *      message, time, source, lead ID). The variable list/order can be changed
+ *      without code via WHATSAPP_LEAD_FIELDS, and the header image via
+ *      WHATSAPP_LEAD_HEADER_IMAGE (must be a public PNG/JPG URL).
+ *   New settings:  WHATSAPP_LEAD_TEMPLATE (default new_lead_alert),
+ *                  WHATSAPP_REMINDER_TEMPLATE (default lead_reminder),
+ *                  WHATSAPP_TEMPLATE_LANG (default en),
+ *                  CRM_URL (default https://crm.studycapital.in),
+ *                  CRM_LEADS_KEY (secret — same value as WEBSITE_LEADS_KEY on the CRM)
+ *
  * FIX v5.2 (2026-08-18) — WhatsApp/Telegram notifications not arriving:
  *   ✅ Telegram was previously wired as a FALLBACK that only ran when
  *      WhatsApp's send failed — it could never fire as its own channel.
@@ -186,46 +223,139 @@ function buildWhatsAppMessage(lead) {
   ].filter(Boolean).join('\n');
 }
 
-// NOTE: this sends type:'text' (free-form), not an approved template.
-// Meta's WhatsApp Cloud API only allows free-form business-initiated
-// messages to a number that has messaged your WhatsApp Business number
-// within the last 24 hours ("session window"). If WA_FALLBACK_NUMBERS /
-// WHATSAPP_RECIPIENTS haven't messaged the business number recently, every
-// send here will fail (commonly error code 131047 "re-engagement message"
-// or similar). The Code.gs OTP flow avoids this by using an approved
-// template — the same fix (a template) would make this immune to the
-// 24-hour window too, at the cost of needing Meta template approval.
-async function sendWhatsApp(env, message) {
+// Student's phone as a WhatsApp number (digits, with country code), or null.
+function studentWhatsAppNumber(phone) {
+  let d = String(phone || '').replace(/\D/g, '');
+  if (d.length === 11 && d.startsWith('0')) d = d.slice(1);          // 09811419926
+  if (d.length === 10 && /^[6-9]/.test(d)) return '91' + d;          // plain Indian mobile
+  if (d.length >= 11 && d.length <= 15) return d;                    // already has a country code
+  return null;
+}
+
+// Template variables must be single-line text and can never be empty.
+function waParam(s, max = 200) {
+  const cleaned = String(s ?? '').replace(/[\r\n\t]+/g, ' | ').replace(/ {2,}/g, ' ').trim().slice(0, max);
+  return cleaned || '-';
+}
+
+// Hide long digit runs (phone numbers) before anything is returned to the browser.
+function redactNumbers(s) {
+  return String(s).replace(/\d{10,}/g, '••••');
+}
+
+// ── Variables for the approved "new_lead_alert" template ───────────────────
+// The template has an image header and these variables, in this order:
+//   {{1}} Name  {{2}} Phone  {{3}} Email  {{4}} Loan Type  {{5}} Amount
+//   {{6}} Course  {{7}} Destination  {{8}} Message  {{9}} Time  {{10}} Source  {{11}} Lead ID
+// If Meta ever answers "(#132000) number of parameters does not match", set the
+// Worker variable WHATSAPP_LEAD_FIELDS to the right comma-separated list. Allowed
+// names: name, phone, email, city, loanType, loanAmount, course, destination,
+// message, time, source, id, details.
+const DEFAULT_LEAD_FIELDS = 'name,phone,email,loanType,loanAmount,course,destination,message,time,source,id';
+const DEFAULT_LEAD_HEADER_IMAGE = 'https://www.studycapital.in/logo.png';
+
+function leadFieldValue(lead, key) {
+  const clean = (v, fallback) => {
+    const s = String(v ?? '').trim();
+    return !s || s === 'No additional message' || s === 'Not provided' ? fallback : s;
+  };
+  switch (key) {
+    case 'name':        return lead.name;
+    case 'phone':       return lead.phone;
+    case 'email':       return clean(lead.email, 'Not provided');
+    case 'city':        return clean(lead.city, 'Not specified');
+    case 'loanType':    return clean(lead.loanType, 'Not specified');
+    case 'loanAmount':  return clean(lead.loanAmount, 'Not specified');
+    case 'course':      return clean(lead.course, 'Not specified');
+    case 'destination': return clean(lead.destination, 'Not specified');
+    case 'message':     return clean(lead.message, 'No message provided');
+    case 'time':        return new Date(lead.createdAt).toLocaleString('en-IN', {
+                          timeZone: 'Asia/Kolkata', day: 'numeric', month: 'numeric', year: 'numeric',
+                          hour: 'numeric', minute: '2-digit', hour12: true });
+    case 'source':      return lead.source || 'Website';
+    case 'id':          return lead.id;
+    case 'topic':       return clean(lead.loanType, 'education loan');
+    case 'details':     return [lead.loanType, lead.loanAmount, lead.city, lead.course, lead.message]
+                          .filter(v => v && !['Not specified', 'No additional message'].includes(String(v).trim())).join(' · ');
+    default:            return '';
+  }
+}
+
+function leadTemplateParams(lead, env) {
+  const keys = String((env && env.WHATSAPP_LEAD_FIELDS) || DEFAULT_LEAD_FIELDS)
+    .split(',').map(s => s.trim()).filter(Boolean);
+  return keys.map(k => leadFieldValue(lead, k));
+}
+
+/**
+ * Sends a WhatsApp message to every recipient.
+ *
+ * Meta only lets a business START a conversation with an APPROVED TEMPLATE.
+ * Free-form text works only if the recipient messaged your business number
+ * within the last 24 hours (otherwise error 131047). So:
+ *   • if `tpl` is given, the template is tried first;
+ *   • if that fails (e.g. template not approved yet), plain text is tried as a
+ *     fallback — it succeeds whenever the 24-hour window happens to be open.
+ */
+async function sendWhatsApp(env, text, tpl = null, toNumbers = null) {
   if (!env.WHATSAPP_TOKEN || !env.WHATSAPP_PHONE_ID)
     return { ok: false, error: 'WhatsApp env vars not set' };
 
   // Use env var if set, otherwise fall back to hardcoded numbers
-  const numbers = env.WHATSAPP_RECIPIENTS
-    ? env.WHATSAPP_RECIPIENTS.split(',').map(n => n.trim()).filter(Boolean)
-    : WA_FALLBACK_NUMBERS;
+  const numbers = (toNumbers && toNumbers.length)
+    ? toNumbers
+    : env.WHATSAPP_RECIPIENTS
+      ? env.WHATSAPP_RECIPIENTS.split(',').map(n => n.trim()).filter(Boolean)
+      : WA_FALLBACK_NUMBERS;
+
+  const url = `https://graph.facebook.com/v19.0/${env.WHATSAPP_PHONE_ID}/messages`;
+
+  async function post(payload) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.WHATSAPP_TOKEN}`,
+      },
+      body: JSON.stringify({ messaging_product: 'whatsapp', recipient_type: 'individual', ...payload }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (data.error) return { ok: false, error: `(#${data.error.code}) ${data.error.message}` };
+    if (!res.ok)    return { ok: false, error: `HTTP ${res.status}` };
+    return { ok: true, message_id: data.messages?.[0]?.id };
+  }
 
   const results = await Promise.all(numbers.map(async (to) => {
     try {
-      const res = await fetch(
-        `https://graph.facebook.com/v19.0/${env.WHATSAPP_PHONE_ID}/messages`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${env.WHATSAPP_TOKEN}`,
+      if (tpl && tpl.name) {
+        const viaTemplate = await post({
+          to,
+          type: 'template',
+          template: {
+            name: tpl.name,
+            language: { code: tpl.lang || 'en' },
+            components: [
+              // A template with an image header must be sent WITH an image.
+              ...(tpl.headerImage ? [{ type: 'header', parameters: [{ type: 'image', image: { link: tpl.headerImage } }] }] : []),
+              { type: 'body', parameters: tpl.params.map(p => ({ type: 'text', text: waParam(p) })) },
+            ],
           },
-          body: JSON.stringify({
-            messaging_product: 'whatsapp',
-            recipient_type: 'individual',
-            to,
-            type: 'text',
-            text: { preview_url: false, body: message },
-          }),
+        });
+        if (viaTemplate.ok) return { to, ok: true, via: 'template', message_id: viaTemplate.message_id };
+
+        if (!text) {
+          // No plain-text fallback requested (used for messages to students).
+          console.error(`WhatsApp template "${tpl.name}" to ${to} failed: ${viaTemplate.error}`);
+          return { to, ok: false, error: `template: ${viaTemplate.error}` };
         }
-      );
-      const data = await res.json();
-      if (data.error) return { to, ok: false, error: `(#${data.error.code}) ${data.error.message}` };
-      return { to, ok: true, message_id: data.messages?.[0]?.id };
+        console.error(`WhatsApp template "${tpl.name}" to ${to} failed: ${viaTemplate.error} — trying plain text`);
+        const viaText = await post({ to, type: 'text', text: { preview_url: false, body: text } });
+        if (viaText.ok) return { to, ok: true, via: 'text', message_id: viaText.message_id };
+        return { to, ok: false, error: `template: ${viaTemplate.error} | text: ${viaText.error}` };
+      }
+
+      const r = await post({ to, type: 'text', text: { preview_url: false, body: text } });
+      return r.ok ? { to, ok: true, via: 'text', message_id: r.message_id } : { to, ok: false, error: r.error };
     } catch (err) {
       return { to, ok: false, error: err.message };
     }
@@ -233,8 +363,7 @@ async function sendWhatsApp(env, message) {
 
   const failed = results.filter(r => !r.ok);
   if (failed.length) {
-    // Log every failure, even partial ones (e.g. 1 of 2 numbers rejected) —
-    // previously these were silently dropped once at least one number succeeded.
+    // Log every failure, even partial ones (e.g. 1 of 2 numbers rejected).
     console.error('WhatsApp send failures:', failed.map(r => `${r.to}: ${r.error}`).join(' | '));
   }
   if (failed.length === numbers.length)
@@ -261,7 +390,24 @@ async function sendTelegram(env, message) {
       }
     );
     const data = await res.json();
-    if (!data.ok) return { ok: false, error: data.description };
+    if (!data.ok) {
+      // A lead who types * _ [ or ` in their message can make Telegram reject
+      // the Markdown. Send it again as plain text rather than losing the alert.
+      if (/parse entities/i.test(data.description || '')) {
+        const retry = await fetch(
+          `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: message }),
+          }
+        );
+        const retryData = await retry.json();
+        if (retryData.ok) return { ok: true, plain: true };
+        return { ok: false, error: retryData.description };
+      }
+      return { ok: false, error: data.description };
+    }
     return { ok: true };
   } catch (err) {
     return { ok: false, error: err.message };
@@ -270,7 +416,7 @@ async function sendTelegram(env, message) {
 
 // ── Router ─────────────────────────────────────────────────────────────────
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url    = new URL(request.url);
     const method = request.method;
     const origin = request.headers.get('Origin') || '';
@@ -286,7 +432,7 @@ export default {
       const referer = request.headers.get('Referer') || '';
       const ok = isAllowedOrigin(origin) || ALLOWED_ORIGINS.some(o => referer.startsWith(o));
       if (!ok) return json({ ok: false, error: 'Forbidden' }, 403, origin);
-      return handleFormSubmit(request, env, origin);
+      return handleFormSubmit(request, env, origin, ctx);
     }
 
     if (method === 'POST'   && url.pathname === '/indexnow')       return handleIndexNow(request, env, origin);
@@ -304,6 +450,9 @@ export default {
     // /path/ → /path/index.html, serves robots.txt, sitemap.xml, images, etc.
     // Google Maps API key is injected into every HTML response (not just '/').
     if (method === 'GET') {
+      // No ASSETS binding => this Worker isn't serving the website files
+      // (they're on Pages/cPanel). Answer cleanly instead of crashing.
+      if (!env.ASSETS) return json({ error: 'Not found' }, 404, origin);
       const response = await env.ASSETS.fetch(request);
       const contentType = response.headers.get('content-type') || '';
 
@@ -401,7 +550,14 @@ async function handleFollowUpReminders(env) {
       `👉 Please contact them immediately!`,
     ].filter(Boolean).join('\n');
 
-    const waResult = await sendWhatsApp(env, waMsg);
+    // Approved template body:
+    //   Reminder from StudyCapital: the lead {{1}} ({{2}}) has been waiting {{3}}
+    //   with no contact. Details: {{4}}. Please follow up now.
+    const waResult = await sendWhatsApp(env, waMsg, {
+      name:   env.WHATSAPP_REMINDER_TEMPLATE || 'lead_reminder',
+      lang:   env.WHATSAPP_TEMPLATE_LANG || 'en',
+      params: [lead.name, lead.phone, waitStr, [lead.city, lead.course, lead.message].filter(Boolean).join(' · ')],
+    });
     if (!waResult.ok) {
       console.error(`[Cron] WhatsApp failed for ${lead.id}:`, waResult.error);
       continue;
@@ -439,7 +595,7 @@ async function handleFollowUpReminders(env) {
 }
 
 // ── Form submission ────────────────────────────────────────────────────────
-async function handleFormSubmit(request, env, origin) {
+async function handleFormSubmit(request, env, origin, ctx) {
   const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
 
   if (await isRateLimited(clientIP, env.DB))
@@ -523,10 +679,22 @@ async function handleFormSubmit(request, env, origin) {
   // their result to Cloudflare's real-time logs (Worker → Logs) so a failure
   // is visible immediately instead of only inside this response's `errors`.
   const waMessage = buildWhatsAppMessage(lead);
-  const tgMessage = telegramMessage || waMessage;
+  // Built here on the server (not taken from the browser's `telegramMessage`),
+  // so nobody can post arbitrary text into your Telegram through this endpoint.
+  const tgMessage = waMessage;
+
+  // ── CRM — pushed in the background so the visitor never waits on it ──────
+  const crmTask = pushToCrm(env, lead, emailParams, request.headers.get('Referer') || '');
+  if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(crmTask);
+  else await crmTask;
 
   const [waResult, tgResult] = await Promise.all([
-    sendWhatsApp(env, waMessage),
+    sendWhatsApp(env, waMessage, {
+      name:   env.WHATSAPP_LEAD_TEMPLATE || 'new_lead_alert',
+      lang:   env.WHATSAPP_TEMPLATE_LANG || 'en',
+      params: leadTemplateParams(lead, env),
+      headerImage: env.WHATSAPP_LEAD_HEADER_IMAGE || DEFAULT_LEAD_HEADER_IMAGE,
+    }),
     sendTelegram(env, tgMessage),
   ]);
 
@@ -603,13 +771,86 @@ async function handleFormSubmit(request, env, origin) {
           },
         }),
       });
-      if (!arRes.ok) errors.push('autoreply_error: ' + await arRes.text());
+      if (!arRes.ok) {
+        const why = await arRes.text();
+        console.error(`[Lead ${lead.id}] EmailJS student auto-reply FAILED: ${why.slice(0, 200)}`);
+        errors.push('autoreply_error: ' + why);
+      } else {
+        console.log(`[Lead ${lead.id}] EmailJS student auto-reply sent OK`);
+      }
     } catch (err) {
+      console.error(`[Lead ${lead.id}] EmailJS student auto-reply FAILED: ${err.message}`);
       errors.push('autoreply_fetch_error: ' + err.message);
+    }
+  } else {
+    const reason = !env.EMAILJS_AUTOREPLY_TEMPLATE_ID ? 'EMAILJS_AUTOREPLY_TEMPLATE_ID not set'
+      : (!studentEmail || studentEmail === 'Not provided') ? 'student gave no email'
+      : !EMAIL_RE.test(studentEmail) ? 'email address not valid'
+      : 'EmailJS env vars not set';
+    console.warn(`[Lead ${lead.id}] EmailJS student auto-reply SKIPPED — ${reason}`);
+  }
+
+  // ── 10. WhatsApp confirmation to the STUDENT (optional — off unless a template is named) ──
+  if (env.WHATSAPP_STUDENT_TEMPLATE) {
+    const studentNumber = studentWhatsAppNumber(lead.phone);
+    if (!studentNumber) {
+      console.warn(`[Lead ${lead.id}] Student WhatsApp SKIPPED — phone number is not a valid mobile number`);
+    } else {
+      const sw = await sendWhatsApp(env, '', {
+        name:   env.WHATSAPP_STUDENT_TEMPLATE,
+        lang:   env.WHATSAPP_TEMPLATE_LANG || 'en',
+        params: String(env.WHATSAPP_STUDENT_FIELDS || 'name,topic').split(',').map(s => s.trim()).filter(Boolean).map(k => leadFieldValue(lead, k)),
+      }, [studentNumber]);
+      if (sw.ok) console.log(`[Lead ${lead.id}] Student WhatsApp confirmation sent OK`);
+      else { console.error(`[Lead ${lead.id}] Student WhatsApp FAILED: ${sw.error}`); errors.push('student_whatsapp_error: ' + sw.error); }
     }
   }
 
-  return json({ ok: true, id: lead.id, errors, whatsapp: waResult.results || null }, 200, origin);
+  // Errors are masked (no phone numbers) — full details are in the Worker logs.
+  return json({ ok: true, id: lead.id, errors: errors.map(redactNumbers) }, 200, origin);
+}
+
+// ── Push the lead to the CRM ───────────────────────────────────────────────
+// Runs in the background (ctx.waitUntil). Never throws: a CRM outage must not
+// affect the visitor, the D1 save, or the WhatsApp/Telegram/email alerts.
+async function pushToCrm(env, lead, emailParams, referer) {
+  if (!env.CRM_LEADS_KEY) {
+    console.warn(`[Lead ${lead.id}] CRM push SKIPPED — CRM_LEADS_KEY secret not set`);
+    return;
+  }
+  const base = (env.CRM_URL || 'https://crm.studycapital.in').replace(/\/+$/, '');
+
+  const facts = [
+    lead.loanType   && `Loan type: ${lead.loanType}`,
+    lead.loanAmount && `Amount: ${lead.loanAmount}`,
+    lead.city       && lead.city !== 'Not specified' && `City: ${lead.city}`,
+    emailParams['Source'] && `Form: ${emailParams['Source']}`,
+  ].filter(Boolean).join(' · ');
+  const said = lead.message && lead.message !== 'No additional message' ? `Message: ${lead.message}` : '';
+
+  const payload = {
+    leadId:  lead.id,                       // lets the CRM ignore an accidental repeat
+    name:    lead.name,
+    phone:   lead.phone,
+    email:   EMAIL_RE.test(lead.email) ? lead.email : undefined,
+    country: lead.destination || undefined,
+    course:  lead.course && lead.course !== 'Not specified' ? lead.course : undefined,
+    message: [facts, said].filter(Boolean).join('\n').slice(0, 2000),
+    page:    referer ? referer.slice(0, 500) : undefined,
+  };
+
+  try {
+    const res = await fetch(`${base}/api/webhooks/website-leads`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': env.CRM_LEADS_KEY },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (res.ok) console.log(`[Lead ${lead.id}] CRM push OK`);
+    else console.error(`[Lead ${lead.id}] CRM push FAILED (${res.status}):`, (await res.text().catch(() => '')).slice(0, 300));
+  } catch (err) {
+    console.error(`[Lead ${lead.id}] CRM push FAILED:`, err.message);
+  }
 }
 
 // ── IndexNow ping ─────────────────────────────────────────────────────────
